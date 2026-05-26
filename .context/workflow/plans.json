@@ -1,0 +1,14 @@
+{
+  "active": [
+    {
+      "slug": "initial-setup-plan",
+      "path": "plans/initial-setup-plan.md",
+      "title": "Initial Project Setup",
+      "summary": "Project setup and CLI scaffold initialization for a lead generation command-line tool.",
+      "linkedAt": "2026-05-25T01:22:29.824Z",
+      "status": "active"
+    }
+  ],
+  "completed": [],
+  "primary": "initial-setup-plan"
+}

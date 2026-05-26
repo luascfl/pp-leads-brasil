@@ -1,0 +1,56 @@
+project:
+  name: "leads-pp-cli-setup"
+  scale: SMALL
+  started: "2026-05-25T01:22:15.731Z"
+  current_phase: E
+
+phases:
+  P:
+    status: filled
+    started_at: "2026-05-25T01:22:15.730Z"
+    completed_at: "2026-05-25T01:22:33.047Z"
+  R:
+    status: skipped
+    reason: "Not required for scale SMALL"
+  E:
+    status: in_progress
+    started_at: "2026-05-25T01:22:33.049Z"
+  V:
+    status: pending
+  C:
+    status: skipped
+    reason: "Not required for scale SMALL"
+
+agents:
+  architect-specialist:
+    status: completed
+    completed_at: "2026-05-25T01:41:45.919Z"
+    outputs: [".context/plans/initial-setup-plan.md"]
+  feature-developer:
+    status: in_progress
+    started_at: "2026-05-25T01:41:45.925Z"
+
+execution:
+  history:
+    - timestamp: "2026-05-25T01:22:15.730Z"
+      phase: P
+      action: started
+    - timestamp: "2026-05-25T01:22:33.047Z"
+      phase: P
+      action: completed
+    - timestamp: "2026-05-25T01:22:33.049Z"
+      phase: E
+      action: started
+    - timestamp: "2026-05-25T01:41:45.925Z"
+      phase: R
+      action: phase_skipped
+    - timestamp: "2026-05-25T01:41:45.925Z"
+      phase: C
+      action: phase_skipped
+  last_activity: "2026-05-25T01:41:45.925Z"
+  resume_context: "Plano vinculado - aguardando revisão"
+
+approval:
+  plan_created: true
+  plan_approved: false
+

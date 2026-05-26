@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  title: Leads Brasil Platform API
+  version: 0.1.0
+  description: Platform for Brazilian Lead Intelligence (CNPJs, Companies, People)
+servers:
+  - url: http://localhost:8080/v1
+paths:
+  /company/{cnpj}:
+    get:
+      summary: Get company data by CNPJ
+      parameters:
+        - name: cnpj
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Company details
+  /search:
+    post:
+      summary: Search for companies by name or filter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                cnae:
+                  type: string
+      responses:
+        '200':
+          description: List of companies
+  /enrich/{cnpj}:
+    post:
+      summary: Trigger enrichment for a company via PP Suite
+      parameters:
+        - name: cnpj
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Enrichment job started
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - bearerAuth: []

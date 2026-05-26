@@ -1,0 +1,23 @@
+{
+  "project": "Leads Brasil Platform",
+  "version": "0.1.0",
+  "goal": "Build a Brazilian Lead Intelligence Platform (Apollo-like) to identify CNPJs, companies, and qualified leads.",
+  "integrations": ["PP Company Goat", "PP Contact Goat", "PP Apify", "Casa dos Dados"],
+  "milestones": [
+    {
+      "id": "m1",
+      "title": "Core CLI and Integration Infrastructure",
+      "status": "completed"
+    },
+    {
+      "id": "m2",
+      "title": "Integration with PP Suite (Goats/Apify)",
+      "status": "completed"
+    },
+    {
+      "id": "m3",
+      "title": "Integration with Casa dos Dados API",
+      "status": "pending"
+    }
+  ]
+}
