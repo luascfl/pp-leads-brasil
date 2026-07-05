@@ -1,0 +1,52 @@
+{
+  "contact_goat": {
+    "result": {
+      "company": "Marketing Júnior USP",
+      "count": 0,
+      "results": [],
+      "scope": "Marketing Júnior USP",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "li",
+        "hp"
+      ],
+      "timestamp": "2026-06-18T19:39:15Z"
+    },
+    "status": "ok"
+  },
+  "input": "Marketing Júnior USP",
+  "local_matches": [
+    {
+      "address": {
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "class": "A/B - validação ativa",
+      "cnpj": "11.565.122/0001-41",
+      "contacts": {
+        "email": "presidencia@marketingjr.com.br",
+        "site": "https://www.marketingjr.com.br/"
+      },
+      "evidence": "46 membros, 24 contratos, R$ 200.449,13 de faturamento, cluster 5, cursos: Marketing",
+      "federation": "FEJESP",
+      "first_message": "Oi, pessoal da Marketing Júnior USP. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 46 membros e 24 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "lead": "Marketing Júnior USP",
+      "name": "Marketing Júnior USP",
+      "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "78.5",
+      "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "status": "lead-local",
+      "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+    }
+  ],
+  "prospecting_links": {
+    "email": "presidencia@marketingjr.com.br",
+    "mailto": "mailto:presidencia@marketingjr.com.br?body=Oi%2C+pessoal+da+Marketing+J%C3%BAnior+USP.+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+46+membros+e+24+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F\u0026subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o"
+  },
+  "status": "contact-goat-local"
+}

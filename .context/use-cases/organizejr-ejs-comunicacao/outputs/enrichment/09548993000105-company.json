@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "Florianópolis",
+    "state": "SC"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "09.548.993/0001-05",
+  "contacts": {
+    "email": "presidencia@inventorio.org.br",
+    "site": "http://inventorio.org.br/"
+  },
+  "name": "Inventório - Empresa Júnior de Design e Moda",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

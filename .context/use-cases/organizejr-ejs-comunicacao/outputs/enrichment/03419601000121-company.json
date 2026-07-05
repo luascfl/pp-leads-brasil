@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "Rio de Janeiro",
+    "state": "RJ"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "03.419.601/0001-21",
+  "contacts": {
+    "email": "diretoriapresidencia@espmjr.com",
+    "site": "http://www.espmjr.com/"
+  },
+  "name": "ESPM Jr.",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

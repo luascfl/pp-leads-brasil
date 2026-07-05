@@ -1,0 +1,101 @@
+{
+  "cnpj": "67.135.038/0001-42",
+  "company": {
+    "address": {
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "Benchmark - validar maturidade",
+    "cnpj": "67.135.038/0001-42",
+    "contacts": {
+      "email": "sem e-mail no relatório",
+      "site": "https://espmjr.com.br/"
+    },
+    "evidence": "42 membros, 17 contratos, R$ 175.160,95 de faturamento, cluster 1, cursos: Administração, Comunicação Social - Publicidade E Propaganda",
+    "federation": "FEJESP",
+    "first_message": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 42 membros e 17 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "ESPM Jr.",
+    "name": "ESPM Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "74.0",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "espmjr.com.br",
+      "generated_at": "2026-06-18T19:45:09Z",
+      "sources": [
+        {
+          "elapsed": "1.696s",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "1.696s",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "341ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "488ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "445ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.001s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "592ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "",
+            "hosting": "",
+            "hosting_cname": "espmjr.com.br",
+            "nameservers": [
+              "ns926.hostgator.com.br",
+              "ns927.hostgator.com.br"
+            ],
+            "registered": ""
+          },
+          "elapsed": "15.63s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

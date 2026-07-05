@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "Juiz de Fora",
+    "state": "MG"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "14.495.150/0001-28",
+  "contacts": {
+    "email": "contato@aspectojr.com.br",
+    "site": "https://aspectojr.com.br"
+  },
+  "name": "Aspecto Empreendimento Criativo",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

@@ -1,0 +1,136 @@
+{
+  "cnpj": "34.100.549/0001-70",
+  "company": {
+    "address": {
+      "city": "Maceió",
+      "state": "AL"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "cnpj": "34.100.549/0001-70",
+    "contacts": {
+      "email": "direx@ejangadeiros.com.br",
+      "site": "https://instagram.com/ejangadeiros"
+    },
+    "lead_context": {
+      "acessibilidade": "17",
+      "aderência": "24",
+      "camada": "Meio, EJs e startups",
+      "capacidade": "11.8",
+      "cidade_uf": "Maceió/AL",
+      "classe": "A/B - validação ativa",
+      "cnpj": "34.100.549/0001-70",
+      "contato": "direx@ejangadeiros.com.br",
+      "demanda": "14.8",
+      "encaixe": "9.5",
+      "evidência": "19 membros, 33 contratos, R$ 129.362,00 de faturamento, cluster 5, cursos: Jornalismo, Relações Públicas",
+      "federação": "FEJEA",
+      "fonte": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+      "lead": "Jangadeiros",
+      "link_email_pronto": "mailto:direx@ejangadeiros.com.br?subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o\u0026body=Oi%2C+pessoal+da+Jangadeiros.+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+19+membros+e+33+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F",
+      "lote": "Lote 2, escala da semana",
+      "oferta_sugerida": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes",
+      "ordem": "9",
+      "pp_company_goat": "leads-brasil-pp-cli company-goat \"34.100.549/0001-70\" --agent --deliver file:.context/organizejr/enrichment/34100549000170-company-goat.json",
+      "pp_contact_goat": "leads-brasil-pp-cli contact-goat \"Jangadeiros\" --agent --deliver file:.context/organizejr/enrichment/34100549000170-contact-goat.json",
+      "pp_leads_company": "leads-brasil-pp-cli company \"34.100.549/0001-70\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/34100549000170-company.json",
+      "pp_leads_enrich": "leads-brasil-pp-cli enrich \"34.100.549/0001-70\" --agent --deliver file:.context/organizejr/enrichment/34100549000170-enrich.json",
+      "pp_scrape_creators": "scrape-creators-pp-cli linkedin list-company --url https://www.linkedin.com/company/ --agent --deliver file:.context/organizejr/enrichment/34100549000170-scrape.json",
+      "primeira_mensagem": "Oi, pessoal da Jangadeiros. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 19 membros e 33 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "próximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risco_pendência": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "77.1",
+      "site": "https://instagram.com/ejangadeiros"
+    },
+    "name": "Jangadeiros",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "use_case": {
+      "label": "OrganizeJr | EJs de comunicação",
+      "name": "organizejr-ejs-comunicacao"
+    }
+  },
+  "company_goat": {
+    "result": {
+      "domain": "instagram.com",
+      "generated_at": "2026-06-18T20:00:50Z",
+      "sources": [
+        {
+          "elapsed": "1.899s",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "1.899s",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "349ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "489ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "354ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "data": {
+            "country": "Bulgaria",
+            "founded": "",
+            "founders": null,
+            "hq": "",
+            "industry": "",
+            "label": "Q103849538",
+            "qid": "Q103849538"
+          },
+          "elapsed": "644ms",
+          "source": "wiki",
+          "status": "ok"
+        },
+        {
+          "data": {
+            "expires": "2034-06-04T13:37:18Z",
+            "hosting": "",
+            "hosting_cname": "instagram.com",
+            "nameservers": [
+              "b.ns.instagram.com",
+              "c.ns.instagram.com",
+              "d.ns.instagram.com",
+              "a.ns.instagram.com"
+            ],
+            "registered": "2004-06-04T13:37:18Z"
+          },
+          "elapsed": "1.444s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

@@ -1,0 +1,75 @@
+{
+  "contact_goat": {
+    "result": {
+      "company": "ESPM Jr.",
+      "count": 0,
+      "results": [],
+      "scope": "ESPM Jr.",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "li",
+        "hp"
+      ],
+      "timestamp": "2026-06-18T19:44:02Z"
+    },
+    "status": "ok"
+  },
+  "input": "ESPM Jr.",
+  "local_matches": [
+    {
+      "address": {
+        "city": "Rio de Janeiro",
+        "state": "RJ"
+      },
+      "class": "Benchmark - validar maturidade",
+      "cnpj": "03.419.601/0001-21",
+      "contacts": {
+        "email": "diretoriapresidencia@espmjr.com",
+        "site": "http://www.espmjr.com/"
+      },
+      "evidence": "37 membros, 27 contratos, R$ 302.121,00 de faturamento, cluster 5, cursos: Administração, Comunicação Social - Publicidade E Propaganda, Design",
+      "federation": "RioJunior",
+      "first_message": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 37 membros e 27 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "lead": "ESPM Jr.",
+      "name": "ESPM Jr.",
+      "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "91.9",
+      "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "status": "lead-local",
+      "suggested_offer": "Oficina de briefing, feedback e debriefing para squads criativos"
+    },
+    {
+      "address": {
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "class": "Benchmark - validar maturidade",
+      "cnpj": "67.135.038/0001-42",
+      "contacts": {
+        "email": "sem e-mail no relatório",
+        "site": "https://espmjr.com.br/"
+      },
+      "evidence": "42 membros, 17 contratos, R$ 175.160,95 de faturamento, cluster 1, cursos: Administração, Comunicação Social - Publicidade E Propaganda",
+      "federation": "FEJESP",
+      "first_message": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 42 membros e 17 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "lead": "ESPM Jr.",
+      "name": "ESPM Jr.",
+      "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "74.0",
+      "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "status": "lead-local",
+      "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+    }
+  ],
+  "prospecting_links": {
+    "email": "diretoriapresidencia@espmjr.com",
+    "mailto": "mailto:diretoriapresidencia@espmjr.com?body=Oi%2C+pessoal+da+ESPM+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+37+membros+e+27+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F\u0026subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o"
+  },
+  "status": "contact-goat-local"
+}

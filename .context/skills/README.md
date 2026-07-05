@@ -12,6 +12,13 @@ On-demand expertise for AI agents. Skills are task-specific procedures that get 
 
 ## Available Skills
 
+### Custom Skills
+
+| Skill | Description | Phases |
+|-------|-------------|--------|
+| [OrganizeJr PP Leads](./organizejr-pp-leads/SKILL.md) | Use pp-leads-brasil, the OrganizeJr ICP pyramid, and local demand files to source, enrich, score, and approach leads for Lucas Camilo Carvalho and OrganizeJr | P, E, V, C |
+
+
 ### Built-in Skills
 
 | Skill | Description | Phases |

@@ -1,0 +1,101 @@
+{
+  "cnpj": "03.419.601/0001-21",
+  "company": {
+    "address": {
+      "city": "Rio de Janeiro",
+      "state": "RJ"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "Benchmark - validar maturidade",
+    "cnpj": "03.419.601/0001-21",
+    "contacts": {
+      "email": "diretoriapresidencia@espmjr.com",
+      "site": "http://www.espmjr.com/"
+    },
+    "evidence": "37 membros, 27 contratos, R$ 302.121,00 de faturamento, cluster 5, cursos: Administração, Comunicação Social - Publicidade E Propaganda, Design",
+    "federation": "RioJunior",
+    "first_message": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 37 membros e 27 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "ESPM Jr.",
+    "name": "ESPM Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "91.9",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Oficina de briefing, feedback e debriefing para squads criativos"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "espmjr.com",
+      "generated_at": "2026-06-18T19:43:57Z",
+      "sources": [
+        {
+          "elapsed": "4.014s",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "2.59s",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "334ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "465ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "318ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.001s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "340ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "2027-05-07T20:44:27Z",
+            "hosting": "Cloudflare DNS",
+            "hosting_cname": "espmjr.com",
+            "nameservers": [
+              "coen.ns.cloudflare.com",
+              "aspen.ns.cloudflare.com"
+            ],
+            "registered": "2009-05-07T20:44:27Z"
+          },
+          "elapsed": "19.984s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

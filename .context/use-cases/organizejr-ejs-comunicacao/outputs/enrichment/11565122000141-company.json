@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "11.565.122/0001-41",
+  "contacts": {
+    "email": "presidencia@marketingjr.com.br",
+    "site": "https://www.marketingjr.com.br/"
+  },
+  "name": "Marketing Júnior USP",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

@@ -1,0 +1,76 @@
+{
+  "api_name": "leads-brasil",
+  "base_url": "http://localhost:8080/v1",
+  "description": "Platform for Brazilian Lead Intelligence (CNPJs, Companies, People)",
+  "mcp_ready": "full",
+  "http_transport": "standard",
+  "auth": {
+    "type": "bearer_token",
+    "header": "Authorization",
+    "env_vars": [
+      "LEADS_BRASIL_BEARER_AUTH"
+    ],
+    "env_var_specs": [
+      {
+        "name": "LEADS_BRASIL_BEARER_AUTH",
+        "kind": "per_call",
+        "required": true,
+        "sensitive": true,
+        "inferred": true
+      }
+    ]
+  },
+  "required_headers": [],
+  "tools": [
+    {
+      "name": "company_get",
+      "description": "Get company data by CNPJ. Required: cnpj.",
+      "method": "GET",
+      "path": "/company/{cnpj}",
+      "params": [
+        {
+          "name": "cnpj",
+          "type": "string",
+          "location": "path",
+          "description": "Cnpj",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "enrich_create",
+      "description": "Trigger enrichment for a company via PP Suite. Required: cnpj.",
+      "method": "POST",
+      "path": "/enrich/{cnpj}",
+      "params": [
+        {
+          "name": "cnpj",
+          "type": "string",
+          "location": "path",
+          "description": "Cnpj",
+          "required": true
+        }
+      ]
+    },
+    {
+      "name": "leads-brasil-platform-search_create",
+      "description": "Search for companies by name or filter. Optional: cnae, name.",
+      "method": "POST",
+      "path": "/search",
+      "params": [
+        {
+          "name": "cnae",
+          "type": "string",
+          "location": "body",
+          "description": "Cnae"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "location": "body",
+          "description": "Name"
+        }
+      ]
+    }
+  ]
+}

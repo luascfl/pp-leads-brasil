@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "Santa Maria",
+    "state": "RS"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "31.316.267/0001-16",
+  "contacts": {
+    "email": "sem e-mail no relatório",
+    "site": "https://www.nuvemjr.com/"
+  },
+  "name": "Nuvem Jr.",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

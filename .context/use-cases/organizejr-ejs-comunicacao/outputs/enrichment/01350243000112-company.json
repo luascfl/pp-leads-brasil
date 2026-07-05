@@ -1,0 +1,55 @@
+{
+  "address": {
+    "city": "Brasília",
+    "state": "DF"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "01.350.243/0001-12",
+  "contacts": {
+    "email": "presidencia@doisnovemeia.com.br",
+    "site": "http://www.doisnovemeia.com.br"
+  },
+  "lead_context": {
+    "acessibilidade": "20",
+    "aderência": "28",
+    "camada": "Meio, EJs e startups",
+    "capacidade": "6.8",
+    "cidade_uf": "Brasília/DF",
+    "classe": "A/B - validação ativa",
+    "cnpj": "01.350.243/0001-12",
+    "contato": "presidencia@doisnovemeia.com.br",
+    "demanda": "9.4",
+    "encaixe": "12.5",
+    "evidência": "26 membros, 14 contratos, R$ 40.360,00 de faturamento, cluster 1, cursos: Comunicação Social - Audiovisual, Comunicação Social - Comunicação Organizacional, Comunicação Social - Publicidade E Propaganda",
+    "federação": "Concentro",
+    "fonte": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+    "lead": "Doisnovemeia Publicidade",
+    "link_email_pronto": "mailto:presidencia@doisnovemeia.com.br?subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o\u0026body=Oi%2C+pessoal+da+Doisnovemeia+Publicidade.+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+26+membros+e+14+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F",
+    "lote": "Lote 2, escala da semana",
+    "oferta_sugerida": "Oficina de briefing, feedback e debriefing para squads criativos",
+    "ordem": "10",
+    "pp_company_goat": "leads-brasil-pp-cli company-goat \"01.350.243/0001-12\" --agent --deliver file:.context/organizejr/enrichment/01350243000112-company-goat.json",
+    "pp_contact_goat": "leads-brasil-pp-cli contact-goat \"Doisnovemeia Publicidade\" --agent --deliver file:.context/organizejr/enrichment/01350243000112-contact-goat.json",
+    "pp_leads_company": "leads-brasil-pp-cli company \"01.350.243/0001-12\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/01350243000112-company.json",
+    "pp_leads_enrich": "leads-brasil-pp-cli enrich \"01.350.243/0001-12\" --agent --deliver file:.context/organizejr/enrichment/01350243000112-enrich.json",
+    "pp_scrape_creators": "scrape-creators-pp-cli linkedin list-company --url https://www.linkedin.com/company/ --agent --deliver file:.context/organizejr/enrichment/01350243000112-scrape.json",
+    "primeira_mensagem": "Oi, pessoal da Doisnovemeia Publicidade. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 26 membros e 14 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "próximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risco_pendência": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "76.7",
+    "site": "http://www.doisnovemeia.com.br"
+  },
+  "name": "Doisnovemeia Publicidade",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local",
+  "use_case": {
+    "label": "OrganizeJr | EJs de comunicação",
+    "name": "organizejr-ejs-comunicacao"
+  }
+}

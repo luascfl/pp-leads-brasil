@@ -1,0 +1,39 @@
+{
+  "cnpj": "35.206.418/0001-34",
+  "company": {
+    "address": {
+      "city": "Curitiba",
+      "state": "PR"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "A/B - validação ativa",
+    "cnpj": "35.206.418/0001-34",
+    "contacts": {
+      "email": "produtorapegaso@gmail.com",
+      "site": "sem site no relatório"
+    },
+    "evidence": "23 membros, 12 contratos, R$ 18.861,57 de faturamento, cluster 1, cursos: Comunicação Institucional, Design De Produto, Design Gráfico, Jornalismo, Produção Cênica, Publicidade E Propaganda, Relações Públicas",
+    "federation": "FEJEPAR",
+    "first_message": "Oi, pessoal da Pégaso. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 23 membros e 12 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "Pégaso",
+    "name": "Pégaso",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "72.9",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Oficina de briefing, feedback e debriefing para squads criativos"
+  },
+  "company_goat": {
+    "error": "company-goat-pp-cli não encontrado ou sem resposta útil",
+    "status": "unavailable"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

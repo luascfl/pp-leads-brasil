@@ -1,0 +1,238 @@
+{
+  "cnpj": "23.353.442/0001-17",
+  "company": {
+    "address": {
+      "city": "Fortaleza",
+      "state": "CE"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "A/B - validação ativa",
+    "cnpj": "23.353.442/0001-17",
+    "contacts": {
+      "email": "diretoria.rastroufc@gmail.com",
+      "site": "https://www.google.com/search?gs_ssp=eJzj4tVP1zc0TLOsSI4vKzA0YLRSMagwTzY3sUwzsUw0SE42SjS0MqgwTTWyME4xszBOS7ZIM7ZI8RIsSiwuKcpXSExPzUvOTFTIKgIA8bEVwA\u0026q=rastro+agencia+jr\u0026oq=ras\u0026aqs=chrome.1.69i57j46i39i175i199j0i131i433i512j0i433i512j0i131i433i512j69i60l3.1962j0j7\u0026sourceid=chrome\u0026ie=UTF-8"
+    },
+    "evidence": "34 membros, 20 contratos, R$ 54.031,03 de faturamento, cluster 3, cursos: Comunicação Social - Publicidade E Propaganda",
+    "federation": "FEJECE",
+    "first_message": "Oi, pessoal da Rastro Agência Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 34 membros e 20 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "Rastro Agência Jr.",
+    "name": "Rastro Agência Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "76.0",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "google.com",
+      "generated_at": "2026-06-18T19:36:46Z",
+      "sources": [
+        {
+          "data": {
+            "cik_summaries": [
+              {
+                "cik": "0001288776",
+                "entity_name": "Google Inc.",
+                "filing_count": 3,
+                "latest_filing_date": "2010-06-18",
+                "state_of_inc": "DELAWARE"
+              }
+            ],
+            "form_d_filings_count": 3,
+            "is_ambiguous": false,
+            "latest_filing": {
+              "accession": "0001288776-09-000002",
+              "amount_sold": 0,
+              "cik": "0001288776",
+              "entity_name": "Google Inc.",
+              "entity_type": "Corporation",
+              "exemptions_claimed": [
+                "06"
+              ],
+              "filing_date": "2009-11-24",
+              "industry_group": "Other Technology",
+              "offering_amount": 750000000,
+              "related_persons": [
+                {
+                  "name": "Eric Schmidt",
+                  "relationships": [
+                    "Executive Officer",
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Sergey Brin",
+                  "relationships": [
+                    "Executive Officer",
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Larry Page",
+                  "relationships": [
+                    "Executive Officer",
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "L. Doerr",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "K. Shriram",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "John Hennessy",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Paul Otellini",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Shirley Tilghman",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Ann Mather",
+                  "relationships": [
+                    "Director"
+                  ]
+                },
+                {
+                  "name": "Nikesh Arora",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                },
+                {
+                  "name": "Shona Brown",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                },
+                {
+                  "name": "david Drummond",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                },
+                {
+                  "name": "Alan Eustace",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                },
+                {
+                  "name": "Patrick Pichette",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                },
+                {
+                  "name": "Jonathan Rosenberg",
+                  "relationships": [
+                    "Executive Officer"
+                  ]
+                }
+              ],
+              "state_of_inc": "DELAWARE"
+            }
+          },
+          "elapsed": "2.263s",
+          "source": "funding",
+          "status": "ok"
+        },
+        {
+          "data": {
+            "entity_type": "Corporation",
+            "issuer_name": "Google Inc.",
+            "region": "us",
+            "source": "SEC EDGAR Form D",
+            "state_inc": "DELAWARE"
+          },
+          "elapsed": "1.432s",
+          "source": "legal",
+          "status": "ok"
+        },
+        {
+          "elapsed": "5.362s",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "605ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "661ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.007s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp 185.199.110.153:443: i/o timeout (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "data": {
+            "country": "",
+            "founded": "",
+            "founders": null,
+            "hq": "",
+            "industry": "",
+            "label": "list of Google domains",
+            "qid": "Q4679321"
+          },
+          "elapsed": "1.804s",
+          "source": "wiki",
+          "status": "ok"
+        },
+        {
+          "data": {
+            "expires": "2028-09-14T04:00:00Z",
+            "hosting": "Google DNS",
+            "hosting_cname": "google.com",
+            "nameservers": [
+              "ns3.google.com",
+              "ns1.google.com",
+              "ns2.google.com",
+              "ns4.google.com"
+            ],
+            "registered": "1997-09-15T04:00:00Z"
+          },
+          "elapsed": "2.128s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

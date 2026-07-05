@@ -1,0 +1,147 @@
+{
+  "cnpj": "67.004.424/0001-03",
+  "company": {
+    "address": {
+      "city": "São Paulo",
+      "state": "SP"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "A/B - validação ativa",
+    "cnpj": "67.004.424/0001-03",
+    "contacts": {
+      "email": "comunicacao@ecajr.com.br",
+      "site": "http://www.ecajr.com.br/"
+    },
+    "evidence": "23 membros, 8 contratos, R$ 44.850,00 de faturamento, cluster 1, cursos: Comunicação Social Com Habilitação Em Publicidade E Propaganda, Relações Públicas, Turismo",
+    "federation": "FEJESP",
+    "first_message": "Oi, pessoal da Agência de Comunicações ECA Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 23 membros e 8 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "Agência de Comunicações ECA Jr.",
+    "name": "Agência de Comunicações ECA Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "70.2",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "ecajr.com.br",
+      "generated_at": "2026-06-18T19:43:21Z",
+      "sources": [
+        {
+          "elapsed": "313ms",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "314ms",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "302ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "449ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "289ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.006s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp 185.199.110.153:443: i/o timeout (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "147ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "2027-10-17T18:26:56Z",
+            "hosting": "",
+            "hosting_cname": "ecajr.com.br",
+            "nameservers": [
+              "ns7.wixdns.net",
+              "ns6.wixdns.net"
+            ],
+            "registered": "2002-10-17T18:26:56Z"
+          },
+          "elapsed": "5.773s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "contact_goat": {
+    "result": {
+      "company": "Agência de Comunicações ECA Jr.",
+      "count": 0,
+      "results": [],
+      "scope": "Agência de Comunicações ECA Jr.",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "hp",
+        "li"
+      ],
+      "timestamp": "2026-06-18T19:43:26Z"
+    },
+    "status": "ok"
+  },
+  "organizejr": {
+    "camada": "Meio, EJs e startups",
+    "classe": "A/B - validação ativa",
+    "evidencia": "23 membros, 8 contratos, R$ 44.850,00 de faturamento, cluster 1, cursos: Comunicação Social Com Habilitação Em Publicidade E Propaganda, Relações Públicas, Turismo",
+    "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+    "lote": "Lote 2, escala da semana",
+    "oferta_sugerida": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes",
+    "pp_leads_company": "leads-brasil-pp-cli company \"67.004.424/0001-03\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/67004424000103-company.json",
+    "pp_leads_enrich": "leads-brasil-pp-cli enrich \"67.004.424/0001-03\" --agent --deliver file:.context/organizejr/enrichment/67004424000103-enrich.json",
+    "primeira_mensagem": "Oi, pessoal da Agência de Comunicações ECA Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 23 membros e 8 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "proximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risco_pendencia": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "70.2"
+  },
+  "prospecting_links": {
+    "whatsapp": [],
+    "link_whatsapp_pronto": [],
+    "email": "comunicacao@ecajr.com.br",
+    "mailto": "mailto:comunicacao@ecajr.com.br?subject=Troca+r%C3%A1pida+sobre+a+opera%C3%A7%C3%A3o+do+lead&body=Oi%2C+pessoal+da+Ag%C3%AAncia+de+Comunica%C3%A7%C3%B5es+ECA+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+23+membros+e+8+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F",
+    "link_email_pronto": "mailto:comunicacao@ecajr.com.br?subject=Troca+r%C3%A1pida+sobre+a+opera%C3%A7%C3%A3o+do+lead&body=Oi%2C+pessoal+da+Ag%C3%AAncia+de+Comunica%C3%A7%C3%B5es+ECA+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+23+membros+e+8+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F"
+  },
+  "source": "Relatório Portal BJ EJs 2025 0101.xlsx + plano OrganizeJr + Casa dos Dados quando configurado",
+  "sources_used": [
+    "local_lead_table",
+    "casa_dos_dados",
+    "company-goat",
+    "contact-goat"
+  ],
+  "status": "enriched-local"
+}

@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "Brasília",
+    "state": "DF"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "05.607.458/0001-27",
+  "contacts": {
+    "email": "digital.matriz@gmail.com",
+    "site": "http://www.matrizcomunicacao.com/"
+  },
+  "name": "Matriz Comunicação",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

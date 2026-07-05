@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "67.135.038/0001-42",
+  "contacts": {
+    "email": "sem e-mail no relatório",
+    "site": "https://espmjr.com.br/"
+  },
+  "name": "ESPM Jr.",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

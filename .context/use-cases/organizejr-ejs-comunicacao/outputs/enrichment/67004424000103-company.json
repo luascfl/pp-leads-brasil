@@ -1,0 +1,20 @@
+{
+  "address": {
+    "city": "São Paulo",
+    "state": "SP"
+  },
+  "casadosdados": {
+    "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+    "status": "unavailable"
+  },
+  "cnpj": "67.004.424/0001-03",
+  "contacts": {
+    "email": "comunicacao@ecajr.com.br",
+    "site": "http://www.ecajr.com.br/"
+  },
+  "name": "Agência de Comunicações ECA Jr.",
+  "sources": [
+    "local_lead_table"
+  ],
+  "status": "lead-local"
+}

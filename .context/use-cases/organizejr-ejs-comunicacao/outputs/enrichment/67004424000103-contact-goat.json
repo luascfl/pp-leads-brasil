@@ -1,0 +1,52 @@
+{
+  "contact_goat": {
+    "result": {
+      "company": "Agência de Comunicações ECA Jr.",
+      "count": 0,
+      "results": [],
+      "scope": "Agência de Comunicações ECA Jr.",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "li",
+        "hp"
+      ],
+      "timestamp": "2026-06-18T19:42:51Z"
+    },
+    "status": "ok"
+  },
+  "input": "Agência de Comunicações ECA Jr.",
+  "local_matches": [
+    {
+      "address": {
+        "city": "São Paulo",
+        "state": "SP"
+      },
+      "class": "A/B - validação ativa",
+      "cnpj": "67.004.424/0001-03",
+      "contacts": {
+        "email": "comunicacao@ecajr.com.br",
+        "site": "http://www.ecajr.com.br/"
+      },
+      "evidence": "23 membros, 8 contratos, R$ 44.850,00 de faturamento, cluster 1, cursos: Comunicação Social Com Habilitação Em Publicidade E Propaganda, Relações Públicas, Turismo",
+      "federation": "FEJESP",
+      "first_message": "Oi, pessoal da Agência de Comunicações ECA Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 23 membros e 8 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "lead": "Agência de Comunicações ECA Jr.",
+      "name": "Agência de Comunicações ECA Jr.",
+      "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "70.2",
+      "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "status": "lead-local",
+      "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+    }
+  ],
+  "prospecting_links": {
+    "email": "comunicacao@ecajr.com.br",
+    "mailto": "mailto:comunicacao@ecajr.com.br?body=Oi%2C+pessoal+da+Ag%C3%AAncia+de+Comunica%C3%A7%C3%B5es+ECA+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+23+membros+e+8+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F\u0026subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o"
+  },
+  "status": "contact-goat-local"
+}

@@ -1,0 +1,126 @@
+{
+  "cnpj": "12.556.073/0001-43",
+  "company": {
+    "address": {
+      "city": "Brasília",
+      "state": "DF"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "cnpj": "12.556.073/0001-43",
+    "contacts": {
+      "email": "contato@pupilaaudiovisual.com.br",
+      "site": "https://www.pupilaaudiovisual.com.br/"
+    },
+    "lead_context": {
+      "acessibilidade": "20",
+      "aderência": "30",
+      "camada": "Meio, EJs e startups",
+      "capacidade": "6.8",
+      "cidade_uf": "Brasília/DF",
+      "classe": "A - abordar agora",
+      "cnpj": "12.556.073/0001-43",
+      "contato": "contato@pupilaaudiovisual.com.br",
+      "demanda": "11.2",
+      "encaixe": "14.0",
+      "evidência": "45 membros, 16 contratos, R$ 19.020,00 de faturamento, cluster 1, cursos: Comunicação Social - Audiovisual, Comunicação Social - Comunicação Organizacional, Comunicação Social - Publicidade E Propaganda, Jornalismo",
+      "federação": "Concentro",
+      "fonte": "Relatório Portal BJ EJs 2025 0101.xlsx",
+      "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+      "lead": "Pupila Audiovisual",
+      "link_email_pronto": "mailto:contato@pupilaaudiovisual.com.br?subject=Troca+r%C3%A1pida+sobre+rotina+de+times+criativos+em+EJs+de+comunica%C3%A7%C3%A3o\u0026body=Oi%2C+pessoal+da+Pupila+Audiovisual.+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+45+membros+e+16+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F",
+      "lote": "Lote 1, validação do ICP",
+      "oferta_sugerida": "Oficina de briefing, feedback e debriefing para squads criativos",
+      "ordem": "4",
+      "pp_company_goat": "leads-brasil-pp-cli company-goat \"12.556.073/0001-43\" --agent --deliver file:.context/organizejr/enrichment/12556073000143-company-goat.json",
+      "pp_contact_goat": "leads-brasil-pp-cli contact-goat \"Pupila Audiovisual\" --agent --deliver file:.context/organizejr/enrichment/12556073000143-contact-goat.json",
+      "pp_leads_company": "leads-brasil-pp-cli company \"12.556.073/0001-43\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/12556073000143-company.json",
+      "pp_leads_enrich": "leads-brasil-pp-cli enrich \"12.556.073/0001-43\" --agent --deliver file:.context/organizejr/enrichment/12556073000143-enrich.json",
+      "pp_scrape_creators": "scrape-creators-pp-cli linkedin list-company --url https://www.linkedin.com/company/ --agent --deliver file:.context/organizejr/enrichment/12556073000143-scrape.json",
+      "primeira_mensagem": "Oi, pessoal da Pupila Audiovisual. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 45 membros e 16 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+      "próximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+      "risco_pendência": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+      "score": "82.0",
+      "site": "https://www.pupilaaudiovisual.com.br/"
+    },
+    "name": "Pupila Audiovisual",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "use_case": {
+      "label": "OrganizeJr | EJs de comunicação",
+      "name": "organizejr-ejs-comunicacao"
+    }
+  },
+  "company_goat": {
+    "result": {
+      "domain": "pupilaaudiovisual.com.br",
+      "generated_at": "2026-06-18T19:54:20Z",
+      "sources": [
+        {
+          "elapsed": "524ms",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "524ms",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "319ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "525ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "338ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.001s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp 185.199.108.153:443: i/o timeout (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "637ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "2026-08-24T13:52:11Z",
+            "hosting": "",
+            "hosting_cname": "pupilaaudiovisual.com.br",
+            "nameservers": [
+              "ns1.dns-parking.com",
+              "ns2.dns-parking.com"
+            ],
+            "registered": "2009-08-24T13:52:11Z"
+          },
+          "elapsed": "1.436s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

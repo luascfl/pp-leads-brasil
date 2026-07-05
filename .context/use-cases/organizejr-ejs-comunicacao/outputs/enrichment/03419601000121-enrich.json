@@ -1,0 +1,155 @@
+{
+  "cnpj": "03.419.601/0001-21",
+  "company": {
+    "address": {
+      "city": "Rio de Janeiro",
+      "state": "RJ"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "Benchmark - validar maturidade",
+    "cnpj": "03.419.601/0001-21",
+    "contacts": {
+      "email": "diretoriapresidencia@espmjr.com",
+      "site": "http://www.espmjr.com/"
+    },
+    "evidence": "37 membros, 27 contratos, R$ 302.121,00 de faturamento, cluster 5, cursos: Administração, Comunicação Social - Publicidade E Propaganda, Design",
+    "federation": "RioJunior",
+    "first_message": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 37 membros e 27 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "ESPM Jr.",
+    "name": "ESPM Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "91.9",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Oficina de briefing, feedback e debriefing para squads criativos"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "espmjr.com",
+      "generated_at": "2026-06-18T19:44:33Z",
+      "sources": [
+        {
+          "elapsed": "613ms",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "611ms",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "346ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "465ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "291ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp 185.199.111.153:443: i/o timeout (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "313ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "2027-05-07T20:44:27Z",
+            "hosting": "Cloudflare DNS",
+            "hosting_cname": "espmjr.com",
+            "nameservers": [
+              "aspen.ns.cloudflare.com",
+              "coen.ns.cloudflare.com"
+            ],
+            "registered": "2009-05-07T20:44:27Z"
+          },
+          "elapsed": "764ms",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "contact_goat": {
+    "result": {
+      "company": "ESPM Jr.",
+      "count": 0,
+      "results": [],
+      "scope": "ESPM Jr.",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "li",
+        "hp"
+      ],
+      "timestamp": "2026-06-18T19:44:38Z"
+    },
+    "status": "ok"
+  },
+  "organizejr": {
+    "camada": "Meio, EJs e startups",
+    "classe": "Benchmark - validar maturidade",
+    "evidencia": "37 membros, 27 contratos, R$ 302.121,00 de faturamento, cluster 5, cursos: Administração, Comunicação Social - Publicidade E Propaganda, Design",
+    "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+    "lote": "Lote 3, benchmark e maturidade",
+    "oferta_sugerida": "Oficina de briefing, feedback e debriefing para squads criativos",
+    "pp_leads_company": "leads-brasil-pp-cli company \"03.419.601/0001-21\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/03419601000121-company.json",
+    "pp_leads_enrich": "leads-brasil-pp-cli enrich \"03.419.601/0001-21\" --agent --deliver file:.context/organizejr/enrichment/03419601000121-enrich.json",
+    "primeira_mensagem": "Oi, pessoal da ESPM Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 37 membros e 27 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "proximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risco_pendencia": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "91.9"
+  },
+  "prospecting_links": {
+    "whatsapp": [
+      {
+        "phone": "5521976110940",
+        "wa_me": "https://wa.me/5521976110940?text=Oi%2C%20pessoal%20da%20ESPM%20Jr..%20Sou%20Lucas%2C%20da%20OrganizeJr%2C%20EJ%20de%20Psicologia%20Organizacional%20da%20UNEB.%20Estou%20validando%20um%20recorte%20nacional%20de%20EJs%20de%20comunica%C3%A7%C3%A3o%20para%20entender%20como%20times%20criativos%20lidam%20com%20rotina%2C%20feedback%2C%20aprova%C3%A7%C3%A3o%2C%20onboarding%20e%20limites%20com%20clientes.%20Vi%20no%20Portal%20BJ%202025%20que%20voc%C3%AAs%20t%C3%AAm%2037%20membros%20e%2027%20contratos%2C%20ent%C3%A3o%20parecem%20um%20bom%20caso%20para%20essa%20conversa.%20Topariam%2020%20minutos%20para%20trocar%20sobre%20essas%20dores%20e%20avaliar%20se%20faz%20sentido%20um%20diagn%C3%B3stico%20ou%20oficina%20da%20OrganizeJr%3F",
+        "link_whatsapp_pronto": "https://wa.me/5521976110940?text=Oi%2C%20pessoal%20da%20ESPM%20Jr..%20Sou%20Lucas%2C%20da%20OrganizeJr%2C%20EJ%20de%20Psicologia%20Organizacional%20da%20UNEB.%20Estou%20validando%20um%20recorte%20nacional%20de%20EJs%20de%20comunica%C3%A7%C3%A3o%20para%20entender%20como%20times%20criativos%20lidam%20com%20rotina%2C%20feedback%2C%20aprova%C3%A7%C3%A3o%2C%20onboarding%20e%20limites%20com%20clientes.%20Vi%20no%20Portal%20BJ%202025%20que%20voc%C3%AAs%20t%C3%AAm%2037%20membros%20e%2027%20contratos%2C%20ent%C3%A3o%20parecem%20um%20bom%20caso%20para%20essa%20conversa.%20Topariam%2020%20minutos%20para%20trocar%20sobre%20essas%20dores%20e%20avaliar%20se%20faz%20sentido%20um%20diagn%C3%B3stico%20ou%20oficina%20da%20OrganizeJr%3F"
+      }
+    ],
+    "link_whatsapp_pronto": [
+      "https://wa.me/5521976110940?text=Oi%2C%20pessoal%20da%20ESPM%20Jr..%20Sou%20Lucas%2C%20da%20OrganizeJr%2C%20EJ%20de%20Psicologia%20Organizacional%20da%20UNEB.%20Estou%20validando%20um%20recorte%20nacional%20de%20EJs%20de%20comunica%C3%A7%C3%A3o%20para%20entender%20como%20times%20criativos%20lidam%20com%20rotina%2C%20feedback%2C%20aprova%C3%A7%C3%A3o%2C%20onboarding%20e%20limites%20com%20clientes.%20Vi%20no%20Portal%20BJ%202025%20que%20voc%C3%AAs%20t%C3%AAm%2037%20membros%20e%2027%20contratos%2C%20ent%C3%A3o%20parecem%20um%20bom%20caso%20para%20essa%20conversa.%20Topariam%2020%20minutos%20para%20trocar%20sobre%20essas%20dores%20e%20avaliar%20se%20faz%20sentido%20um%20diagn%C3%B3stico%20ou%20oficina%20da%20OrganizeJr%3F"
+    ],
+    "email": "diretoriapresidencia@espmjr.com",
+    "mailto": "mailto:diretoriapresidencia@espmjr.com?subject=Troca+r%C3%A1pida+sobre+a+opera%C3%A7%C3%A3o+do+lead&body=Oi%2C+pessoal+da+ESPM+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+37+membros+e+27+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F",
+    "link_email_pronto": "mailto:diretoriapresidencia@espmjr.com?subject=Troca+r%C3%A1pida+sobre+a+opera%C3%A7%C3%A3o+do+lead&body=Oi%2C+pessoal+da+ESPM+Jr..+Sou+Lucas%2C+da+OrganizeJr%2C+EJ+de+Psicologia+Organizacional+da+UNEB.+Estou+validando+um+recorte+nacional+de+EJs+de+comunica%C3%A7%C3%A3o+para+entender+como+times+criativos+lidam+com+rotina%2C+feedback%2C+aprova%C3%A7%C3%A3o%2C+onboarding+e+limites+com+clientes.+Vi+no+Portal+BJ+2025+que+voc%C3%AAs+t%C3%AAm+37+membros+e+27+contratos%2C+ent%C3%A3o+parecem+um+bom+caso+para+essa+conversa.+Topariam+20+minutos+para+trocar+sobre+essas+dores+e+avaliar+se+faz+sentido+um+diagn%C3%B3stico+ou+oficina+da+OrganizeJr%3F"
+  },
+  "source": "Relatório Portal BJ EJs 2025 0101.xlsx + plano OrganizeJr + Casa dos Dados quando configurado",
+  "sources_used": [
+    "local_lead_table",
+    "casa_dos_dados",
+    "company-goat",
+    "contact-goat"
+  ],
+  "status": "enriched-local"
+}

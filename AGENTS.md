@@ -24,5 +24,9 @@
 
 ## AI Context References
 - Documentation index: `.context/docs/README.md`
-- Agent playbooks: `.context/agents/README.md`
-- Contributor guide: `CONTRIBUTING.md`
+- OrganizeJr commercial context: `.context/docs/organizejr-commercial-context.md`
+- OrganizeJr local skill: `.context/skills/organizejr-pp-leads/SKILL.md`
+- Project-local skill package: `organizejr-pp-leads/SKILL.md`
+- Skill update script: `scripts/update-organizejr-pp-leads-skill.sh`
+- GSD state: `.context/docs/planning_gsd/STATE.md`
+- Ralph context: `.context/prd_ralph/README.md`

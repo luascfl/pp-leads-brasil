@@ -12,6 +12,11 @@ Welcome to the repository knowledge base. Start with the project overview, then 
 - [Security & Compliance Notes](./security.md)
 - [Tooling & Productivity Guide](./tooling.md)
 
+## OrganizeJr Commercial Context
+- [OrganizeJr Commercial Context](./organizejr-commercial-context.md)
+- [GSD State](./planning_gsd/STATE.md)
+
+
 ## Repository Snapshot
 - `cmd/`
 - `internal/`

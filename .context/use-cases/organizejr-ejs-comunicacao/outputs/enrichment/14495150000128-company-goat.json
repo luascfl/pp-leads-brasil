@@ -1,0 +1,98 @@
+{
+  "cnpj": "14.495.150/0001-28",
+  "company": {
+    "address": {
+      "city": "Juiz de Fora",
+      "state": "MG"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "Benchmark - validar maturidade",
+    "cnpj": "14.495.150/0001-28",
+    "contacts": {
+      "email": "contato@aspectojr.com.br",
+      "site": "https://aspectojr.com.br"
+    },
+    "evidence": "32 membros, 44 contratos, R$ 78.343,28 de faturamento, cluster 4, cursos: Artes Visuais, Cinema E Audiovisual, Design, Interdisciplinar Em Artes E Design - Bi/Li, Moda",
+    "federation": "FEJEMG",
+    "first_message": "Oi, pessoal da Aspecto Empreendimento Criativo. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 32 membros e 44 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "Aspecto Empreendimento Criativo",
+    "name": "Aspecto Empreendimento Criativo",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "81.4",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Oficina de briefing, feedback e debriefing para squads criativos"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "aspectojr.com.br",
+      "generated_at": "2026-06-18T19:45:59Z",
+      "sources": [
+        {
+          "elapsed": "9.258s",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "9.257s",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "110ms",
+          "note": "Get \"https://api.github.com/orgs/aspectojr\": dial tcp: lookup api.github.com on 8.8.4.4:53: dial udp 8.8.4.4:53: connect: network is unreachable",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "2ms",
+          "note": "Get \"https://hn.algolia.com/api/v1/search?hitsPerPage=5\u0026query=Aspecto+Empreendimento+Criativo\u0026tags=show_hn\": dial tcp: lookup hn.algolia.com on 8.8.4.4:53: dial udp 8.8.4.4:53: connect: network is unreachable",
+          "source": "launches",
+          "status": "error"
+        },
+        {
+          "elapsed": "0s",
+          "note": "Get \"https://hn.algolia.com/api/v1/search_by_date?hitsPerPage=50\u0026query=Aspecto+Empreendimento+Criativo\u0026tags=story\": dial tcp: lookup hn.algolia.com on 8.8.4.4:53: dial udp 8.8.4.4:53: connect: network is unreachable",
+          "source": "mentions",
+          "status": "error"
+        },
+        {
+          "elapsed": "0s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp: lookup yc-oss.github.io on 8.8.4.4:53: dial udp 8.8.4.4:53: connect: network is unreachable",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "0s",
+          "note": "Get \"https://query.wikidata.org/sparql?format=json\u0026query=%0ASELECT+%3Fcompany+%3FcompanyLabel+%3FcompanyDescription+%3Fwebsite+%3Ffounded+%3FhqLabel+%3FcountryLabel+%3FindustryLabel%0A+++++++%28GROUP_CONCAT%28DISTINCT+%3FfounderLabel%3B+separator%3D%22%2C+%22%29+AS+%3Ffounders%29%0AWHERE+%7B%0A++VALUES+%3Fwebsite+%7B+%3Chttps%3A%2F%2Faspectojr.com.br%3E+%3Chttps%3A%2F%2Fwww.aspectojr.com.br%3E+%3Chttp%3A%2F%2Faspectojr.com.br%3E+%7D%0A++%3Fcompany+wdt%3AP856+%3Fwebsite+.%0A++OPTIONAL+%7B+%3Fcompany+wdt%3AP571+%3Ffounded+.+%7D%0A++OPTIONAL+%7B+%3Fcompany+wdt%3AP159+%3Fhq+.+%3Fhq+rdfs%3Alabel+%3FhqLabel+.+FILTER%28LANG%28%3FhqLabel%29+%3D+%22en%22%29+%7D%0A++OPTIONAL+%7B+%3Fcompany+wdt%3AP17+%3Fcountry+.+%3Fcountry+rdfs%3Alabel+%3FcountryLabel+.+FILTER%28LANG%28%3FcountryLabel%29+%3D+%22en%22%29+%7D%0A++OPTIONAL+%7B+%3Fcompany+wdt%3AP452+%3Findustry+.+%3Findustry+rdfs%3Alabel+%3FindustryLabel+.+FILTER%28LANG%28%3FindustryLabel%29+%3D+%22en%22%29+%7D%0A++OPTIONAL+%7B+%3Fcompany+wdt%3AP112+%3Ffounder+.+%3Ffounder+rdfs%3Alabel+%3FfounderLabel+.+FILTER%28LANG%28%3FfounderLabel%29+%3D+%22en%22%29+%7D%0A++SERVICE+wikibase%3Alabel+%7B+bd%3AserviceParam+wikibase%3Alanguage+%22en%22.+%7D%0A%7D%0AGROUP+BY+%3Fcompany+%3FcompanyLabel+%3FcompanyDescription+%3Fwebsite+%3Ffounded+%3FhqLabel+%3FcountryLabel+%3FindustryLabel%0ALIMIT+1\": dial tcp: lookup query.wikidata.org on 8.8.4.4:53: dial udp 8.8.4.4:53: connect: network is unreachable",
+          "source": "wiki",
+          "status": "error"
+        },
+        {
+          "data": {
+            "expires": "",
+            "hosting": "",
+            "hosting_cname": "",
+            "nameservers": null,
+            "registered": ""
+          },
+          "elapsed": "6ms",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "source": "lead table + Casa dos Dados + company-goat quando disponível",
+  "status": "company-goat-local"
+}

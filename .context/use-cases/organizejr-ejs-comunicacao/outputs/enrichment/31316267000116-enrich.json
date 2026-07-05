@@ -1,0 +1,141 @@
+{
+  "cnpj": "31.316.267/0001-16",
+  "company": {
+    "address": {
+      "city": "Santa Maria",
+      "state": "RS"
+    },
+    "casadosdados": {
+      "error": "Casa dos Dados API key not configured; set CASA_DADOS_API_KEY or PP_LEADS_CASA_DADOS_API_KEY",
+      "status": "unavailable"
+    },
+    "class": "A/B - validação ativa",
+    "cnpj": "31.316.267/0001-16",
+    "contacts": {
+      "email": "sem e-mail no relatório",
+      "site": "https://www.nuvemjr.com/"
+    },
+    "evidence": "30 membros, 26 contratos, R$ 30.155,10 de faturamento, cluster 2, cursos: Comunicação Social - Produção Editorial, Comunicação Social - Publicidade E Propaganda, Comunicação Social - Relações Públicas, Jornalismo",
+    "federation": "FEJERS",
+    "first_message": "Oi, pessoal da Nuvem Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 30 membros e 26 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "lead": "Nuvem Jr.",
+    "name": "Nuvem Jr.",
+    "next_step": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risk_or_pending": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "75.3",
+    "source": "Relatório Portal BJ EJs 2025 0101.xlsx",
+    "sources": [
+      "local_lead_table"
+    ],
+    "status": "lead-local",
+    "suggested_offer": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes"
+  },
+  "company_goat": {
+    "result": {
+      "domain": "nuvemjr.com",
+      "generated_at": "2026-06-18T19:38:33Z",
+      "sources": [
+        {
+          "elapsed": "918ms",
+          "note": "no Form D filings found",
+          "source": "funding",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "918ms",
+          "note": "no US Form D issuer; UK lookup needs COMPANIES_HOUSE_API_KEY",
+          "source": "legal",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "331ms",
+          "note": "github 403: {\"message\":\"API rate limit exceeded for 200.128.3.206. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"h...",
+          "source": "engineering",
+          "status": "error"
+        },
+        {
+          "elapsed": "469ms",
+          "note": "no Show HN posts found",
+          "source": "launches",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "290ms",
+          "note": "no HN mentions found",
+          "source": "mentions",
+          "status": "no-data"
+        },
+        {
+          "elapsed": "30.001s",
+          "note": "Get \"https://yc-oss.github.io/api/companies/all.json\": dial tcp 185.199.109.153:443: i/o timeout (Client.Timeout exceeded while awaiting headers)",
+          "source": "yc",
+          "status": "error"
+        },
+        {
+          "elapsed": "159ms",
+          "note": "no Wikidata entry found",
+          "source": "wiki",
+          "status": "no-data"
+        },
+        {
+          "data": {
+            "expires": "",
+            "hosting": "",
+            "hosting_cname": "",
+            "nameservers": null,
+            "registered": ""
+          },
+          "elapsed": "1.414s",
+          "source": "domain",
+          "status": "ok"
+        }
+      ]
+    },
+    "status": "ok"
+  },
+  "contact_goat": {
+    "result": {
+      "company": "Nuvem Jr.",
+      "count": 0,
+      "results": [],
+      "scope": "Nuvem Jr.",
+      "scope_kind": "company",
+      "source_errors": {
+        "hp": "--source hp requires Happenstance cookie auth — run `contact-goat-pp-cli auth login --chrome --service happenstance` first",
+        "li_search": "tool \"search_people\" returned error: LinkedIn setup is not complete yet. The Patchright Chromium browser is still downloading in the background. Retry this tool in a few minutes."
+      },
+      "sources": [
+        "hp",
+        "li"
+      ],
+      "timestamp": "2026-06-18T19:38:39Z"
+    },
+    "status": "ok"
+  },
+  "organizejr": {
+    "camada": "Meio, EJs e startups",
+    "classe": "A/B - validação ativa",
+    "evidencia": "30 membros, 26 contratos, R$ 30.155,10 de faturamento, cluster 2, cursos: Comunicação Social - Produção Editorial, Comunicação Social - Publicidade E Propaganda, Comunicação Social - Relações Públicas, Jornalismo",
+    "icp": "ICP 2.3, EJs de Comunicação com Sobrecarga Criativa e Relacional",
+    "lote": "Lote 2, escala da semana",
+    "oferta_sugerida": "Diagnóstico de clima criativo + rotina de aprovação e limites com clientes",
+    "pp_leads_company": "leads-brasil-pp-cli company \"31.316.267/0001-16\" --agent --select name,cnpj,status,address,contacts --deliver file:.context/organizejr/enrichment/31316267000116-company.json",
+    "pp_leads_enrich": "leads-brasil-pp-cli enrich \"31.316.267/0001-16\" --agent --deliver file:.context/organizejr/enrichment/31316267000116-enrich.json",
+    "primeira_mensagem": "Oi, pessoal da Nuvem Jr.. Sou Lucas, da OrganizeJr, EJ de Psicologia Organizacional da UNEB. Estou validando um recorte nacional de EJs de comunicação para entender como times criativos lidam com rotina, feedback, aprovação, onboarding e limites com clientes. Vi no Portal BJ 2025 que vocês têm 30 membros e 26 contratos, então parecem um bom caso para essa conversa. Topariam 20 minutos para trocar sobre essas dores e avaliar se faz sentido um diagnóstico ou oficina da OrganizeJr?",
+    "proximo_passo": "1) rodar pp-leads company; 2) se houver dados úteis, rodar enrich; 3) registrar no Ploomes; 4) abordar por e-mail institucional; 5) usar Instagram/LinkedIn se e-mail ausente ou sem resposta.",
+    "risco_pendencia": "Dor ainda é hipótese. Validar sobrecarga criativa/relacional antes de vender solução.",
+    "score": "75.3"
+  },
+  "prospecting_links": {
+    "whatsapp": [],
+    "link_whatsapp_pronto": []
+  },
+  "source": "Relatório Portal BJ EJs 2025 0101.xlsx + plano OrganizeJr + Casa dos Dados quando configurado",
+  "sources_used": [
+    "local_lead_table",
+    "casa_dos_dados",
+    "company-goat",
+    "contact-goat"
+  ],
+  "status": "enriched-local"
+}

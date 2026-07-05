@@ -1,0 +1,14 @@
+{
+  "name": "organizejr-ejs-comunicacao",
+  "label": "OrganizeJr | EJs de comunicação",
+  "lead_table_path": "../../organizejr/lead-table-2026-06-17-ejs-comunicacao-lucas.csv",
+  "output_dir": "outputs/enrichment",
+  "message_field": "primeira mensagem",
+  "field_map": {
+    "name": "lead",
+    "cnpj": "CNPJ",
+    "city_uf": "cidade/UF",
+    "contact": "contato",
+    "site": "site"
+  }
+}
