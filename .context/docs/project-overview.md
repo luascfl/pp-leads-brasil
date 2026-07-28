@@ -26,6 +26,11 @@ python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --te
 
 Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` without calling Telegram. Adding `--execute-read` reads Telegram participants through `manage_telegram`; saving contacts is a separate `apply-save` command that requires `--yes`.
 
+
+## OrganizeJr Ploomes LinkedIn sync
+
+`organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs` sends both `LinkedIn - Pessoa` and `LinkedIn - Empresa` into the existing Ploomes Contacts custom field `Linkedin` through `OtherProperties` with FieldKey `contact_1711C73E-6472-4FF7-9658-5491E41375C3`. The same Contacts field is used for people and companies because Ploomes stores both under Contacts, differentiated by `TypeId`.
+
 ## Codebase Reference
 
 > **Detailed Analysis**: For complete symbol counts, architecture layers, and dependency graphs, see [`codebase-map.json`](./codebase-map.json).
