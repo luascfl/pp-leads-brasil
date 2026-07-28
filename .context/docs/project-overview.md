@@ -3,15 +3,28 @@ type: doc
 name: project-overview
 description: High-level overview of the project, its purpose, and key components
 category: overview
-generated: 2026-07-24
+generated: 2026-07-25
 status: unfilled
 scaffoldVersion: "2.0.0"
 ---
-## Project overview
+## Project Overview
 
-This repository supports OrganizeJr lead prospecting and CRM enrichment for Brazilian empresas juniores and related education/commercial leads. The active workflow turns local evidence, Perplexity exports, public web data and Google Sheets CRM rows into structured enrichment: ICP classification, score, contact channels, CNPJ, observations and enrichment queue diagnostics.
+This project provides [describe main functionality]. It helps [target users] to [key benefit].
 
-The current operational entry point for the CRM loop is `organizejr-pp-leads/ploomes_crm/crm_sheet.py`. It reads and writes the `Clientes` Google Sheet, calculates CRM health through `analyze-health`, lists missing ICP/score through `list-icp-pending`, and injects score/contact evidence through `apply-icp-score`.
+The codebase is organized to support [main use case] with a focus on [key qualities like maintainability, performance, etc.].
+
+
+## OrganizeJr Telegram people enrichment
+
+`organizejr-pp-leads/telegram_people.py` bridges this repository to `/home/lucas/Downloads/manage_telegram` so Telegram groups and channels can be used as an additional people-discovery surface beside Contact Goat, Company Goat, Scrape Creators, Perplexity exports, and local evidence files. The bridge shells out to the `manage_telegram` CLI instead of copying Telegram automation code.
+
+The operational entrypoint is:
+
+```bash
+python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP --lead-slug engetop
+```
+
+Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` without calling Telegram. Adding `--execute-read` reads Telegram participants through `manage_telegram`; saving contacts is a separate `apply-save` command that requires `--yes`.
 
 ## Codebase Reference
 
