@@ -1,12 +1,12 @@
 # Graph Report - pp-leads-brasil  (2026-07-28)
 
 ## Corpus Check
-- 727 files · ~2,226,252 words
+- 727 files · ~2,226,195 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 8612 nodes · 26677 edges · 57 communities detected
-- Extraction: 54% EXTRACTED · 46% INFERRED · 0% AMBIGUOUS · INFERRED: 12311 edges (avg confidence: 0.8)
+- 8612 nodes · 26672 edges · 57 communities detected
+- Extraction: 54% EXTRACTED · 46% INFERRED · 0% AMBIGUOUS · INFERRED: 12310 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -63,9 +63,9 @@
 - [[_COMMUNITY_Community 50|Community 50]]
 - [[_COMMUNITY_Community 51|Community 51]]
 - [[_COMMUNITY_Community 52|Community 52]]
-- [[_COMMUNITY_Community 53|Community 53]]
+- [[_COMMUNITY_Community 56|Community 56]]
 - [[_COMMUNITY_Community 57|Community 57]]
-- [[_COMMUNITY_Community 58|Community 58]]
+- [[_COMMUNITY_Community 70|Community 70]]
 - [[_COMMUNITY_Community 71|Community 71]]
 
 ## God Nodes (most connected - your core abstractions)
@@ -85,94 +85,94 @@
   leads-brasil-pp-cli/internal/config/config.go → cli-printing-press/internal/mcpoverrides/overrides_test.go
 - `TestCatalogFSContainsYAMLFiles()` --calls--> `Name()`  [INFERRED]
   cli-printing-press/internal/catalog/catalog_test.go → internal/usecase/config.go
+- `choose_candidate()` --calls--> `Split()`  [INFERRED]
+  export-perplexity-lead-search.py → cli-printing-press/internal/shellargs/shellargs.go
 - `_run_telegram()` --calls--> `Run()`  [INFERRED]
   organizejr-pp-leads/telegram_people.py → cli-printing-press/internal/llm/llm.go
-- `parse_args()` --calls--> `getEnv`  [INFERRED]
-  organizejr-pp-leads/ploomes_crm/delete_ploomes_empresas.py → cli-printing-press/internal/authdoctor/classify.go
-- `main()` --calls--> `Input`  [INFERRED]
-  organizejr-pp-leads/ploomes_crm/delete_ploomes_empresas.py → cli-printing-press/internal/mcpdesc/compose.go
+- `dotenv_api_key()` --calls--> `Split()`  [INFERRED]
+  organizejr-pp-leads/ploomes_crm/delete_ploomes_empresas.py → cli-printing-press/internal/shellargs/shellargs.go
 
 ## Communities
 
 ### Community 0 - "Community 0"
 Cohesion: 0.01
-Nodes (770): hasOverrideMarker(), renderAgentcookieManifest(), syncKeysFromAuth(), TestWriteAgentcookieManifest_BearerToken(), TestWriteAgentcookieManifest_EnvVarSpecsRespectsSensitivity(), TestWriteAgentcookieManifest_Idempotent(), TestWriteAgentcookieManifest_RespectsOverrideMarker(), TestWriteAgentcookieManifest_SkipsCookieOnly() (+762 more)
+Nodes (760): hasOverrideMarker(), renderAgentcookieManifest(), syncKeysFromAuth(), TestWriteAgentcookieManifest_BearerToken(), TestWriteAgentcookieManifest_EnvVarSpecsRespectsSensitivity(), TestWriteAgentcookieManifest_Idempotent(), TestWriteAgentcookieManifest_RespectsOverrideMarker(), TestWriteAgentcookieManifest_SkipsCookieOnly() (+752 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.01
-Nodes (652): TestReadTrafficAnalysisRejectsUnsupportedVersion(), TestReadTrafficAnalysis_VersionRejection(), TestAuthCmdHasDoctorSubcommand(), TestAuthDoctorCmdJSONFlag(), TestBrowserSniffCmdPreserveHostsWritesBaseURLOverrides(), TestBrowserSniffCmdRejectsDomainMismatchOnAuthFrom(), TestBrowserSniffCmdReportsTrafficAnalysisWriteFailure(), TestWriteBrowserSniffOutputsRestoresSamplesDirOnSpecFailure() (+644 more)
+Nodes (564): httpURLHostname(), TestAnalysisWarning_StringV2Compat(), TestAuthAnalysis_CandidateTypesV2Compat(), TestProtectionObservation_NotesV2Compat(), TestReadTrafficAnalysis_VersionRejection(), TestTrafficAnalysis_GenerationHintsMapCompat(), TestTrafficAnalysis_VersionNormalization(), Lookup() (+556 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.01
-Nodes (519): TestAnalysisWarning_StringV2Compat(), TestAuthAnalysis_CandidateTypesV2Compat(), TestProtectionObservation_NotesV2Compat(), TestTrafficAnalysis_GenerationHintsMapCompat(), TestTrafficAnalysis_VersionNormalization(), BearerRefresh, Entry, IsPublicCategory() (+511 more)
+Nodes (575): ReadTrafficAnalysis(), TestReadTrafficAnalysis(), TestReadTrafficAnalysisRejectsUnsupportedVersion(), TestReadTrafficAnalysis_V2ShapeFile(), TestAuthCmdHasDoctorSubcommand(), TestAuthDoctorCmdJSONFlag(), lineWithToken(), newRootCmdForTest() (+567 more)
 
 ### Community 3 - "Community 3"
 Cohesion: 0.01
-Nodes (460): clearCollidingParents(), flattenCollidingBodyFields(), TestFlattenCollidingBodyFields_NestedPrefixShape(), TestFlattenCollidingBodyFields_NoCollisionPassesThrough(), countBodyLeaves(), FlattenCollidingBodyFields(), Ident(), deepBodyFixture() (+452 more)
+Nodes (451): clearCollidingParents(), flattenCollidingBodyFields(), TestFlattenCollidingBodyFields_NestedPrefixShape(), TestFlattenCollidingBodyFields_NoCollisionPassesThrough(), countBodyLeaves(), FlattenCollidingBodyFields(), Ident(), deepBodyFixture() (+443 more)
 
 ### Community 4 - "Community 4"
 Cohesion: 0.01
-Nodes (459): AnalyzeTraffic(), anyHeaderPrefix(), apiHostsForProtection(), appendEvidence(), bucketConfidence(), buildEndpointClusters(), buildTrafficSummary(), captchaChallengeText() (+451 more)
+Nodes (439): AnalyzeTraffic(), anyHeaderPrefix(), apiHostsForProtection(), appendEvidence(), bucketConfidence(), buildEndpointClusters(), buildTrafficSummary(), captchaChallengeText() (+431 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.01
-Nodes (440): EmbossDelta, EmbossReport, EmbossSnapshot, discoveredEnvDescription(), reconcileMCPBManifestFromClient(), scanClientEnvReads(), TestReconcileMCPBManifestFromClient(), TestScanClientEnvReads() (+432 more)
+Nodes (407): TestClaimOutputDir_ConcurrentClaims(), TestClaimOutputDir_Fresh(), TestClaimOutputDir_Increments(), TestClaimOutputDir_MaxRetries(), TestClaimOutputDir_PermissionError(), EmbossDelta, EmbossReport, EmbossSnapshot (+399 more)
 
 ### Community 6 - "Community 6"
 Cohesion: 0.01
-Nodes (374): absOrSame(), advertisedNovelFeaturePath(), appendedStringValues(), authCandidatesForPrefix(), authFormatInlineMapPreservesToken(), buildDogfoodBinary(), checkAuth(), checkCommandTree() (+366 more)
+Nodes (285): DetectAPIType(), readHead(), TestDetectAPITypeGraphQL(), TestDetectAPITypeGRPC(), TestDetectAPITypeREST(), TestDetectAPITypeURL(), TestDetectAPITypeYAMLFallback(), writeTempSpec() (+277 more)
 
 ### Community 7 - "Community 7"
 Cohesion: 0.01
-Nodes (369): CleanupOptions, CleanupGeneratedCLI(), removeDirIfExists(), removeFileIfExists(), removeFinderMetadata(), TestCleanupGeneratedCLI(), writeArtifactFile(), Name() (+361 more)
+Nodes (385): absOrSame(), advertisedNovelFeaturePath(), appendedStringValues(), authCandidatesForPrefix(), authFormatInlineMapPreservesToken(), buildDogfoodBinary(), checkAuth(), checkCommandTree() (+377 more)
 
 ### Community 8 - "Community 8"
-Cohesion: 0.01
-Nodes (242): WriteTrafficAnalysis(), DetectAPIType(), readHead(), TestDetectAPITypeGraphQL(), TestDetectAPITypeGRPC(), TestDetectAPITypeREST(), TestDetectAPITypeURL(), TestDetectAPITypeYAMLFallback() (+234 more)
+Cohesion: 0.02
+Nodes (297): buildAgentContext(), buildAgentDiscoveryContext(), collectAgentCommands(), newAgentContextCmd(), newAPICmd(), chromeDataDir(), clearPendingDeviceCode(), cookieToolSupportsProfiles() (+289 more)
 
 ### Community 9 - "Community 9"
 Cohesion: 0.02
-Nodes (295): buildAgentContext(), buildAgentDiscoveryContext(), collectAgentCommands(), newAgentContextCmd(), newAPICmd(), chromeDataDir(), clearPendingDeviceCode(), cookieToolSupportsProfiles() (+287 more)
+Nodes (310): extractBrowserUseGraphQLSnippet(), extractBrowserUsePrimaryCaptureSnippet(), extractChromeMCPFetchSnippet(), readBrowserSniffReference(), runNodeSnippet(), TestBrowserSniffReferenceChromeMCPInterceptorCapturesRequestBodies(), TestBrowserSniffReferenceGraphQLInterceptorCapturesRequestBodies(), TestBrowserSniffReferencePrimaryInterceptorCapturesRequestBodies() (+302 more)
 
 ### Community 10 - "Community 10"
 Cohesion: 0.01
-Nodes (278): Store, isSpace(), newTierLimiters(), AdaptiveLimiter, FanoutError, FanoutOption, fanoutOptions, FanoutResult (+270 more)
+Nodes (319): CleanupOptions, CleanupGeneratedCLI(), removeDirIfExists(), removeFileIfExists(), removeFinderMetadata(), TestCleanupGeneratedCLI(), writeArtifactFile(), Name() (+311 more)
 
 ### Community 11 - "Community 11"
 Cohesion: 0.02
-Nodes (270): childIsSchema(), convertToStringKeyed(), decodeSpecTree(), isNameKeyedParent(), normalizeExamplesValue(), normalizeSpecData(), normalizeSpecDataWithMetadata(), normalizeSpecTree() (+262 more)
+Nodes (263): Store, Capture(), classifyChromeErr(), cookieDomainMatches(), filterCookies(), heuristicTick(), isHeadless(), removeTempDirEventually() (+255 more)
 
 ### Community 12 - "Community 12"
-Cohesion: 0.03
-Nodes (193): extractBrowserUseGraphQLSnippet(), extractBrowserUsePrimaryCaptureSnippet(), extractChromeMCPFetchSnippet(), readBrowserSniffReference(), runNodeSnippet(), TestBrowserSniffReferenceChromeMCPInterceptorCapturesRequestBodies(), TestBrowserSniffReferenceGraphQLInterceptorCapturesRequestBodies(), TestBrowserSniffReferencePrimaryInterceptorCapturesRequestBodies() (+185 more)
+Cohesion: 0.02
+Nodes (271): containsAny(), FindJWTInCookieJar(), LooksLikeJWT(), TestFindJWTInCookieJar(), TestLooksLikeJWT(), parseExampleArgs(), ASCIIFold(), EnvPrefix() (+263 more)
 
 ### Community 13 - "Community 13"
 Cohesion: 0.02
-Nodes (203): extractExamplesSection(), extractFlagNames(), TestExtractExamplesSection(), TestExtractFlagNames(), parseExampleArgs(), appendDryRunArg(), appendJSONArg(), buildSiblingMap() (+195 more)
+Nodes (185): Apply(), assertGitClean(), injectAddCommands(), jaccard(), nonPlaceholderTokens(), parseStmtViaDST(), readModulePaths(), setOf() (+177 more)
 
 ### Community 14 - "Community 14"
 Cohesion: 0.02
-Nodes (187): manifestAuthEnvVarNames(), loadDogfoodOpenAPISpec(), decodeOpenAPIRaw(), detectNestedDataEnvelopeFixtures(), detectNestedDataEnvelopeFixturesFromRaw(), isDogfoodHTTPMethod(), isJSONMediaType(), isRawArraySchema() (+179 more)
+Nodes (190): Profile, paramWireName(), ColumnDef, IndexDef, TableDef, SyncHint, VisionCustomization, ShardedSubResourceTableName() (+182 more)
 
 ### Community 15 - "Community 15"
 Cohesion: 0.02
-Nodes (184): PIIAllAcceptedIssue, PIIAuditOptions, PIIAuditResult, PIICompletionStatus, piiDetector, PIIFinding, PIILedger, PIILedgerDelta (+176 more)
+Nodes (185): PIIAllAcceptedIssue, PIIAuditOptions, PIIAuditResult, PIICompletionStatus, piiDetector, PIIFinding, PIILedger, PIILedgerDelta (+177 more)
 
 ### Community 16 - "Community 16"
 Cohesion: 0.02
-Nodes (163): Apply(), assertGitClean(), injectAddCommands(), jaccard(), nonPlaceholderTokens(), parseStmtViaDST(), readModulePaths(), setOf() (+155 more)
+Nodes (172): applyFix(), classifyFailures(), detectHTTPMethod(), findCommandFile(), hasPrintDryRunHelper(), revertFiles(), runBuildChecks(), RunFixLoop() (+164 more)
 
 ### Community 17 - "Community 17"
 Cohesion: 0.03
 Nodes (125): absFixturePath(), assertFileExists(), snapshotTree(), stageFixture(), TestApplyEbayAuthFixturePreservesAuth(), TestApplyIdempotency(), TestApplyPostmanExploreFixture(), dependentPathParamDef (+117 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.03
-Nodes (126): paramWireName(), ColumnDef, IndexDef, TableDef, ShardedSubResourceTableName(), SubResourceShardedNames(), ToSnakeCase(), addSyncableIfUnique() (+118 more)
-
-### Community 19 - "Community 19"
 Cohesion: 0.04
 Nodes (113): ExecutablePath(), ExecutablePathForGOOS(), TestExecutablePathForGOOS(), validationGate, GoRunArgs(), TestGoRunArgsUsesDefaultMode(), commonCommandVerb(), completePartialRedactionSentinel() (+105 more)
+
+### Community 19 - "Community 19"
+Cohesion: 0.03
+Nodes (103): ApplyCatalogAuthEnvVars(), ApplyRuntimeMetadata(), IsReplaceableBaseURL(), mergeAuthEnvVars(), RebaseAuthEnvPrefix(), TestApplyCatalogAuthEnvVars_DedupesBetweenCatalogAndExisting(), TestApplyCatalogAuthEnvVars_NoopForBasicAuth(), TestApplyCatalogAuthEnvVars_NoopWhenAuthTypeNone() (+95 more)
 
 ### Community 20 - "Community 20"
 Cohesion: 0.05
@@ -180,39 +180,39 @@ Nodes (63): CasaDadosClient, Client, LeadRecord, cleanEmail(), cnpjFromInput(), 
 
 ### Community 21 - "Community 21"
 Cohesion: 0.04
-Nodes (84): ManifestAuth, manifestBodyParam, manifestEndpointRecord, ManifestHeader, ManifestMCP, ManifestParam, ManifestTier, ManifestTiers (+76 more)
+Nodes (83): ManifestAuth, manifestBodyParam, manifestEndpointRecord, ManifestHeader, ManifestMCP, ManifestParam, ManifestTier, ManifestTiers (+75 more)
 
 ### Community 22 - "Community 22"
-Cohesion: 0.04
-Nodes (75): Profile, SyncHint, VisionCustomization, APIProfile, lowHigh(), syncableResourceNames(), captureStderr(), discordSpec() (+67 more)
+Cohesion: 0.05
+Nodes (79): discoveredEnvDescription(), reconcileMCPBManifestFromClient(), scanClientEnvReads(), TestReconcileMCPBManifestFromClient(), TestScanClientEnvReads(), TestScanClientEnvReadsBacktickLiteral(), TestWriteMCPBManifestFromStruct_AuthOptionalPropagates(), TestWriteMCPBManifestFromStruct_IdempotentReconcile() (+71 more)
 
 ### Community 23 - "Community 23"
-Cohesion: 0.04
-Nodes (76): Aggregate(), AggregateAuth(), deduplicateStrings(), FilterByHost(), hostFromURL(), NormalizePath(), paramFieldCount(), sortedParams() (+68 more)
+Cohesion: 0.05
+Nodes (56): Factory, NewFactory(), gqlArg, gqlField, gqlType, catalogInstallerCommand(), defaultTransport(), firstPositionalArg() (+48 more)
 
 ### Community 24 - "Community 24"
+Cohesion: 0.05
+Nodes (61): PlanCommand, planGoModData, planParentCommand, planRootData, PlanSpec, planStreamingData, planSubCommand, parseCopyrightOwner() (+53 more)
+
+### Community 25 - "Community 25"
+Cohesion: 0.06
+Nodes (66): detectMCPSurface(), mcpMainPath(), scoreMCPRemoteTransport(), scoreMCPSurfaceStrategy(), scoreMCPToolDesign(), buildToolsGo(), TestScoreMCPRemoteTransport(), TestScoreMCPSurfaceStrategy() (+58 more)
+
+### Community 26 - "Community 26"
 Cohesion: 0.07
 Nodes (64): captureStdout(), shipcheckHarness, shipcheckJSONEnvelope, shipcheckJSONLeg, shipcheckLeg, shipcheckLegResult, shipcheckOpts, describeOAuthScopeRequirement() (+56 more)
 
-### Community 25 - "Community 25"
-Cohesion: 0.05
-Nodes (55): newAuthCmd(), newAuthDoctorCmd(), Finding, Status, Summary, classifyResponse(), hasHeaderPrefix(), isClear() (+47 more)
-
-### Community 26 - "Community 26"
+### Community 27 - "Community 27"
 Cohesion: 0.09
 Nodes (56): capturedKeysIndex, SyncParamDropFinding, SyncParamDropResult, callPassedKeys(), canonicalSyncPath(), CheckSyncParamDrop(), collectSyncSourceFiles(), extractCompositeLiteralKeys() (+48 more)
 
-### Community 27 - "Community 27"
-Cohesion: 0.08
-Nodes (53): canonicalMCPSurfacePath(), cloneStringBoolMap(), cobraConstructorCallName(), cobratreeCommandKind(), codeOrchEndpointCount(), collectCobraSourceCommands(), estimateCobratreeCommandTool(), estimateCobratreeRuntimeTokens() (+45 more)
-
 ### Community 28 - "Community 28"
-Cohesion: 0.09
-Nodes (48): authNarrativeMentionsDoctor(), existingReadmeIntroLead(), findLineWithPrefix(), findMarkdownHeading(), findMarkdownHeadingInRange(), findNextLevelTwoHeading(), findNextMarkdownHeadingAtMost(), findReadmeIntroEnd() (+40 more)
+Cohesion: 0.06
+Nodes (51): Aggregate(), AggregateAuth(), deduplicateStrings(), FilterByHost(), hostFromURL(), NormalizePath(), paramFieldCount(), sortedParams() (+43 more)
 
 ### Community 29 - "Community 29"
-Cohesion: 0.1
-Nodes (47): gqlArg, gqlField, gqlType, addScalarTypes(), addSupportTypes(), buildGetEndpoint(), buildListEndpoint(), buildMutationEndpoint() (+39 more)
+Cohesion: 0.09
+Nodes (48): authNarrativeMentionsDoctor(), existingReadmeIntroLead(), findLineWithPrefix(), findMarkdownHeading(), findMarkdownHeadingInRange(), findNextLevelTwoHeading(), findNextMarkdownHeadingAtMost(), findReadmeIntroEnd() (+40 more)
 
 ### Community 30 - "Community 30"
 Cohesion: 0.07
@@ -220,23 +220,23 @@ Nodes (42): addCommands(), addImports(), addPersistentFlags(), addPostExecuteFlu
 
 ### Community 31 - "Community 31"
 Cohesion: 0.09
-Nodes (37): appendMethodMarker(), collectParams(), Compose(), composeAction(), composeActionWithFallback(), composeOptional(), composeRequired(), composeReturns() (+29 more)
+Nodes (38): classifyResponse(), hasHeaderPrefix(), isClear(), lowerHeaders(), protectionsToEvidence(), TestClassifyResponse(), TestIsClear(), classifyFailure() (+30 more)
 
 ### Community 32 - "Community 32"
 Cohesion: 0.09
-Nodes (34): applyExamples(), applyHelpTexts(), applyREADME(), escapeGoString(), commandInfo, ExampleSet, HelpImprovement, PolishRequest (+26 more)
+Nodes (37): appendMethodMarker(), collectParams(), Compose(), composeAction(), composeActionWithFallback(), composeOptional(), composeRequired(), composeReturns() (+29 more)
 
 ### Community 33 - "Community 33"
-Cohesion: 0.16
-Nodes (27): autoBundleForHost(), buildBundleBinaries(), buildMCPBBinary(), bundleBinaryArchiveName(), bundleBinaryPath(), newBundleCmd(), resolvePlatform(), installFakeGo() (+19 more)
+Cohesion: 0.09
+Nodes (34): applyExamples(), applyHelpTexts(), applyREADME(), escapeGoString(), commandInfo, ExampleSet, HelpImprovement, PolishRequest (+26 more)
 
 ### Community 34 - "Community 34"
-Cohesion: 0.17
-Nodes (20): deriveAuthVerifyPath(), deriveHealthCheckPath(), findMeShapedEndpointPath(), isMeShapedEndpoint(), TestDeriveAuthVerifyPath_FallsBackToEmpty(), TestDeriveAuthVerifyPath_NilSpec(), TestDeriveAuthVerifyPath_PicksMeShapedEndpoint(), TestDeriveAuthVerifyPath_PrioritizesExplicitOverride() (+12 more)
+Cohesion: 0.16
+Nodes (34): checkReimplementation(), seedReimplementationFixture(), TestCheckReimplementation_BacktickUse(), TestCheckReimplementation_CallsClient_Passes(), TestCheckReimplementation_ClientAndStore_Exempted(), TestCheckReimplementation_ClientCallMarker(), TestCheckReimplementation_ClientHelperHop_Passes(), TestCheckReimplementation_CommentedClientCallInHelper_Flagged() (+26 more)
 
 ### Community 35 - "Community 35"
 Cohesion: 0.17
-Nodes (18): canonicalFinding, pythonReport, verifySkillRunResult, checkVerifySkill(), emitMergedJSON(), ExtractInstallSectionForTest(), indentLines(), TestIsWindowsStorePython() (+10 more)
+Nodes (20): deriveAuthVerifyPath(), deriveHealthCheckPath(), findMeShapedEndpointPath(), isMeShapedEndpoint(), TestDeriveAuthVerifyPath_FallsBackToEmpty(), TestDeriveAuthVerifyPath_NilSpec(), TestDeriveAuthVerifyPath_PicksMeShapedEndpoint(), TestDeriveAuthVerifyPath_PrioritizesExplicitOverride() (+12 more)
 
 ### Community 36 - "Community 36"
 Cohesion: 0.2
@@ -251,85 +251,87 @@ Cohesion: 0.31
 Nodes (12): cliArgsFromMCP(), RunCLICommand(), shellOutToCLI(), SplitShellArgs(), TestArgsFieldRejectsFlagLikeTokens(), TestCliArgsFromMCP_AllowsPerCommandFlags(), TestCliArgsFromMCP_BlocksRootFlags(), TestRunCLICommandFallsBackToStdoutOnFailureWithoutStderr() (+4 more)
 
 ### Community 39 - "Community 39"
-Cohesion: 0.2
-Nodes (12): PlanCommand, PlanSpec, cleanCLIName(), deduplicateCommands(), isCommandSection(), looksLikeCommand(), parseCommandListItem(), ParsePlan() (+4 more)
+Cohesion: 0.26
+Nodes (15): decodeOpenAPIRaw(), detectNestedDataEnvelopeFixtures(), detectNestedDataEnvelopeFixturesFromRaw(), isDogfoodHTTPMethod(), isJSONMediaType(), isRawArraySchema(), nestedDataArrayKey(), resolveRawPointer() (+7 more)
 
 ### Community 40 - "Community 40"
-Cohesion: 0.2
-Nodes (14): ApplyCatalogAuthEnvVars(), ApplyRuntimeMetadata(), IsReplaceableBaseURL(), mergeAuthEnvVars(), RebaseAuthEnvPrefix(), TestApplyCatalogAuthEnvVars_DedupesBetweenCatalogAndExisting(), TestApplyCatalogAuthEnvVars_NoopForBasicAuth(), TestApplyCatalogAuthEnvVars_NoopWhenAuthTypeNone() (+6 more)
-
-### Community 41 - "Community 41"
 Cohesion: 0.3
 Nodes (7): cookieJar, persistedCookie, cookieJarPath(), LoadCookieJar(), mergeAndWriteCookieRows(), sanitizeCookieValue(), WriteCookieJarFromMap()
 
-### Community 42 - "Community 42"
+### Community 41 - "Community 41"
 Cohesion: 0.17
 Nodes (11): AuthCapture, EnrichedCapture, EnrichedEntry, HAR, HAREntry, HARHeader, HARLog, HARPostData (+3 more)
 
-### Community 43 - "Community 43"
+### Community 42 - "Community 42"
 Cohesion: 0.26
 Nodes (10): compareGapsAndAdvantages(), RunComparative(), scoreAlternative(), TestCompareGapsAndAdvantages(), TestRunComparative(), TestRunComparativeLoadsResearchFromSiblingResearchDir(), TestScoreAlternative(), writeComparativeReport() (+2 more)
 
-### Community 44 - "Community 44"
+### Community 43 - "Community 43"
 Cohesion: 0.24
 Nodes (8): ApisGuruPattern(), catalogSpecSource(), DiscoverSpec(), TestApisGuruPattern(), TestDiscoverSpec_CatalogEntryWins(), TestDiscoverSpec_KnownAPI(), TestDiscoverSpec_UnknownAPI(), KnownSpec
 
-### Community 45 - "Community 45"
+### Community 44 - "Community 44"
 Cohesion: 0.31
 Nodes (8): DetectAsyncJobs(), detectOne(), findStatusSibling(), responseJobIDField(), TestDetectAsyncJobs(), TestDetectAsyncJobs_NilSpec(), TestResponseJobIDField_VariousNames(), AsyncJobInfo
 
-### Community 46 - "Community 46"
+### Community 45 - "Community 45"
 Cohesion: 0.39
 Nodes (8): MapEntities(), mapResource(), matchesKeywords(), primaryKeywordsForArchetype(), scanEntityFields(), scanMappingFields(), EntityMapping, WorkflowTemplateContext
 
-### Community 47 - "Community 47"
+### Community 46 - "Community 46"
 Cohesion: 0.39
 Nodes (6): applyParamPatches(), MergeOverlay(), TestMergeOverlay(), TestMergeOverlayNilSafe(), TestMergeOverlayPublicParamNames(), TestMergeOverlayRejectsEmptyFlagName()
 
-### Community 48 - "Community 48"
+### Community 47 - "Community 47"
 Cohesion: 0.33
 Nodes (5): CreateProjectRequest, Currency, Project, Task, UpdateTaskRequest
 
-### Community 49 - "Community 49"
+### Community 48 - "Community 48"
 Cohesion: 0.53
 Nodes (4): deleteKey(), keychainService(), loadKey(), saveKey()
 
-### Community 50 - "Community 50"
+### Community 49 - "Community 49"
 Cohesion: 0.33
 Nodes (5): AggregatedEndpoint, DiscoveredAuth, DiscoveredEndpoint, DiscoveredParam, SourceResult
 
-### Community 51 - "Community 51"
+### Community 50 - "Community 50"
 Cohesion: 0.4
 Nodes (4): EndpointOverlay, ParamPatch, ResourceOverlay, SpecOverlay
 
-### Community 52 - "Community 52"
+### Community 51 - "Community 51"
 Cohesion: 0.5
 Nodes (1): syncLive()
 
-### Community 53 - "Community 53"
+### Community 52 - "Community 52"
 Cohesion: 0.83
 Nodes (3): findRepoRoot(), TestVerifySkillDriftWorkflowGuardsLibraryCopy(), TestVerifySkillScriptInSync()
 
-### Community 57 - "Community 57"
+### Community 56 - "Community 56"
 Cohesion: 1.0
 Nodes (1): CafeMenu
 
-### Community 58 - "Community 58"
+### Community 57 - "Community 57"
 Cohesion: 1.0
 Nodes (1): NamingRule
+
+### Community 70 - "Community 70"
+Cohesion: 1.0
+Nodes (1): Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_
 
 ### Community 71 - "Community 71"
 Cohesion: 1.0
 Nodes (1): Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_
 
 ## Knowledge Gaps
-- **510 isolated node(s):** `Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_`, `tokenResponse`, `JobRow`, `WaitOptions`, `CafeMenu` (+505 more)
+- **511 isolated node(s):** `Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_`, `tokenResponse`, `JobRow`, `WaitOptions`, `CafeMenu` (+506 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 52`** (4 nodes): `sync.go`, `sync.go`, `sync.go`, `syncLive()`
+- **Thin community `Community 51`** (4 nodes): `sync.go`, `sync.go`, `sync.go`, `syncLive()`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 57`** (2 nodes): `types.go`, `CafeMenu`
+- **Thin community `Community 56`** (2 nodes): `types.go`, `CafeMenu`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 58`** (2 nodes): `naming_rules.go`, `NamingRule`
+- **Thin community `Community 57`** (2 nodes): `naming_rules.go`, `NamingRule`
+  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
+- **Thin community `Community 70`** (1 nodes): `Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 71`** (1 nodes): `Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichment_reasons_`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
@@ -337,11 +339,11 @@ Nodes (1): Returns (score_0_100, need_enrichment_YN, problems_str, need_enrichme
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `contains()` connect `Community 0` to `Community 1`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 31`, `Community 32`, `Community 33`, `Community 34`, `Community 35`, `Community 36`, `Community 37`, `Community 38`, `Community 39`, `Community 40`, `Community 44`, `Community 45`, `Community 46`, `Community 47`, `Community 53`?**
-  _High betweenness centrality (0.348) - this node is a cross-community bridge._
-- **Why does `Run()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 27`, `Community 30`, `Community 31`, `Community 32`, `Community 33`, `Community 34`, `Community 35`, `Community 36`, `Community 38`, `Community 39`, `Community 43`, `Community 45`?**
-  _High betweenness centrality (0.092) - this node is a cross-community bridge._
-- **Why does `writeFile()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 24`, `Community 26`, `Community 27`, `Community 28`, `Community 30`, `Community 32`, `Community 33`, `Community 36`, `Community 37`, `Community 38`, `Community 41`, `Community 43`?**
+- **Why does `contains()` connect `Community 0` to `Community 1`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 28`, `Community 29`, `Community 30`, `Community 31`, `Community 32`, `Community 33`, `Community 34`, `Community 35`, `Community 36`, `Community 37`, `Community 38`, `Community 39`, `Community 43`, `Community 44`, `Community 45`, `Community 46`, `Community 52`?**
+  _High betweenness centrality (0.362) - this node is a cross-community bridge._
+- **Why does `writeFile()` connect `Community 2` to `Community 0`, `Community 1`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 13`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 24`, `Community 25`, `Community 26`, `Community 27`, `Community 29`, `Community 30`, `Community 33`, `Community 34`, `Community 36`, `Community 37`, `Community 38`, `Community 40`, `Community 42`?**
+  _High betweenness centrality (0.108) - this node is a cross-community bridge._
+- **Why does `Run()` connect `Community 1` to `Community 0`, `Community 2`, `Community 3`, `Community 4`, `Community 5`, `Community 6`, `Community 7`, `Community 8`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 14`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 19`, `Community 20`, `Community 21`, `Community 22`, `Community 23`, `Community 24`, `Community 25`, `Community 26`, `Community 28`, `Community 30`, `Community 31`, `Community 32`, `Community 33`, `Community 34`, `Community 35`, `Community 36`, `Community 38`, `Community 42`, `Community 44`?**
   _High betweenness centrality (0.092) - this node is a cross-community bridge._
 - **Are the 1415 inferred relationships involving `contains()` (e.g. with `main()` and `applyAuthFormat()`) actually correct?**
   _`contains()` has 1415 INFERRED edges - model-reasoned connections that need verification._

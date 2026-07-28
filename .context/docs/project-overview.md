@@ -35,6 +35,8 @@ Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` wi
 
 `Observações` is a chronological free-text note field shared with Ploomes `Note`. Each entry must be plain running text prefixed by date, for example `29/07 texto texto`, and must not repeat structured columns such as e-mail, phone, LinkedIn, CNPJ, ICP, or score.
 
+`organizejr-pp-leads/ploomes_crm/crm_sheet.py` now uses one `Enrichment` column instead of separate `Precisa de enrichment?` and `Motivos de enrichment` columns, and no longer auto-creates `Prontidão comercial`.
+
 ## Codebase Reference
 
 > **Detailed Analysis**: For complete symbol counts, architecture layers, and dependency graphs, see [`codebase-map.json`](./codebase-map.json).
