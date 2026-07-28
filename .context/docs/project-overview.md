@@ -31,6 +31,10 @@ Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` wi
 
 `organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs` sends both `LinkedIn - Pessoa` and `LinkedIn - Empresa` into the existing Ploomes Contacts custom field `Linkedin` through `OtherProperties` with FieldKey `contact_1711C73E-6472-4FF7-9658-5491E41375C3`. The same Contacts field is used for people and companies because Ploomes stores both under Contacts, differentiated by `TypeId`.
 
+## OrganizeJr CRM observations policy
+
+`Observações` is a chronological free-text note field shared with Ploomes `Note`. Each entry must be plain running text prefixed by date, for example `29/07 texto texto`, and must not repeat structured columns such as e-mail, phone, LinkedIn, CNPJ, ICP, or score.
+
 ## Codebase Reference
 
 > **Detailed Analysis**: For complete symbol counts, architecture layers, and dependency graphs, see [`codebase-map.json`](./codebase-map.json).
