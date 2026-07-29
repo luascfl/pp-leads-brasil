@@ -48,7 +48,7 @@ execution:
       phase: C
       action: phase_skipped
   last_activity: "2026-07-28T00:00:00Z"
-  resume_context: "Farmácia Jr linha 106 corrigida no CRM real conforme orientação do usuário: a análise comercial agora é no nível do lead/empresa, não por decisor individual. Observações recebeu entrada append-only 28/07 informando reunião de proposta já realizada e status aguardando decisão da Farmácia Jr.; a entrada anterior sobre Rafael permanece como histórico, mas está supersedida pela linha mais recente. Resumo Enriquecimento registra o status informado pelo usuário. analyze-health após correção: health_score 51, score_pending 0; Farmácia Jr segue em enrichment por sem canal, sem CNPJ e sem e-mail empresa."
+  resume_context: "m10 e m11 concluídos: CRM agora tem Status Comercial para separar estágio do lead/empresa da análise granular de contato. crm_sheet.py adiciona a coluna via analyze-health, aceita status_comercial em apply-icp-score, conta status_comercial/funil_empresa no dashboard e deixa de gerar motivo sem decisor quando lead sem pessoa já está em estágio de empresa como proposta enviada ou aguardando decisão. Farmácia Jr linha 106 está com Status Comercial=aguardando decisão; Enrichment permanece só por sem canal, sem CNPJ e sem e-mail empresa. Próximo milestone: m12 backfill de Status Comercial nos leads ativos."
 
 approval:
   plan_created: true

@@ -57,6 +57,16 @@
     {
       "id": "m10",
       "title": "Perplexity-informed ICP scoring and CRM observation timeline",
+      "status": "completed"
+    },
+    {
+      "id": "m11",
+      "title": "Company-level commercial pipeline status",
+      "status": "completed"
+    },
+    {
+      "id": "m12",
+      "title": "Commercial pipeline status backfill across active leads",
       "status": "pending"
     }
   ],
