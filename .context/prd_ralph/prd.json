@@ -77,6 +77,11 @@
     {
       "id": "m14",
       "title": "Priority company data gap backfill",
+      "status": "completed"
+    },
+    {
+      "id": "m15",
+      "title": "Unresolved company contact evidence expansion",
       "status": "pending"
     }
   ],

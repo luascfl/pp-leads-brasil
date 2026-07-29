@@ -48,7 +48,7 @@ execution:
       phase: C
       action: phase_skipped
   last_activity: "2026-07-28T00:00:00Z"
-  resume_context: "m13 concluído: duplicatas ENGETOP 2/88, Consultagro 3/89 e ENGETEC 4/90 consolidadas sem apagar histórico. Linhas canônicas: 2, 3 e 4; linhas 88, 89 e 90 marcadas como Status Comercial=duplicata consolidada. crm_sheet.py agora trata esse status como kind=ignorar no analyze-health. Dashboard após consolidação: total_leads 102, total_ignored 4, status_comercial 7/102, funil_empresa 1/102, health_score 51, score_pending 0. Próximo milestone m14: preencher lacunas de empresa prioritárias, principalmente CNPJ, e-mail empresa e canal."
+  resume_context: "m14 concluído: backfill cadastral prioritário aplicado apenas com fonte identificável. Linhas atualizadas no CRM real: ENGETOP linha 2 recebeu CNPJ 06.334.193/0001-01; ENGETEC linha 4 recebeu e-mail engetec@engenheiro.mailbr.com.br; ENGTEMP linha 5 recebeu CNPJ 35.658.884/0001-50 e e-mail engtempjr@gmail.com; Primus linha 105 recebeu e-mail contato@primusconsultoria.com.br e site primusconsultoria.com.br. Linhas Consultagro 3, EAmb 6 e Farmácia Jr 106 ficaram sem CNPJ/e-mail novo por fonte ambígua ou insuficiente. Dashboard após analyze-health: total_leads 102, total_ignored 4, health_score 52, email_empresa 41/102, cnpj 28/102, canal_acionavel 84/102, status_comercial 7/102, score_pending 0. Próximo milestone m15: expandir evidência de contato/CNPJ para empresas ainda ambíguas sem inventar dado."
 
 approval:
   plan_created: true
