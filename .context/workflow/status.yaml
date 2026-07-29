@@ -47,8 +47,8 @@ execution:
     - timestamp: "2026-05-25T01:41:45.925Z"
       phase: C
       action: phase_skipped
-  last_activity: "2026-07-28T00:00:00Z"
-  resume_context: "m15 em andamento com ledger anti-loop ativo. EAmb linha 6 enriquecida com fonte forte do handle: Linktree https://linktr.ee/eambjr confirmou Empresa Junior de Engenharia Ambiental, e-mail eambjrcontato@gmail.com, LinkedIn e Carta de Serviço; CRM recebeu e-mail empresa, site Linktree e LinkedIn Empresa, sem CNPJ porque a fonte não lista CNPJ. Ledger registrou tentativa found fcdf9157241fa298; busca genérica anterior segue bloqueada como ambiguous por homônimo UFV. Dashboard após analyze-health: total_leads 102, total_ignored 4, health_score 52, email_empresa 42/102, cnpj 28/102, canal_acionavel 84/102, score_pending 0, enrichment_queue sem e-mail empresa 45. Próximo alvo m15: Consultagro linha 3 ou Farmácia Jr linha 106, sempre com check-enrichment-retry antes da busca."
+  last_activity: "2026-07-29T00:00:00Z"
+  resume_context: "m15 em andamento com ledger anti-loop ativo. EAmb linha 6 enriquecida com fonte forte do handle Linktree; Consultagro linha 3 recebeu e-mail empresa consultagrojr@gmail.com por busca exata com vínculo UEFS, sem CNPJ/Instagram por falta de confirmação segura, e consultagro.com.br descartado como homônimo de Sorocaba/SP. Ledger registrou tentativa Consultagro found 2e57b84abd83b89e. Dashboard após analyze-health: total_leads 102, total_ignored 4, health_score 52, email_empresa 43/102, cnpj 28/102, canal_acionavel 84/102, score_pending 0, enrichment_queue sem e-mail empresa 44. Próximo alvo m15: Farmácia Jr linha 106 ou outro lead ativo, sempre com check-enrichment-retry antes da busca."
 
 approval:
   plan_created: true
