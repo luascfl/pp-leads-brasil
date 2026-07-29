@@ -2,7 +2,12 @@
   "project": "Leads Brasil Platform",
   "version": "0.1.0",
   "goal": "Build a Brazilian Lead Intelligence Platform (Apollo-like) to identify CNPJs, companies, and qualified leads.",
-  "integrations": ["PP Company Goat", "PP Contact Goat", "PP Apify", "Casa dos Dados"],
+  "integrations": [
+    "PP Company Goat",
+    "PP Contact Goat",
+    "PP Apify",
+    "Casa dos Dados"
+  ],
   "milestones": [
     {
       "id": "m1",
@@ -17,7 +22,696 @@
     {
       "id": "m3",
       "title": "Integration with Casa dos Dados API",
+      "status": "completed"
+    },
+    {
+      "id": "m4",
+      "title": "OrganizeJr export and CRM handoff",
+      "status": "completed"
+    },
+    {
+      "id": "m5",
+      "title": "Ploomes enrichment backfill",
+      "status": "completed"
+    },
+    {
+      "id": "m6",
+      "title": "CLI simplification and doctor health enforcement",
+      "status": "completed"
+    },
+    {
+      "id": "m7",
+      "title": "External auth readiness and persistence",
+      "status": "completed"
+    },
+    {
+      "id": "m8",
+      "title": "Real external credential onboarding and auth-surface normalization",
+      "status": "completed"
+    },
+    {
+      "id": "m9",
+      "title": "CRM health intelligence and CRM-first enrichment",
+      "status": "completed"
+    },
+    {
+      "id": "m10",
+      "title": "Perplexity-informed ICP scoring and CRM observation timeline",
       "status": "pending"
+    }
+  ],
+  "stories": [
+    {
+      "id": "STORY-001",
+      "slug": "ploomes-xlsx-handoff",
+      "title": "Update the operational Google Sheet from OrganizeJr lead artifacts",
+      "status": "done",
+      "depends_on": [
+        "m2"
+      ],
+      "definition_of_done": [
+        "A local script reads a lead table directly or through diretório do recorte/ICP and updates the operational Google Sheet",
+        "The script matches existing rows by CNPJ, email, or company name plus city/UF before appending",
+        "The script writes commercial context into Observações and preserves Ploomes control columns",
+        "The flow is smoke-tested for append, dedupe, and manual do-not-send preservation"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "Validation: active docs and skill now point to Google Sheets as the canonical operational layer",
+        "Validation: no local workbook remains under organizejr-pp-leads/ploomes_crm"
+      ]
+    },
+    {
+      "id": "STORY-002",
+      "slug": "ploomes-live-sync",
+      "title": "Use Google Sheets as the canonical operational layer before Ploomes sync",
+      "status": "done",
+      "depends_on": [
+        "STORY-001"
+      ],
+      "definition_of_done": [
+        "A local script updates the operational Google Sheet while the planilha Apps Script remains the canonical sync path to Ploomes",
+        "The script writes back Status Importação, Ploomes IDs, errors, and sync timestamps into the operational sheet",
+        "The direct flow runs against real OrganizeJr leads without dry run or test values",
+        "Real verification confirms CRM records exist and their Register field matches the CNPJ stored in the operational sheet"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs",
+        "Clasp pull captured the live Apps Script into organizejr-pp-leads/ploomes_crm/",
+        "API verification: all synced Ploomes IDs were found and all Register values matched the CNPJ stored in the operational sheet"
+      ]
+    },
+    {
+      "id": "STORY-003",
+      "slug": "ploomes-enrichment-backfill",
+      "title": "Enrich existing Ploomes leads via the local pp-leads backend and sync the new context back",
+      "status": "done",
+      "depends_on": [
+        "STORY-002"
+      ],
+      "definition_of_done": [
+        "A local script selects already-sent sheet rows with valid CNPJ and calls the local /v1/enrich/{cnpj} endpoint",
+        "The script saves enrich artifacts, adds enrichment columns to the operational sheet, and appends an Enriquecimento pp-leads block to Observações",
+        "The script leaves the Apps Script/trigger of the sheet responsible for subsequent CRM syncs",
+        "Verification confirms operational sheet rows and CRM notes are aligned and Register still matches the CNPJ stored in the sheet"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "Artifact verification: 16 JSON files now exist under organizejr-pp-leads/ploomes_crm/ploomes-enrichment/",
+        "CRM verification: rows 21,73-87 all have Register matching the CNPJ stored in the operational sheet and Note containing the Enriquecimento pp-leads marker"
+      ]
+    },
+    {
+      "id": "STORY-004",
+      "slug": "cli-doctor-health-enforcement",
+      "title": "Merge company/contact commands and enforce doctor-backed CLI health",
+      "status": "done",
+      "depends_on": [
+        "m2"
+      ],
+      "definition_of_done": [
+        "The CLI exposes only company and contact as the promoted commercial commands, with search/enrich behavior merged into company and people enrichment merged into contact",
+        "Doctor auto-fixes trivial local issues for localhost usage by saving local-dev-token and starting server_bin when possible",
+        "Doctor reports external goat dependencies including Casa dos Dados, Deepline, Company Goat CLI, Contact Goat CLI, Happenstance, and LinkedIn MCP",
+        "company and contact commands abort immediately when mandatory doctor checks fail, pointing the operator to doctor --fix"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/promoted_company.go",
+        "leads-brasil-pp-cli/internal/cli/promoted_contact.go",
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: leads-brasil-pp-cli doctor now auto-configures local auth/server and surfaces Casa dos Dados, Deepline, Company Goat CLI, Contact Goat CLI, Happenstance, LinkedIn MCP, and Company Goat cache status",
+        "Validation: leads-brasil-pp-cli doctor --help now exposes --fix",
+        "Validation: leads-brasil-pp-cli company \"teste\" and contact \"teste\" abort immediately with doctor-guided errors when mandatory dependencies are missing"
+      ]
+    },
+    {
+      "id": "STORY-005",
+      "slug": "goat-auth-readiness-and-command-gates",
+      "title": "Gate company/contact by the correct goat dependencies and make doctor --fix fail when goat auth stays broken",
+      "status": "done",
+      "depends_on": [
+        "STORY-004"
+      ],
+      "definition_of_done": [
+        "company aborts on company-side prerequisites only, especially Casa dos Dados and company-goat binary availability",
+        "contact aborts on contact-side prerequisites only, especially Deepline, contact-goat binary, Happenstance, and LinkedIn MCP readiness",
+        "doctor surfaces Company Goat CLI, Contact Goat CLI, Happenstance, LinkedIn MCP, and Company Goat cache status",
+        "doctor --fix exits non-zero when the goat auth stack remains unhealthy, instead of pretending success"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: leads-brasil-pp-cli company \"teste\" now fails on CASA_DADOS_API_KEY specifically",
+        "Validation: leads-brasil-pp-cli contact \"teste\" now fails on DEEPLINE_API_KEY specifically",
+        "Validation: leads-brasil-pp-cli doctor now prints Company Goat CLI, Contact Goat CLI, Happenstance, LinkedIn MCP, and Company Goat Cache lines",
+        "Validation: leads-brasil-pp-cli doctor --fix --no-input exits non-zero with doctor: --fail-on=error triggered when goat auth is still unresolved"
+      ]
+    },
+    {
+      "id": "STORY-006",
+      "slug": "goat-auth-persistence-and-success-verification",
+      "title": "Persist external auth inputs for doctor and make command gates progress to the next real blocker",
+      "status": "done",
+      "depends_on": [
+        "STORY-005"
+      ],
+      "definition_of_done": [
+        "doctor --fix offers persistence for CASA_DADOS_API_KEY and DEEPLINE_API_KEY in an official local file that the CLI auto-loads on startup",
+        "doctor --fix exits non-zero when the goat stack remains unhealthy after the attempted fixes",
+        "company moves past Casa dos Dados once the persisted env file is present and reaches the next real backend blocker instead of failing on missing env",
+        "contact moves past Deepline once the persisted env file is present and fails specifically on Happenstance when that login is still missing"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor_env.go",
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: doctor --fix --no-input exits non-zero with doctor: --fail-on=error triggered while Casa dos Dados, Deepline, Happenstance, and LinkedIn MCP remain unresolved",
+        "Validation: with ~/.config/leads-brasil-pp-cli/doctor.env containing dummy CASA_DADOS_API_KEY and DEEPLINE_API_KEY, company advanced past the Casa gate and failed later on server-side local-table configuration, while contact advanced past the Deepline gate and failed specifically on Happenstance"
+      ]
+    },
+    {
+      "id": "STORY-007",
+      "slug": "happenstance-auth-surface-normalization",
+      "title": "Normalize Happenstance readiness across cookie and bearer auth while reflecting successful LinkedIn MCP import",
+      "status": "done",
+      "depends_on": [
+        "STORY-006"
+      ],
+      "definition_of_done": [
+        "doctor treats Happenstance as healthy when either browser cookies or HAPPENSTANCE_API_KEY bearer auth is configured",
+        "contact command accepts the same dual-surface Happenstance model instead of requiring only cookies",
+        "doctor reflects the live LinkedIn MCP state after browser import and no longer reports it as missing once the profile is valid",
+        "focused validation proves contact advances to the Happenstance blocker once Deepline is supplied through doctor.env autoload"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: uvx mcp-server-linkedin@latest --status reports a valid session at /home/lucas/.linkedin-mcp/profile",
+        "Validation: leads-brasil-pp-cli doctor now reports FAIL Happenstance: error: cookies e bearer ausentes and OK LinkedIn MCP: ok (/home/lucas/.linkedin-mcp/profile)",
+        "Validation: with a temporary doctor.env containing only DEEPLINE_API_KEY, leads-brasil-pp-cli contact \"teste\" advances past the Deepline gate and fails specifically on Happenstance"
+      ]
+    },
+    {
+      "id": "STORY-008",
+      "slug": "deepline-readiness-normalization",
+      "title": "Normalize Deepline readiness to follow contact-goat discovery surfaces instead of raw shell env only",
+      "status": "done",
+      "depends_on": [
+        "STORY-007"
+      ],
+      "definition_of_done": [
+        "doctor reports Deepline readiness from contact-goat doctor output, not only from DEEPLINE_API_KEY in the current shell",
+        "contact gating accepts any Deepline surface that contact-goat considers configured, including future file discovery, and only fails when contact-goat itself reports not set",
+        "when no Deepline surface is configured, contact fails with a contact-goat-specific Deepline message instead of a raw shell-env message",
+        "when a temporary doctor.env provides Deepline, contact advances to the next real blocker instead of failing on Deepline"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: leads-brasil-pp-cli doctor now prints FAIL Deepline (Opcional): error: ausente (contact-goat sem Deepline)",
+        "Validation: leads-brasil-pp-cli contact \"teste\" now fails with Erro: Deepline não configurado no contact-goat when no Deepline surface is configured",
+        "Validation: with a temporary doctor.env containing DEEPLINE_API_KEY, leads-brasil-pp-cli contact \"teste\" advances past Deepline and fails on Happenstance instead"
+      ]
+    },
+    {
+      "id": "STORY-009",
+      "slug": "recorte/ICP-config-autodetection",
+      "title": "Auto-detect the default OrganizeJr ICP directory so company commands progress past local-table setup",
+      "status": "done",
+      "depends_on": [
+        "STORY-008"
+      ],
+      "definition_of_done": [
+        "CLI startup auto-detects the default OrganizeJr ICP directory when PP_LEADS_ICP_DIR is not already set",
+        "doctor reports whether the ICP directory is present through env or auto-detection",
+        "with a temporary CASA_DADOS_API_KEY in doctor.env, company advances past the local-table configuration blocker instead of failing on missing ICP directory",
+        "the auto-detection logic works relative to the current working directory or executable location"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/usecase_autoconfig.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: leads-brasil-pp-cli doctor now reports OK ICP Dir: ok (env)",
+        "Validation: with a temporary doctor.env containing CASA_DADOS_API_KEY only, leads-brasil-pp-cli company \"teste\" no longer fails on missing local lead table configuration and returns [] instead"
+      ]
+    },
+    {
+      "id": "STORY-010",
+      "slug": "linux-aware-happenstance-fallback",
+      "title": "Teach doctor fix to prefer Happenstance bearer fallback on Linux and explain the cookie-import platform limit explicitly",
+      "status": "done",
+      "depends_on": [
+        "STORY-009"
+      ],
+      "definition_of_done": [
+        "doctor reports the Linux cookie-import limitation explicitly when Happenstance has neither cookies nor bearer auth",
+        "doctor --fix offers HAPPENSTANCE_API_KEY as the remediation path on non-macOS hosts instead of pretending Chrome-cookie import is available",
+        "the failure message is specific enough to explain why the remaining Happenstance blocker is external rather than a local CLI bug",
+        "focused validation confirms doctor and doctor --fix now surface the Linux limitation in their current-state output"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: leads-brasil-pp-cli doctor now prints FAIL Happenstance: error: cookies e bearer ausentes (import por Chrome indisponível em linux)",
+        "Validation: leads-brasil-pp-cli doctor --fix --no-input exits non-zero while surfacing the same Linux-specific Happenstance blocker"
+      ]
+    },
+    {
+      "id": "STORY-011",
+      "slug": "contact-goat-auth-surface-completeness",
+      "title": "Recognize contact-goat token auth as a valid Happenstance surface alongside cookies and bearer API key",
+      "status": "done",
+      "depends_on": [
+        "STORY-010"
+      ],
+      "definition_of_done": [
+        "doctor and contact gating treat contact-goat auth status as a valid Happenstance surface, in addition to browser cookies and HAPPENSTANCE_API_KEY",
+        "the remaining Happenstance error is emitted only when all supported surfaces are absent",
+        "the code compiles cleanly and current-state doctor output remains stable after the auth-surface expansion"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: go build ./cmd/leads-brasil-pp-cli succeeded after the auth-surface expansion",
+        "Validation: leads-brasil-pp-cli doctor still reports the current blocker as Happenstance absent on all surfaces, which is the expected state on this host"
+      ]
+    },
+    {
+      "id": "STORY-012",
+      "slug": "doctor-fix-happenstance-web-token-path",
+      "title": "Offer Happenstance web-token setup in doctor fix on non-macOS hosts",
+      "status": "done",
+      "depends_on": [
+        "STORY-011"
+      ],
+      "definition_of_done": [
+        "doctor --fix on non-macOS hosts offers both HAPPENSTANCE_API_KEY persistence and contact-goat web-token setup instead of only suggesting unsupported cookie import",
+        "the doctor command still builds cleanly and preserves current health output after the new setup prompts are added",
+        "the Linux-specific blocker messaging stays intact when no Happenstance surface is configured"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: go build ./cmd/leads-brasil-pp-cli succeeded after adding the non-macOS Happenstance setup prompts",
+        "Validation: leads-brasil-pp-cli doctor --help and doctor output still succeed and preserve the Linux-specific Happenstance blocker message"
+      ]
+    },
+    {
+      "id": "STORY-013",
+      "slug": "happenstance-guidance-surfacing",
+      "title": "Surface the preferred Happenstance remediation path directly in doctor output and contact gating errors",
+      "status": "done",
+      "depends_on": [
+        "STORY-012"
+      ],
+      "definition_of_done": [
+        "doctor prints an explicit Happenstance guidance line that tells Linux operators which auth paths are actually viable",
+        "contact errors mention all supported remediation paths instead of naming only one auth surface",
+        "focused validation proves the doctor and contact outputs now carry that guidance in the current broken state"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: leads-brasil-pp-cli doctor now prints INFO Happenstance Guidance: INFO prefer HAPPENSTANCE_API_KEY ou contact-goat-pp-cli auth set-token <token>",
+        "Validation: with a temporary DEEPLINE_API_KEY in doctor.env, leads-brasil-pp-cli contact \"teste\" now recommends Chrome login, HAPPENSTANCE_API_KEY, or contact-goat-pp-cli auth set-token <token> in the error message"
+      ]
+    },
+    {
+      "id": "STORY-014",
+      "slug": "happenstance-single-surface-clarity",
+      "title": "Clarify in doctor and contact errors that one valid Happenstance auth surface is sufficient",
+      "status": "done",
+      "depends_on": [
+        "STORY-013"
+      ],
+      "definition_of_done": [
+        "doctor guidance states explicitly that one valid Happenstance auth surface is enough",
+        "contact errors state the same single-surface sufficiency instead of sounding like multiple credentials are simultaneously required",
+        "focused validation proves the clarified wording is visible in current doctor and contact outputs"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/root.go",
+        "Validation: leads-brasil-pp-cli doctor now prints INFO Happenstance Guidance: INFO basta UMA surface válida: HAPPENSTANCE_API_KEY ou contact-goat-pp-cli auth set-token <token>",
+        "Validation: contact error now says para escolher UMA surface válida: login no Chrome, HAPPENSTANCE_API_KEY ou contact-goat-pp-cli auth set-token <token>"
+      ]
+    },
+    {
+      "id": "STORY-015",
+      "slug": "doctor-dependency-label-clarity",
+      "title": "Clarify doctor dependency labels so company and contact blockers are visibly scoped to the right command",
+      "status": "done",
+      "depends_on": [
+        "STORY-014"
+      ],
+      "definition_of_done": [
+        "doctor no longer labels Casa dos Dados and Deepline as generic optional dependencies when they are the next blockers for company and contact respectively",
+        "the human output labels make the command scope explicit so the operator can see which blocker belongs to company and which belongs to contact",
+        "focused validation proves the updated labels appear in the current doctor output"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: leads-brasil-pp-cli doctor now prints FAIL Casa dos Dados (company): ... and FAIL Deepline (contact): ..."
+      ]
+    },
+    {
+      "id": "STORY-016",
+      "slug": "omp-pty-probe-script",
+      "title": "Add a standalone PTY probe script to verify child TTY behavior under Oh-My-Pi-compatible execution",
+      "status": "done",
+      "depends_on": [
+        "STORY-015"
+      ],
+      "definition_of_done": [
+        "A separate script exists in the repo to allocate a PTY for a child process and print what the child sees",
+        "The script forces TERM=xterm-256color for the child PTY, matching the real-terminal expectation documented in Oh-My-Pi PTY behavior",
+        "A default probe proves stdin/stdout/stderr are TTYs inside the child PTY",
+        "A custom-command probe proves arbitrary commands can run under the allocated PTY and observe tty size and TERM correctly"
+      ],
+      "evidence": [
+        "scripts/omp_pty_probe.py",
+        "Validation: python3 scripts/omp_pty_probe.py -> child JSON reported stdin_isatty/stdout_isatty/stderr_isatty all true, tty_name set, TERM=xterm-256color, tty_size 40x120",
+        "Validation: python3 scripts/omp_pty_probe.py -- bash -lc ... -> TERM=xterm-256color, stty size 40 120, and child confirmed True /dev/pts/*"
+      ]
+    },
+    {
+      "id": "STORY-017",
+      "slug": "omp-interactive-pty-wrapper",
+      "title": "Add an interactive PTY wrapper companion to the PTY probe so terminal-aware tools can be exercised under an explicit PTY",
+      "status": "done",
+      "depends_on": [
+        "STORY-016"
+      ],
+      "definition_of_done": [
+        "A standalone interactive PTY wrapper script exists in the repo",
+        "The wrapper allocates a PTY, forces TERM=xterm-256color in the child, forwards terminal resize events, and passes stdin/stdout through the PTY",
+        "A focused validation proves a child command under the wrapper sees a real /dev/pts/* TTY and correct terminal size"
+      ],
+      "evidence": [
+        "scripts/omp_pty_wrapper.py",
+        "Validation: python3 scripts/omp_pty_wrapper.py -- bash -lc ... -> TERM=xterm-256color, stty size 40 120, and child reported True /dev/pts/6"
+      ]
+    },
+    {
+      "id": "STORY-018",
+      "slug": "omp-pty-wrapper-v3",
+      "title": "Evolve the interactive PTY wrapper with logging, timeout, presets, and JSON diagnostics",
+      "status": "done",
+      "depends_on": [
+        "STORY-017"
+      ],
+      "definition_of_done": [
+        "The interactive PTY wrapper supports optional log mirroring via --log",
+        "The wrapper supports timeout handling via --timeout",
+        "The wrapper supports presets such as bash and python",
+        "The wrapper supports a JSON diagnostic mode that reports exit_code, timeout, tty_size, bytes transferred, and log path"
+      ],
+      "evidence": [
+        "scripts/omp_pty_wrapper.py",
+        "Validation: wrapper custom command reported TERM=xterm-256color, stty size 40 120, and a real /dev/pts/* tty",
+        "Validation: --json mode returned a structured payload with exit_code 0 and bytes_from_child 10 for a python child",
+        "Validation: --timeout 1 terminated a sleeping child and returned timed_out true in JSON",
+        "Validation: --log /tmp/omp_pty_wrapper.log mirrored child output and the file contained log-ok"
+      ]
+    },
+    {
+      "id": "STORY-019",
+      "slug": "doctor-pty-rerun-mode",
+      "title": "Allow leads-brasil doctor to rerun itself inside the standalone OMP-compatible PTY wrapper",
+      "status": "done",
+      "depends_on": [
+        "STORY-018"
+      ],
+      "definition_of_done": [
+        "doctor exposes a --pty flag that re-executes the command inside the standalone PTY wrapper",
+        "the rerun avoids recursive loops by marking the wrapped child environment",
+        "focused validation proves doctor --pty produces the normal health report through the PTY wrapper path"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "leads-brasil-pp-cli/internal/cli/pty_wrapper_autoconfig.go",
+        "Validation: leads-brasil-pp-cli doctor --help now documents --pty",
+        "Validation: leads-brasil-pp-cli doctor --pty produced the normal doctor report through the wrapper path"
+      ]
+    },
+    {
+      "id": "STORY-020",
+      "slug": "doctor-auto-pty-and-fix-prompt-defaults",
+      "title": "Make doctor default to PTY rerun and ask whether to start the fix flow without exposing extra user-facing flags",
+      "status": "done",
+      "depends_on": [
+        "STORY-019"
+      ],
+      "definition_of_done": [
+        "doctor auto-reruns through the PTY wrapper by default when available",
+        "doctor no longer requires user-facing --pty or --fix flags to start the standard interactive flow",
+        "after printing the current health report, doctor asks whether the operator wants to run the fix flow now",
+        "focused validation proves doctor --help hides the PTY/fix internals and the prompt appears in an interactive PTY session"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: leads-brasil-pp-cli doctor --help no longer advertises --pty or --fix",
+        "Validation: leads-brasil-pp-cli doctor --no-input prints the report without prompting",
+        "Validation: an interactive PTY run of leads-brasil-pp-cli doctor displayed Realizar o processo de fix agora? [s/N] and accepted n"
+      ]
+    },
+    {
+      "id": "STORY-021",
+      "slug": "doctor-prompt-validation-hardening",
+      "title": "Validate yes/no prompts in doctor fix flow so accidental paste garbage is rejected instead of being silently accepted",
+      "status": "done",
+      "depends_on": [
+        "STORY-020"
+      ],
+      "definition_of_done": [
+        "doctor uses a validated yes/no prompt helper for its interactive decision points",
+        "unexpected pasted garbage on a yes/no question prints an explicit validation message instead of being silently interpreted",
+        "focused validation proves the prompt emits Entrada inválida. Responda s ou n. when the operator pastes an invalid answer"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: interactive PTY run of leads-brasil-pp-cli doctor accepted s for the top-level fix prompt and rejected lixo-colado with Entrada inválida. Responda s ou n. on the Casa dos Dados question"
+      ]
+    },
+    {
+      "id": "STORY-022",
+      "slug": "doctor-fix-skip-healthy-steps",
+      "title": "Make doctor --fix skip already-healthy providers instead of re-prompting for LinkedIn and Happenstance every time",
+      "status": "done",
+      "depends_on": [
+        "STORY-021"
+      ],
+      "definition_of_done": [
+        "doctor fix inspects current contact-goat status before prompting",
+        "healthy LinkedIn and Happenstance states are skipped during fix",
+        "the interactive fix flow jumps directly to unresolved dependencies such as Deepline",
+        "focused validation proves the fix flow no longer re-prompts for LinkedIn when LinkedIn is already healthy"
+      ],
+      "evidence": [
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: interactive PTY run of leads-brasil-pp-cli doctor -> s skipped Casa/Happenstance/LinkedIn and asked directly for DEEPLINE_API_KEY"
+      ]
+    },
+    {
+      "id": "STORY-023",
+      "slug": "doctor-pty-credential-closure",
+      "title": "Configure the remaining pp-leads provider dependencies through the PTY-backed doctor flow",
+      "status": "done",
+      "depends_on": [
+        "STORY-022"
+      ],
+      "definition_of_done": [
+        "doctor runs in a PTY-backed interactive flow and persists the missing provider credentials needed by pp-leads",
+        "a fresh doctor run succeeds for Casa dos Dados, Deepline, Happenstance, LinkedIn MCP, and recorte/ICP readiness without relying on shell-exported secrets",
+        "focused smoke commands show that company/contact no longer fail on missing credentials and instead reach normal business-layer outcomes"
+      ],
+      "evidence": [
+        "Validation: env -u CASA_DADOS_API_KEY -u DEEPLINE_API_KEY -u HAPPENSTANCE_API_KEY -u HAPPENSTANCE_WEB_APP_COOKIE_AUTH ./leads-brasil-pp-cli doctor --no-input reported OK for Casa dos Dados, Deepline, Happenstance, LinkedIn MCP, and ICP Dir",
+        "Validation: env-cleared ./leads-brasil-pp-cli company \"teste\" returned [] instead of a missing-auth failure",
+        "Validation: env-cleared ./leads-brasil-pp-cli contact \"teste\" returned company not found (HTTP 404) instead of a missing-auth failure",
+        "Validation: interactive PTY run of ./leads-brasil-pp-cli doctor persisted CASA_DADOS_API_KEY, HAPPENSTANCE_API_KEY, and DEEPLINE_API_KEY into ~/.config/leads-brasil-pp-cli/doctor.env and confirmed LinkedIn MCP health"
+      ]
+    },
+    {
+      "id": "STORY-024",
+      "slug": "organizejr-path-architecture-migration",
+      "title": "Remove remaining .context/organizejr and .context/use-cases references in favor of the organizejr-pp-leads profile, icp, and ploomes_crm structure",
+      "status": "done",
+      "depends_on": [
+        "STORY-023"
+      ],
+      "definition_of_done": [
+        "Live code and documentation stop pointing at .context/organizejr and .context/use-cases for OrganizeJr operational data",
+        "Ploomes assets are consolidated under organizejr-pp-leads/ploomes_crm and enrichment artifacts under organizejr-pp-leads/ploomes_crm/ploomes-enrichment",
+        "Use-case, lead-table, methodology, auth-setup, and enrichment references point at organizejr-pp-leads/icp/... or scripts/... as appropriate",
+        "Focused searches confirm the old OrganizeJr-specific .context paths are gone from the active repo"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/",
+        "organizejr-pp-leads/icp/ejs-comunicacao",
+        "Validation: grep for .context/organizejr, .context/use-cases, .context/skills/organizejr-pp-leads, organizejr-pp-leads/ploomes/, and organizejr-pp-leads/ploomes-enrichment returned no matches",
+        "Validation: py_compile passed for the active ploomes_crm scripts and go build succeeded for leads-brasil-pp-cli after the path migration"
+      ]
+    },
+    {
+      "id": "STORY-025",
+      "slug": "use-case-free-icp-directory-model",
+      "title": "Remove the operational need for arquivo JSON legado de recorte by deriving lead tables and enrichment outputs directly from the ICP directory structure",
+      "status": "done",
+      "depends_on": [
+        "STORY-024"
+      ],
+      "definition_of_done": [
+        "the backend and CLI can resolve the active OrganizeJr ICP from a directory instead of requiring arquivo JSON legado de recorte",
+        "Ploomes-facing scripts accept the ICP directory path as the canonical input and keep legacy JSON compatibility only as fallback",
+        "live code/docs stop requiring arquivo JSON legado de recorte or PP_LEADS_USE_CASE_CONFIG as the normal path",
+        "focused builds/tests and grep checks prove the use-case-free model works"
+      ],
+      "evidence": [
+        "internal/usecase/config.go",
+        "leads-brasil-pp-cli/internal/cli/usecase_autoconfig.go",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "Validation: go test ./... passed in the repo root and in leads-brasil-pp-cli after the ICP-directory refactor",
+        "Validation: grep for arquivo JSON legado de recorte, PP_LEADS_USE_CASE_CONFIG, --recorte/ICP-config, and the malformed diretório do recorte/ICP string returned no matches in the active repo text files"
+      ]
+    },
+    {
+      "id": "STORY-026",
+      "slug": "contact-timeout-and-batch-completion",
+      "title": "Fix warning-tolerant contact enrichment so the EJs de comunicação ICP batch completes end-to-end",
+      "status": "done",
+      "depends_on": [
+        "STORY-023"
+      ],
+      "definition_of_done": [
+        "partial-warning contact-goat runs no longer collapse into unavailable errors when the CLI already emitted valid JSON payloads",
+        "the EJs de comunicação batch can finish all company and contact outputs with the configured provider stack",
+        "the doctor surfaces Scrape Creators as a first-class dependency and the auth stack is green except for the informational Company Goat cache note"
+      ],
+      "evidence": [
+        "internal/client/pp/client.go",
+        "leads-brasil-pp-cli/internal/cli/doctor.go",
+        "Validation: single-lead contact for Facto Agência de Comunicação returned contact_goat.status=ok with source_errors preserved after rebuilding the backend",
+        "Validation: contact repair run over 20 rows wrote 20 successful .contact.json outputs and generated organizejr-pp-leads/icp/ejs-comunicacao/outputs/contact-repair-summary.json with 20 ok / 0 failed",
+        "Validation: doctor now reports OK Scrape Creators: ok after the key was configured"
+      ]
+    },
+    {
+      "id": "STORY-027",
+      "slug": "canonical-icp-output-surface",
+      "title": "Drop execution-recipe leakage from the canonical EJs de comunicação company/contact artifacts",
+      "status": "done",
+      "depends_on": [
+        "STORY-026"
+      ],
+      "definition_of_done": [
+        "the active ICP surface remains centered on <cnpj>.company.json and <cnpj>.contact.json",
+        "lead_context no longer carries pp_* execution-recipe columns copied from the lead table",
+        "the current EJs de comunicação batch is refreshed so the checked-in company/contact artifacts reflect the cleaner surface",
+        "focused tests and grep checks confirm the stale pp_* keys are gone while useful enrichment blocks remain"
+      ],
+      "evidence": [
+        "internal/usecase/config.go",
+        "internal/usecase/config_test.go",
+        "organizejr-pp-leads/icp/ejs-comunicacao/outputs/canonical-refresh-summary.json",
+        "Validation: go test ./... passed in pp-leads-brasil and in leads-brasil-pp-cli after the canonical lead_context filter was added",
+        "Validation: grep for \"pp_\" across organizejr-pp-leads/icp/ejs-comunicacao/outputs/*.company.json and *.contact.json returned no matches after refreshing 40 artifacts",
+        "Validation: refreshed 11370755000102.company.json and 11370755000102.contact.json preserved contact_goat.source_errors, prospecting_links, and commercial lead_context fields without recipe leakage"
+      ]
+    },
+    {
+      "id": "STORY-028",
+      "slug": "crm-health-and-crm-first-enrichment",
+      "title": "Analyze CRM health in-sheet and support CRM-first enrichment without mandatory lead table",
+      "status": "done",
+      "depends_on": [
+        "STORY-003",
+        "STORY-027"
+      ],
+      "definition_of_done": [
+        "The operational Google Sheet no longer carries CPF or birthdate person columns and exposes E-mail - Empresa, ICP Considerado, Score ICP (0-10), Saúde CRM (0-100), Precisa de enrichment? and Motivos de enrichment",
+        "A health analyzer writes those columns directly into the Google Sheet using the CRM rows as the primary scoring surface",
+        "The enrichment flow supports fallback from the CRM sheet row itself when no lead table compatible with the lead is available",
+        "The Apps Script two-way sync runs headless via clasp, no longer depends on Enviar ao Ploomes?, and the three valid rows without IDs are synced successfully"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs",
+        "Validation: Google Sheet headers now include E-mail - Empresa, ICP Considerado, Score ICP (0-10), Saúde CRM (0-100), Precisa de enrichment? and Motivos de enrichment, while CPF and birthdate columns are absent",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py enrich-sheet --row-numbers 66 --yes --json succeeded with status enriched-from-crm-sheet-direct",
+        "Validation: clasp run diagnosticarPloomes reports 85 companies, 18 people, 0 missing companies, 0 missing people, and 0 valid rows without IDs"
+      ]
+    },
+    {
+      "id": "STORY-029",
+      "slug": "crm-manual-observations-and-social-surface",
+      "title": "Keep Observações manual-only and add dedicated social-link fields to the CRM sheet",
+      "status": "done",
+      "depends_on": [
+        "STORY-028"
+      ],
+      "definition_of_done": [
+        "The operational Google Sheet keeps Observações as a manual-only field instead of receiving enrichment/status blocks from scripts",
+        "Existing polluted observation rows are cleared in the sheet and the corresponding Ploomes notes are blanked so the two-way sync does not recontaminate the manual field",
+        "A canonical crm_sheet.py entrypoint dispatches the active CRM sheet operations",
+        "The sheet exposes LinkedIn/Instagram fields for both company and person, and recoverable company social links are moved out of Site/legacy note surfaces into dedicated columns"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py analyze-health updated 103 rows with headers including LinkedIn - Pessoa, Instagram - Pessoa, LinkedIn - Empresa, and Instagram - Empresa",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py list-icp-pending --limit 1 returned the new social columns in the payload surface",
+        "Validation: sheet audit found 0 remaining bad Observações rows after cleanup, with 16 LinkedIn - Empresa values and 15 Instagram - Empresa values already populated"
+      ]
+    },
+    {
+      "id": "STORY-030",
+      "slug": "crm-readiness-surface",
+      "title": "Preserve manual ICP scoring and add explicit commercial readiness fields to the CRM sheet",
+      "status": "done",
+      "depends_on": [
+        "STORY-029"
+      ],
+      "definition_of_done": [
+        "The health analyzer preserves Score ICP (0-10) and Justificativa Score ICP instead of blanking them on every run",
+        "The operational Google Sheet keeps Prontidão comercial as the single explicit readiness field instead of splitting the same concept across blocker and next-action columns",
+        "Commercial readiness is derived deterministically from ICP, score, contact channels, and customer markers so the sheet separates data health, fit, and approach readiness",
+        "The scoring loop surface includes Prontidão comercial and the live sheet remains clean after the simplification"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py analyze-health updated 103 rows with headers including Prontidão comercial after removing redundant blocker/next-action columns",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py list-icp-pending --limit 1 returned Prontidão comercial as the remaining readiness field"
+      ]
+    },
+    {
+      "id": "STORY-031",
+      "slug": "perplexity-observations-timeline",
+      "title": "Fold Perplexity evidence into Score ICP and append-only Observações timeline",
+      "status": "done",
+      "depends_on": [
+        "STORY-030"
+      ],
+      "definition_of_done": [
+        "the CRM workflow no longer requires a dedicated Justificativa Score ICP column and scripts stop depending on it as canonical surface",
+        "Perplexity exports saved under organizejr-pp-leads/leads/*/*.perplexity-search.md can be summarized into Score ICP (0-10) and Observações for the matching lead row",
+        "Observações is updated in append-only DD/MM timeline format, preserving any manual notes already present in the cell",
+        "Resumo Enriquecimento remains a technical/local enrichment status field while the commercial note that syncs to Ploomes lives in Observações",
+        "validation proves the updated flow across score application, CRM health analysis and a sample sheet row carrying Perplexity-derived context"
+      ],
+      "evidence": [
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py: apply-icp-score now accepts resumo_comercial, resumo_enriquecimento and perplexity_path while keeping justificativa only as fallback",
+        "organizejr-pp-leads/SKILL.md: score ICP payload contract documents Observações as commercial timeline and Resumo Enriquecimento as technical evidence status",
+        "Validation: python3 -m py_compile organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py apply-icp-score --help shows canonical resumo_comercial/resumo_enriquecimento/perplexity_path fields",
+        "Validation: fake Google Sheets smoke of main_apply_icp_score generated Score ICP, append-only Observações, Resumo Enriquecimento merge, and contact-cell fills for an existing row plus a new row",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py analyze-health updated 106 rows; health_score=51, score_pending=0, observacoes=105/105"
+      ]
     }
   ]
 }

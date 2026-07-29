@@ -47,8 +47,8 @@ execution:
     - timestamp: "2026-05-25T01:41:45.925Z"
       phase: C
       action: phase_skipped
-  last_activity: "2026-07-24T00:00:00Z"
-  resume_context: "CRM OrganizeJr enriquecido via crm_sheet.py: analyze-health corrigido para preservar/ler Score ICP, contar handles @ como canal social, apply-icp-score aceita score, ICP e campos de contato. Saúde validada em 50/100 para 105 leads; gargalos restantes são decisor nominal, CNPJ e e-mail empresa."
+  last_activity: "2026-07-28T00:00:00Z"
+  resume_context: "STORY-031 concluída: apply-icp-score agora usa resumo_comercial/observacao para Observações em timeline append-only DD/MM:, usa resumo_enriquecimento/perplexity_path para status técnico local, e mantém justificativa apenas como fallback compatível. Validações: py_compile, apply-icp-score --help, smoke com Google Sheets fake gerando Score ICP, Observações, Resumo Enriquecimento e contatos, e analyze-health real com 106 linhas atualizadas, health_score 51, score_pending 0."
 
 approval:
   plan_created: true
