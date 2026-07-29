@@ -48,7 +48,7 @@ execution:
       phase: C
       action: phase_skipped
   last_activity: "2026-07-29T00:00:00Z"
-  resume_context: "m15 em andamento com ledger anti-loop ativo. EAmb linha 6 enriquecida com fonte forte do handle Linktree; Consultagro linha 3 recebeu e-mail empresa consultagrojr@gmail.com por busca exata com vínculo UEFS, sem CNPJ/Instagram por falta de confirmação segura, e consultagro.com.br descartado como homônimo de Sorocaba/SP. Ledger registrou tentativa Consultagro found 2e57b84abd83b89e. Dashboard após analyze-health: total_leads 102, total_ignored 4, health_score 52, email_empresa 43/102, cnpj 28/102, canal_acionavel 84/102, score_pending 0, enrichment_queue sem e-mail empresa 44. Próximo alvo m15: Farmácia Jr linha 106 ou outro lead ativo, sempre com check-enrichment-retry antes da busca."
+  resume_context: "m15 em andamento com ledger anti-loop ativo. EAmb linha 6 enriquecida por Linktree e Consultagro linha 3 recebeu e-mail empresa validado. Farmácia Jr linha 106 corrigida conforme usuário: lead é MG, não Salvador; fonte oficial farmaciajr.com/contato confirmou Farmácia Jr Consultoria UFMG em Belo Horizonte/MG, e CRM recebeu CNPJ 04.046.679/0001-00, e-mail contato@farmaciajr.com, site, Instagram e LinkedIn; telefone geral não foi aplicado como pessoa. Ledger registrou tentativa Farmácia found 68c87037e84f3dfd. Dashboard após analyze-health: total_leads 102, total_ignored 4, health_score 53, email_empresa 44/102, cnpj 29/102, canal_acionavel 85/102, score_pending 0, enrichment_queue sem e-mail empresa 43. Próximo alvo m15: escolher lead ativo com check-enrichment-retry antes da busca."
 
 approval:
   plan_created: true
