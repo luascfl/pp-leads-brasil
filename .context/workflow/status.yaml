@@ -48,7 +48,7 @@ execution:
       phase: C
       action: phase_skipped
   last_activity: "2026-07-28T00:00:00Z"
-  resume_context: "m10 e m11 concluídos: CRM agora tem Status Comercial para separar estágio do lead/empresa da análise granular de contato. crm_sheet.py adiciona a coluna via analyze-health, aceita status_comercial em apply-icp-score, conta status_comercial/funil_empresa no dashboard e deixa de gerar motivo sem decisor quando lead sem pessoa já está em estágio de empresa como proposta enviada ou aguardando decisão. Farmácia Jr linha 106 está com Status Comercial=aguardando decisão; Enrichment permanece só por sem canal, sem CNPJ e sem e-mail empresa. Próximo milestone: m12 backfill de Status Comercial nos leads ativos."
+  resume_context: "m12 concluído: backfill de Status Comercial aplicado em 9 linhas com evidência local além da Farmácia Jr. Linhas 2,3,4,5,6,88,89,90 receberam pesquisa inicial; linha 105 Primus recebeu qualificado; linha 106 Farmácia Jr permanece aguardando decisão. Dashboard após analyze-health: status_comercial 10/105, funil_empresa 1/105, health_score 51, score_pending 0. Próximo milestone m13: consolidar duplicatas com evidência local, principalmente ENGETOP linhas 2/88, Consultagro 3/89 e ENGETEC 4/90, antes de expandir novos enrichments."
 
 approval:
   plan_created: true

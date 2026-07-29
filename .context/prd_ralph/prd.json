@@ -67,6 +67,11 @@
     {
       "id": "m12",
       "title": "Commercial pipeline status backfill across active leads",
+      "status": "completed"
+    },
+    {
+      "id": "m13",
+      "title": "CRM duplicate consolidation for locally evidenced leads",
       "status": "pending"
     }
   ],
