@@ -21,10 +21,10 @@ The codebase is organized to support [main use case] with a focus on [key qualit
 The operational entrypoint is:
 
 ```bash
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP --lead-slug engetop
+python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP
 ```
 
-Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` without calling Telegram. Adding `--execute-read` reads Telegram participants through `manage_telegram`; saving contacts is a separate `apply-save` command that requires `--yes`.
+Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` without calling Telegram. Adding `--execute-read` reads Telegram participants through `manage_telegram`. When a Ploomes row has the company but no person, `--ploomes-row ROW` returns candidate names plus `ploomes_contact_candidates` payloads for `apply-icp-score`, so `Nome - Pessoa` can be filled after human selection. Saving contacts in Telegram is a separate `apply-save` command that requires `--yes`.
 
 
 ## OrganizeJr Ploomes LinkedIn sync
