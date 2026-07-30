@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T10:58:00-03:00
+2026-07-30T11:10:00-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -11,7 +11,7 @@
 - `scripts/` foi removido do repo público.
 - m17 concluído: Perplexity Space OrganizeJr atualizado pelo fluxo confiável `Instruções` + `Arquivos`. Computer, Brain, Skills, conectores, Slack/Teams e links não são tratados como superfícies confiáveis.
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
-- m19 planejamento atualizado: integração CRM Sheet -> Perplexity -> WhatsApp -> CRM, com coluna única `Perplexity - tópico do lead` e uma sessão principal por lead.
+- m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -46,6 +46,15 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - A aba Arquivos listou `12 itens` e os quatro arquivos novos.
 - Teste por sessão não foi usado como critério final porque a UI caiu em Computer e bloqueio de créditos, reforçando que o fluxo confiável é `Instruções` + `Arquivos`.
 
+## Evidência final m19-us001
+- Repo privado `organizejr-pp-leads`: commit `1165948 feat(crm): track perplexity topic per lead` pushado em `main`.
+- Google Sheets CRM: coluna `Perplexity - tópico do lead` criada na aba `Clientes`, coluna `AQ`.
+- `python3 -m py_compile ../organizejr-pp-leads/ploomes_crm/crm_sheet.py` passou.
+- `perplexity-topic ensure-column` confirma a coluna em `AQ`.
+- `perplexity-topic missing --limit 1` lista leads sem tópico principal.
+- `perplexity-topic get --row 3` retorna Consultagro com tópico vazio.
+- `export-perplexity-snapshots --rows 3 --obs-limit 80` inclui `Perplexity tópico: sem tópico registrado`.
+
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_instructions_m17_candidate.md`
@@ -54,4 +63,4 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
 
 ## Próximo passo
-Implementar m19 em ordem segura: primeiro comandos de schema e link `Perplexity - tópico do lead` no `crm_sheet.py`; depois export de snapshots incluindo o link; depois WhatsApp completo/incremental; por fim payload revisável Perplexity -> CRM.
+Continuar m19 com `m19-us002`: exportar conversa WhatsApp completa ou incremental para o tópico único do lead, usando a coluna `Perplexity - tópico do lead` como ponte de navegação.

@@ -79,26 +79,33 @@
     {
       "id": "m19",
       "title": "CRM Sheet, Perplexity topic and WhatsApp update loop",
-      "status": "planned_next",
+      "status": "in_progress",
       "objective": "Integrar CRM Sheet -> Perplexity -> WhatsApp -> CRM com uma única coluna Perplexity - tópico do lead, uma sessão principal por lead, export completo/incremental de conversas e payload revisável para atualização da planilha.",
       "stories": [
         {
           "id": "m19-us001",
           "slug": "crm-perplexity-topic-column",
           "title": "Manage one Perplexity topic link per CRM lead",
-          "status": "planned",
+          "status": "completed",
           "dod": [
             "crm_sheet.py detecta a coluna Perplexity - tópico do lead.",
             "Comando lista leads sem tópico principal.",
             "Comando registra URL explícita do tópico por linha sem sobrescrever valor existente sem confirmação.",
             "Snapshots CRM incluem o link do tópico quando disponível."
+          ],
+          "evidence": [
+            "private commit 1165948 feat(crm): track perplexity topic per lead",
+            "CRM column Perplexity - tópico do lead created in Clientes!AQ",
+            "py_compile passed",
+            "perplexity-topic ensure-column/get/missing verified against Google Sheets",
+            "export-perplexity-snapshots includes Perplexity tópico line"
           ]
         },
         {
           "id": "m19-us002",
           "slug": "whatsapp-conversation-export-to-lead-topic",
           "title": "Export WhatsApp conversation context into the lead topic",
-          "status": "planned",
+          "status": "planned_next",
           "dod": [
             "Resolver lead e contato por linguagem natural, como Ananda + Engetop.",
             "Considerar primeiro a lista/filtro do WhatsApp chamada Leads OrganizeJr para localizar conversas comerciais.",

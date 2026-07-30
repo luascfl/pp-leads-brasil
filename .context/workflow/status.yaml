@@ -59,8 +59,11 @@ execution:
     - timestamp: "2026-07-30T13:58:00Z"
       phase: P
       action: m19_crm_perplexity_topic_loop_planned
-  last_activity: "2026-07-30T13:58:00Z"
-  resume_context: "Planejamento m19 atualizado. Próximo ciclo operacional: integrar CRM Sheet -> Perplexity -> WhatsApp -> CRM. Primeiro implementar no `crm_sheet.py` a coluna única `Perplexity - tópico do lead`, comandos para listar/registrar links por linha e snapshots contendo o link; depois exportar WhatsApp completo/delta para o tópico único do lead; por fim gerar payload revisável para CRM com evidência textual. Regra central: uma sessão principal do Perplexity por lead, link no CRM como navegação/evidência narrativa, nunca fonte canônica cadastral."
+    - timestamp: "2026-07-30T14:10:00Z"
+      phase: E
+      action: m19_us001_perplexity_topic_column_completed
+  last_activity: "2026-07-30T14:10:00Z"
+  resume_context: "m19-us001 concluído: repo privado commit 1165948, coluna Perplexity - tópico do lead criada em Clientes!AQ, comandos perplexity-topic verificados e snapshots agora incluem o link do tópico. Próximo: m19-us002, exportar conversa WhatsApp completa/incremental para o tópico único do lead."
 
 approval:
   plan_created: true

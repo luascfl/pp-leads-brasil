@@ -88,6 +88,13 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
    - `perplexity-topic missing` para listar leads sem tópico.
    - `export-perplexity-snapshots` deve incluir a coluna quando existir.
 
+### Status m19-us001
+- Concluído no repo privado `organizejr-pp-leads`, commit `1165948`.
+- Coluna `Perplexity - tópico do lead` criada na aba `Clientes`, coluna `AQ`.
+- `crm_sheet.py perplexity-topic get|set|missing|ensure-column` implementado.
+- `export-perplexity-snapshots` inclui `Perplexity tópico` em cada lead.
+- `apply-icp-score` aceita `perplexity_topic_url` e `perplexity_topic` sem sobrescrever célula existente em leads já cadastrados.
+
 3. **Regra de tópico único**
    - Uma sessão/tópico principal por lead.
    - Nova pesquisa, WhatsApp, follow-up ou proposta entra no mesmo tópico.
