@@ -71,8 +71,11 @@ execution:
     - timestamp: "2026-07-30T16:45:00Z"
       phase: E
       action: m19_us003_perplexity_topic_confirmed
-  last_activity: "2026-07-30T16:45:00Z"
-  resume_context: "m19-us003 concluído: tópico ENGETOP localizado pela busca interna do Perplexity Space, URL salva na linha 2 do CRM, payload privado Ananda/ENGETOP regenerado com --perplexity-topic-url. Próximo passo: revisão humana do payload antes de aplicar campos ao CRM."
+    - timestamp: "2026-07-30T17:11:50Z"
+      phase: E
+      action: m19_us003_funil_schema_completed
+  last_activity: "2026-07-30T17:11:50Z"
+  resume_context: "m19-us003 concluído: tópico ENGETOP localizado pela busca interna do Perplexity Space, URL salva na linha 2 do CRM, schema migrado de Status Comercial para Funil com dropdown estrito, payload privado Ananda/ENGETOP regenerado com Funil, Observações e Próximo passo. Próximo passo: revisão humana do payload antes de aplicar campos ao CRM."
 
 approval:
   plan_created: true

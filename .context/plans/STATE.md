@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T13:45:00-03:00
+2026-07-30T14:11:50-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -13,7 +13,7 @@
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
 - m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
 - m19-us002 concluído no repo privado: `whatsapp_export.py` abre primeiro a lista `Leads OrganizeJr`, exportou a conversa completa de Ananda Ferreira | ENGETOP e salvou transcript apenas no repo privado.
-- m19-us003 concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado, sem alterar a planilha. O tópico ENGETOP foi localizado pela busca interna do Perplexity Space, salvo na linha 2 do CRM e incluído no payload revisável.
+- m19-us003 concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado, sem alterar a planilha. O tópico ENGETOP foi localizado pela busca interna do Perplexity Space, salvo na linha 2 do CRM e incluído no payload revisável. Ajuste de schema posterior migrou `Status Comercial` para `Funil`, com dropdown estrito e payload revisável usando `Funil`, `Observações` e `Próximo passo`.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -25,6 +25,8 @@ Para automações de WhatsApp, a conversa exportada é a evidência primária. O
 O Space da OrganizeJr deve ser tratado como copiloto fundamentado em documentos. O usuário confirmou que só `Instruções` e `Arquivos` funcionam de forma confiável; portanto, o fluxo não depende de Computer, Brain, Skills, Slack/Teams, conectores ou links.
 
 Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do lead`, com um único tópico/sessão principal do Perplexity por lead. A coluna é ponte de navegação/evidência narrativa e não torna o Perplexity fonte canônica cadastral.
+
+Schema decidido para etapa comercial: a coluna antiga `Status Comercial` foi renomeada para `Funil` no Google Sheets CRM, com dropdown canônico (`Pesquisa inicial`, `Qualificado`, `Abordar agora`, `Benchmark`, `Nutrir depois`, `Contato iniciado`, `Interesse sinalizado`, `Reunião/diagnóstico`, `Proposta enviada`, `Aguardando decisão`, `Ganho`, `Perdido`, `Duplicata consolidada`). `Próximo passo` permanece separado da etapa do funil.
 
 Regra operacional adicionada: nunca localizar tópico Perplexity por histórico do Chrome, cache, local storage ou banco local do navegador. O link da coluna `Perplexity - tópico do lead` só pode ser salvo depois de abrir o resultado pela busca interna do Perplexity Space e observar a URL final no navegador.
 
@@ -68,12 +70,15 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 
 ## Evidência final m19-us003
 - Repo privado `organizejr-pp-leads`: commit `4ed62e2 feat(crm): generate whatsapp review payload` pushado em `main`.
+- Repo privado `organizejr-pp-leads`: commit `6568787 feat(crm): migrate commercial status to funil` pushado em `main`.
 - `python3 -m py_compile ploomes_crm/crm_sheet.py` passou.
 - `crm-review-payload-from-whatsapp --help` lista `--input`, `--perplexity-topic-url` e `--output`.
 - Busca interna do Perplexity Space abriu o tópico ENGETOP em `https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2`; título observado: `Engetop vou falar com ela e sobre ela nas próximas mensagens, estou no EDL Bahia`.
 - `perplexity-topic set --row 2 --url https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2` salvou o link no Google Sheets CRM.
 - `perplexity-topic get --row 2` confirmou `lead=ENGETOP` e o mesmo `perplexity_topic_url`.
-- `crm-review-payload-from-whatsapp --input leads/engetop/whatsapp/ananda/full-2026-07-30.md --perplexity-topic-url https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 --output leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` gerou payload com `row=2`, `lead_slug=engetop`, `audit.message_count=10`, updates `Status Comercial`, `Observações` e `Próximo passo`, todos com `requires_review=true`.
+- `funil-schema --yes` renomeou `Status Comercial` para `Funil` na coluna `AP`, aplicou dropdown estrito e normalizou 10 valores.
+- `analyze-health` rodou com a nova coluna `Funil` e reaplicou os dropdowns de `ICP Considerado` e `Funil`.
+- `crm-review-payload-from-whatsapp --input leads/engetop/whatsapp/ananda/full-2026-07-30.md --perplexity-topic-url https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 --output leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` gerou payload com `row=2`, `lead_slug=engetop`, `audit.message_count=10`, updates `Funil`, `Observações` e `Próximo passo`, todos com `requires_review=true`.
 
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`

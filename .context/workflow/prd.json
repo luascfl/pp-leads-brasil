@@ -14,7 +14,7 @@
           "status": "completed",
           "dod": [
             "crm_sheet.py expõe um comando read-only para exportar snapshots Markdown por linhas do CRM.",
-            "O snapshot inclui status comercial, saúde CRM, ICP, decisor, contatos, canais, CNPJ, lacunas, Observações e Resumo Enriquecimento.",
+            "O snapshot inclui Funil, saúde CRM, ICP, decisor, contatos, canais, CNPJ, lacunas, Observações e Resumo Enriquecimento.",
             "O texto orienta o Perplexity a tratar o conteúdo como estado atual do CRM e diferenciar sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.",
             "A validação inclui py_compile, --help e execução real gerando um arquivo Markdown para linhas alvo."
           ],
@@ -136,11 +136,12 @@
           ,
           "evidence": [
             "private commit 4ed62e2 feat(crm): generate whatsapp review payload",
+            "private commit 6568787 feat(crm): migrate commercial status to funil",
             "py_compile passed for ploomes_crm/crm_sheet.py",
             "crm-review-payload-from-whatsapp --help verified",
             "Perplexity Space internal search opened ENGETOP topic https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 with matching title and ENGETOP content",
             "perplexity-topic set/get confirmed row=2 lead=ENGETOP with the same topic URL",
-            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates and perplexity_topic_url"
+            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates, perplexity_topic_url and Funil/Observações/Próximo passo fields"
           ]
         }
       ]
