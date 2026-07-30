@@ -65,8 +65,11 @@ execution:
     - timestamp: "2026-07-30T15:47:00Z"
       phase: E
       action: m19_us002_whatsapp_export_completed
-  last_activity: "2026-07-30T15:47:00Z"
-  resume_context: "m19-us002 concluído: repo privado commit 47a1be3, whatsapp_export.py usa primeiro Leads OrganizeJr, export Ananda/ENGETOP gerou full transcript privado com 10 mensagens. Próximo passo: m19-us003, gerar payload revisável CRM a partir do transcript WhatsApp e Perplexity."
+    - timestamp: "2026-07-30T16:05:00Z"
+      phase: E
+      action: m19_us003_review_payload_command_partial
+  last_activity: "2026-07-30T16:05:00Z"
+  resume_context: "m19-us003 parcial: repo privado commit 4ed62e2 adiciona crm-review-payload-from-whatsapp e gerou payload privado Ananda/ENGETOP com revisão obrigatória. Bloqueio restante: abrir tópico ENGETOP pela busca interna do Perplexity Space, nunca por histórico Chrome, salvar URL na linha 2 e regenerar payload com --perplexity-topic-url."
 
 approval:
   plan_created: true

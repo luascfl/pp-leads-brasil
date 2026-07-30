@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T12:47:00-03:00
+2026-07-30T13:05:00-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -13,6 +13,7 @@
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
 - m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
 - m19-us002 concluído no repo privado: `whatsapp_export.py` abre primeiro a lista `Leads OrganizeJr`, exportou a conversa completa de Ananda Ferreira | ENGETOP e salvou transcript apenas no repo privado.
+- m19-us003 parcialmente concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado, sem alterar a planilha. O vínculo Perplexity da ENGETOP segue pendente porque o tópico deve ser localizado apenas pela busca interna do Space.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -24,6 +25,8 @@ Para automações de WhatsApp, a conversa exportada é a evidência primária. O
 O Space da OrganizeJr deve ser tratado como copiloto fundamentado em documentos. O usuário confirmou que só `Instruções` e `Arquivos` funcionam de forma confiável; portanto, o fluxo não depende de Computer, Brain, Skills, Slack/Teams, conectores ou links.
 
 Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do lead`, com um único tópico/sessão principal do Perplexity por lead. A coluna é ponte de navegação/evidência narrativa e não torna o Perplexity fonte canônica cadastral.
+
+Regra operacional adicionada: nunca localizar tópico Perplexity por histórico do Chrome, cache, local storage ou banco local do navegador. O link da coluna `Perplexity - tópico do lead` só pode ser salvo depois de abrir o resultado pela busca interna do Perplexity Space e observar a URL final no navegador.
 
 ## DoD da story m16
 - Comando read-only em `../organizejr-pp-leads/ploomes_crm/crm_sheet.py`.
@@ -63,6 +66,14 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `whatsapp_export.py export --instruction "exportar toda a conversa de Ananda da Engetop"` retornou `ok=true`, `used_preferred_filter=true`, `messages=10`.
 - Transcript privado salvo em `../organizejr-pp-leads/leads/engetop/whatsapp/ananda/full-2026-07-30.md`, conversation key `whatsapp:engetop:ananda-ferreira-engetop`, SHA-256 `07b948e5c23dc96153e56a7fe1dad158686d361d93ebf3e02e1a499727ed1387`.
 
+## Evidência parcial m19-us003
+- Repo privado `organizejr-pp-leads`: commit `4ed62e2 feat(crm): generate whatsapp review payload` pushado em `main`.
+- `python3 -m py_compile ploomes_crm/crm_sheet.py` passou.
+- `crm-review-payload-from-whatsapp --help` lista `--input`, `--perplexity-topic-url` e `--output`.
+- `crm-review-payload-from-whatsapp --input leads/engetop/whatsapp/ananda/full-2026-07-30.md --output leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` gerou payload com `row=2`, `lead_slug=engetop`, `message_count=10`, updates `Status Comercial`, `Observações` e `Próximo passo`, todos com `requires_review=true`.
+- `perplexity-topic get --row 2` confirmou `perplexity_topic_url=""`; nenhum link obtido por histórico foi mantido no CRM.
+- Busca do tópico Perplexity está bloqueada até a UI do Space renderizar e o tópico ser aberto pela busca interna do próprio Perplexity.
+
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_instructions_m17_candidate.md`
@@ -70,4 +81,4 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
 
-Continuar m19 com `m19-us003`: usar o transcript privado de Ananda/ENGETOP como evidência para gerar atualização revisável do CRM, sem aplicar fato ambíguo automaticamente.
+Continuar m19: usuário deve abrir o tópico ENGETOP pela busca interna do Perplexity Space; depois salvar a URL na linha 2 e regenerar o payload com `--perplexity-topic-url`.
