@@ -114,13 +114,12 @@
             "Salvar transcript/delta apenas no repo privado ou armazenamento local privado.",
             "Usar o link Perplexity - tópico do lead para atualizar a sessão única do lead."
           ],
-          "blocker": "WhatsApp Web precisa mostrar sincronização 100%/concluída no painel do perfil antes de exportar.",
           "evidence": [
-            "private commit c5a7cd2 feat(crm): add whatsapp export preflight",
+            "private commit 47a1be3 fix(crm): use whatsapp leads filter before export",
             "py_compile passed for ploomes_crm/whatsapp_export.py",
-            "resolve Ananda da Engetop -> lead_slug engetop, row 2, contact Ananda, mode full",
-            "dry-run delta creates private leads/engetop/whatsapp/ananda/delta path",
-            "sync-status/export real abort before search when WhatsApp sync is syncing or paused"
+            "sync-status ok=true, status complete_no_sync_card, percent 100",
+            "export Ananda da Engetop ok=true, used_preferred_filter=true, messages=10",
+            "private transcript leads/engetop/whatsapp/ananda/full-2026-07-30.md, sha256 07b948e5c23dc96153e56a7fe1dad158686d361d93ebf3e02e1a499727ed1387"
           ]
         },
         {

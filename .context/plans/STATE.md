@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T11:38:00-03:00
+2026-07-30T12:47:00-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -12,7 +12,7 @@
 - m17 concluído: Perplexity Space OrganizeJr atualizado pelo fluxo confiável `Instruções` + `Arquivos`. Computer, Brain, Skills, conectores, Slack/Teams e links não são tratados como superfícies confiáveis.
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
 - m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
-- m19-us002 implementação privada criada: `whatsapp_export.py` resolve Ananda + Engetop, gera full/delta privado e faz preflight obrigatório de sincronização WhatsApp. Execução real está bloqueada até o painel do perfil mostrar sincronização 100%/concluída.
+- m19-us002 concluído no repo privado: `whatsapp_export.py` abre primeiro a lista `Leads OrganizeJr`, exportou a conversa completa de Ananda Ferreira | ENGETOP e salvou transcript apenas no repo privado.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -56,12 +56,12 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `perplexity-topic get --row 3` retorna Consultagro com tópico vazio.
 - `export-perplexity-snapshots --rows 3 --obs-limit 80` inclui `Perplexity tópico: sem tópico registrado`.
 
-## Evidência m19-us002 parcial
-- Repo privado `organizejr-pp-leads`: commit `c5a7cd2 feat(crm): add whatsapp export preflight` pushado em `main`.
+## Evidência final m19-us002
+- Repo privado `organizejr-pp-leads`: commit `47a1be3 fix(crm): use whatsapp leads filter before export` pushado em `main`.
 - `python3 -m py_compile ploomes_crm/whatsapp_export.py` passou.
-- `whatsapp_export.py resolve --instruction "exportar toda a conversa de Ananda da Engetop"` resolveu `lead_slug=engetop`, `row=2`, `contact=Ananda`, `mode=full`.
-- `whatsapp_export.py export --dry-run --instruction "houve novas mensagens em Ananda Engetop"` gerou caminho privado `leads/engetop/whatsapp/ananda/delta-...md`.
-- `whatsapp_export.py sync-status` e `export` real abortaram antes da busca com `ok=false`, `status=syncing|paused`, exigindo aguardar sincronização 100% ou abrir WhatsApp no celular.
+- `whatsapp_export.py sync-status` retornou `ok=true`, `status=complete_no_sync_card`, `percent=100`.
+- `whatsapp_export.py export --instruction "exportar toda a conversa de Ananda da Engetop"` retornou `ok=true`, `used_preferred_filter=true`, `messages=10`.
+- Transcript privado salvo em `../organizejr-pp-leads/leads/engetop/whatsapp/ananda/full-2026-07-30.md`, conversation key `whatsapp:engetop:ananda-ferreira-engetop`, SHA-256 `07b948e5c23dc96153e56a7fe1dad158686d361d93ebf3e02e1a499727ed1387`.
 
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`
@@ -70,5 +70,4 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
 
-## Próximo passo
-Aguardar WhatsApp Web mostrar sincronização 100%/concluída no painel do perfil. Comando de acompanhamento: `python3 ploomes_crm/whatsapp_export.py sync-status --watch`. Depois repetir `export --instruction "exportar toda a conversa de Ananda da Engetop"`.
+Continuar m19 com `m19-us003`: usar o transcript privado de Ananda/ENGETOP como evidência para gerar atualização revisável do CRM, sem aplicar fato ambíguo automaticamente.
