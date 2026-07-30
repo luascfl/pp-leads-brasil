@@ -137,11 +137,13 @@
           "evidence": [
             "private commit 4ed62e2 feat(crm): generate whatsapp review payload",
             "private commit 6568787 feat(crm): migrate commercial status to funil",
+            "private commit c4820ff feat(crm): support next step updates",
             "py_compile passed for ploomes_crm/crm_sheet.py",
             "crm-review-payload-from-whatsapp --help verified",
             "Perplexity Space internal search opened ENGETOP topic https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 with matching title and ENGETOP content",
             "perplexity-topic set/get confirmed row=2 lead=ENGETOP with the same topic URL",
-            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates, perplexity_topic_url and Funil/Observações/Próximo passo fields"
+            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates, perplexity_topic_url and Funil/Observações/Próximo passo fields",
+            "Google Sheets CRM row 2 ENGETOP applied with Funil=Contato iniciado, Próximo passo=follow-up to schedule the diagnostic meeting, and Observações without redundant commercial summary"
           ]
         }
       ]

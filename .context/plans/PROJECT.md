@@ -120,10 +120,10 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
    - Atualizar planilha só com evidência rastreável ou confirmação explícita.
 
 ### Status m19-us003
-- Concluído no repo privado `organizejr-pp-leads`, commits `4ed62e2` e `6568787`.
+- Concluído no repo privado `organizejr-pp-leads`, commits `4ed62e2`, `6568787` e `c4820ff`.
 - Novo comando read-only: `crm_sheet.py crm-review-payload-from-whatsapp`.
 - O comando lê transcript WhatsApp privado e gera JSON revisável com `Funil`, `Observações`, `Próximo passo`, campos proibidos por falta de evidência e warnings de revisão.
 - Busca interna do Perplexity Space confirmou o tópico ENGETOP em `https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2` e o link foi salvo na linha 2 do CRM.
-- Schema CRM ajustado: `Status Comercial` foi renomeado para `Funil` na coluna `AP`, com dropdown estrito alinhado ao funil comercial atual.
-- Validação real com Ananda/ENGETOP regenerou `leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` com `perplexity_topic_url`, sem aplicar atualização automática na planilha.
+- Schema CRM ajustado: `Status Comercial` foi renomeado para `Funil` na coluna `AP`, `Prontidão comercial` foi renomeado para `Próximo passo` na coluna `AI`, e o comando `apply-icp-score` aceita `proximo_passo`.
+- Validação real com Ananda/ENGETOP aplicou no CRM: `Funil = Contato iniciado`, `Próximo passo = follow-up para agendar reunião diagnóstica`, `Observações` só com contexto e ausência de aceite/proposta/decisão.
 

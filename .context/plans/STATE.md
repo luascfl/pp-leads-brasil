@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T14:11:50-03:00
+2026-07-30T14:39:07-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -13,7 +13,7 @@
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
 - m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
 - m19-us002 concluído no repo privado: `whatsapp_export.py` abre primeiro a lista `Leads OrganizeJr`, exportou a conversa completa de Ananda Ferreira | ENGETOP e salvou transcript apenas no repo privado.
-- m19-us003 concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado, sem alterar a planilha. O tópico ENGETOP foi localizado pela busca interna do Perplexity Space, salvo na linha 2 do CRM e incluído no payload revisável. Ajuste de schema posterior migrou `Status Comercial` para `Funil`, com dropdown estrito e payload revisável usando `Funil`, `Observações` e `Próximo passo`.
+- m19-us003 concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado. O tópico ENGETOP foi localizado pela busca interna do Perplexity Space, salvo na linha 2 do CRM e incluído no payload revisável. Ajuste de schema posterior migrou `Status Comercial` para `Funil`, com dropdown estrito e payload revisável usando `Funil`, `Observações` e `Próximo passo`. ENGETOP foi aplicada no CRM com `Funil = Contato iniciado`, `Próximo passo = follow-up para agendar reunião diagnóstica` e `Observações` sem resumo comercial redundante.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -71,6 +71,7 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 ## Evidência final m19-us003
 - Repo privado `organizejr-pp-leads`: commit `4ed62e2 feat(crm): generate whatsapp review payload` pushado em `main`.
 - Repo privado `organizejr-pp-leads`: commit `6568787 feat(crm): migrate commercial status to funil` pushado em `main`.
+- Repo privado `organizejr-pp-leads`: commit `c4820ff feat(crm): support next step updates` pushado em `main`.
 - `python3 -m py_compile ploomes_crm/crm_sheet.py` passou.
 - `crm-review-payload-from-whatsapp --help` lista `--input`, `--perplexity-topic-url` e `--output`.
 - Busca interna do Perplexity Space abriu o tópico ENGETOP em `https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2`; título observado: `Engetop vou falar com ela e sobre ela nas próximas mensagens, estou no EDL Bahia`.
@@ -79,6 +80,7 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 - `funil-schema --yes` renomeou `Status Comercial` para `Funil` na coluna `AP`, aplicou dropdown estrito e normalizou 10 valores.
 - `analyze-health` rodou com a nova coluna `Funil` e reaplicou os dropdowns de `ICP Considerado` e `Funil`.
 - `crm-review-payload-from-whatsapp --input leads/engetop/whatsapp/ananda/full-2026-07-30.md --perplexity-topic-url https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 --output leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` gerou payload com `row=2`, `lead_slug=engetop`, `audit.message_count=10`, updates `Funil`, `Observações` e `Próximo passo`, todos com `requires_review=true`.
+- Google Sheets CRM linha 2 ENGETOP: coluna `AI` renomeada de `Prontidão comercial` para `Próximo passo`; `Funil` atualizado para `Contato iniciado`; `Próximo passo` atualizado para follow-up com Ananda para agendar reunião diagnóstica; `Observações` recebeu apenas registro contextual, sem repetir a ação.
 
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`
@@ -87,4 +89,4 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 - `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
 
-Próximo passo m19: revisar manualmente o payload privado de Ananda/ENGETOP e decidir quais campos podem ser aplicados ao CRM sem transformar inferência em fato cadastral.
+Próximo passo m19: acompanhar follow-up da ENGETOP para agendar a reunião diagnóstica e, depois da resposta, atualizar o mesmo tópico Perplexity e o CRM sem criar dado cadastral inferido.
