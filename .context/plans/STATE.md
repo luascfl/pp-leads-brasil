@@ -22,6 +22,8 @@ Para automações de WhatsApp, a conversa exportada é a evidência primária. O
 
 O Space da OrganizeJr deve ser tratado como copiloto fundamentado em documentos. O usuário confirmou que só `Instruções` e `Arquivos` funcionam de forma confiável; portanto, o fluxo não depende de Computer, Brain, Skills, Slack/Teams, conectores ou links.
 
+Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do lead`, com um único tópico/sessão principal do Perplexity por lead. A coluna é ponte de navegação/evidência narrativa e não torna o Perplexity fonte canônica cadastral.
+
 ## DoD da story m16
 - Comando read-only em `../organizejr-pp-leads/ploomes_crm/crm_sheet.py`.
 - Export por linhas específicas ou lote limitado.
