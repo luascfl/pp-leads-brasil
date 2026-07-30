@@ -126,7 +126,7 @@
           "id": "m19-us003",
           "slug": "perplexity-to-crm-update-review",
           "title": "Generate reviewed CRM updates from Perplexity and WhatsApp evidence",
-          "status": "in_progress",
+          "status": "completed",
           "dod": [
             "Payload diferencia mensagem enviada, resposta recebida, inferência, sugestão e dado confirmado.",
             "Cada campo sugerido inclui evidência textual ou confirmação explícita.",
@@ -138,8 +138,9 @@
             "private commit 4ed62e2 feat(crm): generate whatsapp review payload",
             "py_compile passed for ploomes_crm/crm_sheet.py",
             "crm-review-payload-from-whatsapp --help verified",
-            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, message_count=10 and requires_review=true updates",
-            "perplexity topic URL remains empty for ENGETOP until found through Perplexity Space internal search; Chrome history is explicitly disallowed"
+            "Perplexity Space internal search opened ENGETOP topic https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 with matching title and ENGETOP content",
+            "perplexity-topic set/get confirmed row=2 lead=ENGETOP with the same topic URL",
+            "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates and perplexity_topic_url"
           ]
         }
       ]

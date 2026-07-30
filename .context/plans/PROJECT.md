@@ -120,9 +120,9 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
    - Atualizar planilha só com evidência rastreável ou confirmação explícita.
 
 ### Status m19-us003
-- Parcialmente concluído no repo privado `organizejr-pp-leads`, commit `4ed62e2`.
+- Concluído no repo privado `organizejr-pp-leads`, commit `4ed62e2`.
 - Novo comando read-only: `crm_sheet.py crm-review-payload-from-whatsapp`.
 - O comando lê transcript WhatsApp privado e gera JSON revisável com `Status Comercial`, `Observações`, `Próximo passo`, campos proibidos por falta de evidência e warnings de revisão.
-- Validação real com Ananda/ENGETOP gerou `leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json`, sem alterar planilha.
-- Pendência: localizar o tópico ENGETOP pela busca interna do Perplexity Space e salvar o URL em `Perplexity - tópico do lead`. Histórico do Chrome não é fonte permitida para isso.
+- Busca interna do Perplexity Space confirmou o tópico ENGETOP em `https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2` e o link foi salvo na linha 2 do CRM.
+- Validação real com Ananda/ENGETOP regenerou `leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` com `perplexity_topic_url`, sem aplicar atualização automática na planilha.
 
