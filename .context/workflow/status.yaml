@@ -62,8 +62,11 @@ execution:
     - timestamp: "2026-07-30T14:10:00Z"
       phase: E
       action: m19_us001_perplexity_topic_column_completed
-  last_activity: "2026-07-30T14:10:00Z"
-  resume_context: "m19-us001 concluído: repo privado commit 1165948, coluna Perplexity - tópico do lead criada em Clientes!AQ, comandos perplexity-topic verificados e snapshots agora incluem o link do tópico. Próximo: m19-us002, exportar conversa WhatsApp completa/incremental para o tópico único do lead."
+    - timestamp: "2026-07-30T14:38:00Z"
+      phase: E
+      action: m19_us002_whatsapp_export_preflight_blocked_on_sync
+  last_activity: "2026-07-30T14:38:00Z"
+  resume_context: "m19-us002 implementado no repo privado commit c5a7cd2, com preflight obrigatório de sync do WhatsApp. Execução real bloqueada até WhatsApp Web mostrar sincronização 100%/concluída no painel do perfil. Próximo comando seguro: python3 ploomes_crm/whatsapp_export.py sync-status --watch."
 
 approval:
   plan_created: true

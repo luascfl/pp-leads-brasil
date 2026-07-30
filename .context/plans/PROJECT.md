@@ -106,6 +106,14 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
    - Salvar transcript/delta apenas no repo privado.
    - Usar o link do CRM para abrir o tópico do lead e anexar/colar o novo contexto.
 
+### Status m19-us002
+- Implementação privada criada no commit `c5a7cd2`.
+- Novo script privado: `ploomes_crm/whatsapp_export.py`.
+- Comandos disponíveis: `resolve`, `sync-status`, `export --dry-run`, `export`.
+- Preflight obrigatório: antes de buscar conversa ou exportar, a automação verifica o painel do perfil do WhatsApp e só continua quando a sincronização está 100%/concluída.
+- Estado atual: execução real bloqueada porque o WhatsApp mostrou sincronização em andamento/pausada e pediu abrir o app no celular.
+- Próxima ação segura: `python3 ploomes_crm/whatsapp_export.py sync-status --watch`; depois rodar o export completo/delta.
+
 5. **Perplexity -> CRM revisável**
    - Gerar payload com fatos, inferências, resposta do lead, mensagem enviada, evidência textual e próximo passo.
    - Nunca aplicar fato ambíguo automaticamente.

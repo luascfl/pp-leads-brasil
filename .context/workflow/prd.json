@@ -105,7 +105,7 @@
           "id": "m19-us002",
           "slug": "whatsapp-conversation-export-to-lead-topic",
           "title": "Export WhatsApp conversation context into the lead topic",
-          "status": "planned_next",
+          "status": "blocked",
           "dod": [
             "Resolver lead e contato por linguagem natural, como Ananda + Engetop.",
             "Considerar primeiro a lista/filtro do WhatsApp chamada Leads OrganizeJr para localizar conversas comerciais.",
@@ -113,6 +113,14 @@
             "Exportar somente novas mensagens quando o usuário indicar atualização.",
             "Salvar transcript/delta apenas no repo privado ou armazenamento local privado.",
             "Usar o link Perplexity - tópico do lead para atualizar a sessão única do lead."
+          ],
+          "blocker": "WhatsApp Web precisa mostrar sincronização 100%/concluída no painel do perfil antes de exportar.",
+          "evidence": [
+            "private commit c5a7cd2 feat(crm): add whatsapp export preflight",
+            "py_compile passed for ploomes_crm/whatsapp_export.py",
+            "resolve Ananda da Engetop -> lead_slug engetop, row 2, contact Ananda, mode full",
+            "dry-run delta creates private leads/engetop/whatsapp/ananda/delta path",
+            "sync-status/export real abort before search when WhatsApp sync is syncing or paused"
           ]
         },
         {
