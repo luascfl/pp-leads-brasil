@@ -77,8 +77,11 @@ execution:
     - timestamp: "2026-07-30T17:39:07Z"
       phase: E
       action: m19_us003_engetop_fup_applied
-  last_activity: "2026-07-30T17:39:07Z"
-  resume_context: "m19-us003 concluído: tópico ENGETOP localizado pela busca interna do Perplexity Space, URL salva na linha 2 do CRM, schema migrado para Funil e Próximo passo, payload privado Ananda/ENGETOP aplicado no CRM com Funil=Contato iniciado, Próximo passo=follow-up para agendar diagnóstica e Observações sem resumo comercial redundante."
+    - timestamp: "2026-07-30T19:24:00Z"
+      phase: E
+      action: m19_engetop_gabriella_whatsapp_perplexity_uploaded
+  last_activity: "2026-07-30T19:24:00Z"
+  resume_context: "m19-us003 concluído e atualizado: ENGETOP tem tópico Perplexity confirmado, CRM migrado para Funil/Próximo passo, payload Ananda aplicado; Gabriella ENGETOP foi exportada do WhatsApp por fluxo list-only Leads OrganizeJr, sem busca global, e o Markdown privado foi enviado ao Perplexity Space em Arquivos."
 
 approval:
   plan_created: true

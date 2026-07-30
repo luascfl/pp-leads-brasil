@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T14:39:07-03:00
+2026-07-30T16:24:00-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -14,6 +14,7 @@
 - m19-us001 concluído no repo privado: coluna única `Perplexity - tópico do lead`, comandos `perplexity-topic` e snapshots com link do tópico.
 - m19-us002 concluído no repo privado: `whatsapp_export.py` abre primeiro a lista `Leads OrganizeJr`, exportou a conversa completa de Ananda Ferreira | ENGETOP e salvou transcript apenas no repo privado.
 - m19-us003 concluído no repo privado: `crm_sheet.py crm-review-payload-from-whatsapp` gera JSON revisável a partir do transcript WhatsApp privado. O tópico ENGETOP foi localizado pela busca interna do Perplexity Space, salvo na linha 2 do CRM e incluído no payload revisável. Ajuste de schema posterior migrou `Status Comercial` para `Funil`, com dropdown estrito e payload revisável usando `Funil`, `Observações` e `Próximo passo`. ENGETOP foi aplicada no CRM com `Funil = Contato iniciado`, `Próximo passo = follow-up para agendar reunião diagnóstica` e `Observações` sem resumo comercial redundante.
+- m19 atualização operacional: `whatsapp_export.py` foi endurecido para não usar busca global do WhatsApp em `export`/`draft`; o fluxo abre a setinha ao lado de `Favoritas`, seleciona `Leads OrganizeJr` e varre/rola apenas essa lista. A conversa de Gabriella ENGETOP foi exportada no repo privado e enviada ao Perplexity Space pela aba confiável `Arquivos`.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -81,6 +82,7 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 - `analyze-health` rodou com a nova coluna `Funil` e reaplicou os dropdowns de `ICP Considerado` e `Funil`.
 - `crm-review-payload-from-whatsapp --input leads/engetop/whatsapp/ananda/full-2026-07-30.md --perplexity-topic-url https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2 --output leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json` gerou payload com `row=2`, `lead_slug=engetop`, `audit.message_count=10`, updates `Funil`, `Observações` e `Próximo passo`, todos com `requires_review=true`.
 - Google Sheets CRM linha 2 ENGETOP: coluna `AI` renomeada de `Prontidão comercial` para `Próximo passo`; `Funil` atualizado para `Contato iniciado`; `Próximo passo` atualizado para follow-up com Ananda para agendar reunião diagnóstica; `Observações` recebeu apenas registro contextual, sem repetir a ação.
+- Atualização ENGETOP/Gabriella: `whatsapp_export.py export --lead ENGETOP --contact Gabriella --mode full` retornou `ok=true`, `used_preferred_filter=true`, `messages=51`, `conversation_key=whatsapp:engetop:gabriella-engetop`. Transcript privado: `../organizejr-pp-leads/leads/engetop/whatsapp/gabriella/full-2026-07-30.md`. Perplexity Space `Arquivos` passou de `12 itens` para `13 itens` e listou `full-2026-07-30.md`, 9.5 KB, após reload.
 
 ## Artefatos gerados
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`
@@ -88,5 +90,7 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 - `../organizejr-pp-leads/ploomes_crm/perplexity_space_m17_evidence.md`
 - `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
+- `../organizejr-pp-leads/leads/engetop/whatsapp/gabriella/full-2026-07-30.md`
+- `../organizejr-pp-leads/ploomes_crm/whatsapp_gabriella_perplexity_evidence.md`
 
-Próximo passo m19: acompanhar follow-up da ENGETOP para agendar a reunião diagnóstica e, depois da resposta, atualizar o mesmo tópico Perplexity e o CRM sem criar dado cadastral inferido.
+Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conversas de Ananda e Gabriella antes de sugerir qualquer mudança adicional no CRM da ENGETOP; manter a regra de que automações WhatsApp para leads comerciais usam listas/filtros, nunca busca global.

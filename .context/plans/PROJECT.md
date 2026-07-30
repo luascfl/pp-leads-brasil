@@ -126,4 +126,6 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
 - Busca interna do Perplexity Space confirmou o tópico ENGETOP em `https://www.perplexity.ai/search/40cee0f7-3e0b-4842-ae03-e9a33f4abcb2` e o link foi salvo na linha 2 do CRM.
 - Schema CRM ajustado: `Status Comercial` foi renomeado para `Funil` na coluna `AP`, `Prontidão comercial` foi renomeado para `Próximo passo` na coluna `AI`, e o comando `apply-icp-score` aceita `proximo_passo`.
 - Validação real com Ananda/ENGETOP aplicou no CRM: `Funil = Contato iniciado`, `Próximo passo = follow-up para agendar reunião diagnóstica`, `Observações` só com contexto e ausência de aceite/proposta/decisão.
+- Atualização operacional posterior: `whatsapp_export.py` agora não possui caminho de busca global no WhatsApp para `export`/`draft`; ele usa a setinha ao lado de `Favoritas`, seleciona `Leads OrganizeJr` e varre/rola apenas a lista filtrada.
+- Gabriella ENGETOP foi exportada no repo privado com `messages=51`, `conversation_key=whatsapp:engetop:gabriella-engetop`, e o Markdown foi enviado ao Perplexity Space pela aba confiável `Arquivos`, que passou de 12 para 13 itens após reload.
 
