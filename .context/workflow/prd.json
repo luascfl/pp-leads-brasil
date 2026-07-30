@@ -144,7 +144,7 @@
             "perplexity-topic set/get confirmed row=2 lead=ENGETOP with the same topic URL",
             "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates, perplexity_topic_url and Funil/Observações/Próximo passo fields",
             "Google Sheets CRM row 2 ENGETOP applied with Funil=Contato iniciado, Próximo passo=follow-up to schedule the diagnostic meeting, and Observações without redundant commercial summary",
-            "Gabriella ENGETOP WhatsApp transcript exported privately with list-only Leads OrganizeJr flow: messages=51, conversation_key=whatsapp:engetop:gabriella-engetop; mistaken Perplexity Space Files upload removed, Files returned to 12 items without full-2026-07-30.md; correct flow is to paste WhatsApp transcripts into the lead topic conversation, not upload them as global Space files"
+            "Gabriella ENGETOP WhatsApp transcript exported privately with list-only Leads OrganizeJr flow: messages=51, conversation_key=whatsapp:engetop:gabriella-engetop; mistaken Perplexity Space Files upload removed, Files returned to 12 items without full-2026-07-30.md; transcript pasted into the ENGETOP topic conversation in 2 parts, and Perplexity responded in the same topic with CRM fields, next steps, objections, inferences and suggestion"
           ]
         }
       ]

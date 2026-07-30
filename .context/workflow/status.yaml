@@ -80,8 +80,11 @@ execution:
     - timestamp: "2026-07-30T19:24:00Z"
       phase: E
       action: m19_engetop_gabriella_whatsapp_file_removed
-  last_activity: "2026-07-30T19:24:00Z"
-  resume_context: "m19-us003 concluído e atualizado: ENGETOP tem tópico Perplexity confirmado, CRM migrado para Funil/Próximo passo, payload Ananda aplicado; Gabriella ENGETOP foi exportada do WhatsApp por fluxo list-only Leads OrganizeJr, sem busca global. O upload equivocado do transcript em Arquivos do Perplexity Space foi removido; o fluxo correto é colar transcripts WhatsApp integralmente no tópico Perplexity do lead."
+    - timestamp: "2026-07-30T20:23:00Z"
+      phase: E
+      action: m19_engetop_gabriella_whatsapp_pasted_topic
+  last_activity: "2026-07-30T20:23:00Z"
+  resume_context: "m19-us003 concluído e atualizado: ENGETOP tem tópico Perplexity confirmado, CRM migrado para Funil/Próximo passo, payload Ananda aplicado; Gabriella ENGETOP foi exportada do WhatsApp por fluxo list-only Leads OrganizeJr, sem busca global. O upload equivocado do transcript em Arquivos do Perplexity Space foi removido. O transcript Gabriella foi colado no tópico ENGETOP em 2 partes e Perplexity respondeu no mesmo tópico com campos para CRM, próximos passos, objeções, inferências e sugestão."
 
 approval:
   plan_created: true
