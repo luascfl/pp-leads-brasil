@@ -1,0 +1,31 @@
+{
+  "project": "pp-leads-brasil",
+  "milestones": [
+    {
+      "id": "m16",
+      "title": "CRM to Perplexity Space synchronization",
+      "status": "completed",
+      "objective": "Exportar snapshots curtos do estado canônico do CRM para manter o Perplexity Space atualizado como dump comercial narrativo, sem promover o Perplexity a fonte canônica.",
+      "stories": [
+        {
+          "id": "m16-us001",
+          "slug": "crm-perplexity-snapshots",
+          "title": "Export CRM snapshots for Perplexity Space",
+          "status": "completed",
+          "dod": [
+            "crm_sheet.py expõe um comando read-only para exportar snapshots Markdown por linhas do CRM.",
+            "O snapshot inclui status comercial, saúde CRM, ICP, decisor, contatos, canais, CNPJ, lacunas, Observações e Resumo Enriquecimento.",
+            "O texto orienta o Perplexity a tratar o conteúdo como estado atual do CRM e diferenciar sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.",
+            "A validação inclui py_compile, --help e execução real gerando um arquivo Markdown para linhas alvo."
+          ],
+          "evidence": [
+            "python3 -m py_compile organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+            "python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --help",
+            "python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --rows 3,4,5,6,105,106 --output organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md",
+            "snapshot check: lead_sections=6, instruction_count=1"
+          ]
+        }
+      ]
+    }
+  ]
+}
