@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T10:04:45-03:00
+2026-07-30T10:08:21-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -14,6 +14,8 @@
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
 
 `organizejr-pp-leads` agora é repositório privado separado em `https://github.com/luascfl/organizejr-pp-leads` e checkout local em `../organizejr-pp-leads`. O repo público `pp-leads-brasil` não deve voltar a receber evidências, planilhas, CRM local, `.clasp.json`, `.env` ou dados comerciais OrganizeJr.
+
+Para automações de WhatsApp, a conversa exportada é a evidência primária. O Perplexity pode organizar, extrair e sugerir atualizações, mas a planilha só deve receber fatos com proveniência clara na conversa ou revisão explícita do usuário. Isso evita transformar inferência do Perplexity em dado cadastral confirmado.
 
 ## DoD da story m16
 - Comando read-only em `../organizejr-pp-leads/ploomes_crm/crm_sheet.py`.
@@ -37,3 +39,6 @@ m17 aprovado: sincronização operacional CRM -> Perplexity Space via navegador 
 
 ## Passo seguinte
 m18 aprovado: geração de mensagens de abordagem por canal a partir dos snapshots m16/m17. Escopo provável: WhatsApp, Instagram, e-mail e LinkedIn, preservando diferença entre sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.
+
+## Milestone posterior
+m19 aprovado: automação WhatsApp -> Perplexity -> CRM. Escopo: exportar conversas por lead e contato, por exemplo "Ananda da Engetop", enviar a conversa completa ou novas mensagens ao Perplexity Space, pedir extração de fatos comerciais e gerar payload revisável para atualização da planilha. O fluxo deve aceitar comandos como "exportar toda a conversa de Ananda da Engetop" e "houve novas mensagens em Ananda Engetop". Para localizar conversas, a automação deve considerar primeiro a lista/filtro do WhatsApp chamada `Leads OrganizeJr` antes de cair para busca global.

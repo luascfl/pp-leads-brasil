@@ -50,8 +50,11 @@ execution:
     - timestamp: "2026-07-30T13:04:45Z"
       phase: E
       action: m16_closed_privacy_split_and_m17_m18_approved
-  last_activity: "2026-07-30T13:04:45Z"
-  resume_context: "m16 concluído e fechado. Foi criado o comando read-only `python3 ../organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots` para exportar snapshots Markdown do Google Sheets CRM para o Perplexity Space. O repo `organizejr-pp-leads` agora é privado separado em `../organizejr-pp-leads` e GitHub `luascfl/organizejr-pp-leads`; o repo público `pp-leads-brasil` foi purgado do caminho `organizejr-pp-leads/` e a pasta `scripts/` foi removida. m17 aprovado: colar e validar o snapshot CRM no Perplexity Space via navegador persistente. m18 aprovado: gerar mensagens de abordagem por canal a partir dos snapshots atualizados."
+    - timestamp: "2026-07-30T13:08:21Z"
+      phase: E
+      action: m19_whatsapp_perplexity_crm_loop_approved
+  last_activity: "2026-07-30T13:08:21Z"
+  resume_context: "m16 concluído e fechado. Foi criado o comando read-only `python3 ../organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots` para exportar snapshots Markdown do Google Sheets CRM para o Perplexity Space. O repo `organizejr-pp-leads` agora é privado separado em `../organizejr-pp-leads` e GitHub `luascfl/organizejr-pp-leads`; o repo público `pp-leads-brasil` foi purgado do caminho `organizejr-pp-leads/` e a pasta `scripts/` foi removida. m17 aprovado: colar e validar o snapshot CRM no Perplexity Space via navegador persistente. m18 aprovado: gerar mensagens de abordagem por canal a partir dos snapshots atualizados. m19 aprovado: automação WhatsApp -> Perplexity -> CRM para export completo ou incremental de conversas por lead/contato, como Ananda da Engetop, considerando primeiro a lista/filtro WhatsApp `Leads OrganizeJr`, com transcript/delta no Perplexity Space e payload revisável para atualização da planilha."
 
 approval:
   plan_created: true

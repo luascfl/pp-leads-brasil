@@ -68,6 +68,40 @@
           ]
         }
       ]
+    },
+    {
+      "id": "m19",
+      "title": "WhatsApp conversation to Perplexity and CRM update loop",
+      "status": "approved_later",
+      "objective": "Automatizar export completo e incremental de conversas WhatsApp por lead/contato, atualizar o Perplexity Space e produzir payload revisável para atualização da planilha CRM.",
+      "stories": [
+        {
+          "id": "m19-us001",
+          "slug": "whatsapp-conversation-export-to-perplexity",
+          "title": "Export WhatsApp conversation context into Perplexity Space",
+          "status": "planned",
+          "dod": [
+            "Resolver lead e contato por linguagem natural, como Ananda + Engetop.",
+            "Considerar primeiro a lista/filtro do WhatsApp chamada Leads OrganizeJr para localizar conversas comerciais.",
+            "Exportar conversa completa quando o usuário pedir histórico total.",
+            "Exportar somente novas mensagens quando o usuário indicar atualização.",
+            "Salvar transcript/delta apenas no repo privado ou armazenamento local privado.",
+            "Atualizar o Perplexity Space com o transcript/delta e instrução de extração comercial."
+          ]
+        },
+        {
+          "id": "m19-us002",
+          "slug": "perplexity-to-crm-update-review",
+          "title": "Generate reviewed CRM updates from WhatsApp evidence",
+          "status": "planned",
+          "dod": [
+            "Perplexity retorna fatos comerciais, próximos passos, objeções, status, canal e dados confirmados com evidência textual.",
+            "Payload para crm_sheet.py diferencia mensagem enviada, resposta recebida, inferência, sugestão e dado confirmado.",
+            "Atualização da planilha não aplica fato ambíguo sem revisão explícita.",
+            "Cada atualização registra origem WhatsApp e resumo/evidência da conversa."
+          ]
+        }
+      ]
     }
   ]
 }
