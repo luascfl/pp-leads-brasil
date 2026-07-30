@@ -17,3 +17,28 @@ node_modules/
 dist/
 build/
 *.zip
+
+# Generated context and graph artifacts
+.context/graphify-out/cache/
+.context/graphify-out/converted/
+.context/workflow/ralph/
+
+# Per-lead generated context scaffolds
+organizejr-pp-leads/leads/*/.context/
+organizejr-pp-leads/leads/*/AGENTS.md
+
+# Generated graphify artifacts outside the canonical project graph
+organizejr-pp-leads/**/graphify-out/
+
+# Generated OrganizeJr enrichment outputs
+organizejr-pp-leads/ploomes_crm/enrichment_batch_*.json
+organizejr-pp-leads/ploomes_crm/enrichment_chunk_*.json
+organizejr-pp-leads/ploomes_crm/enrichment_result_*.json
+organizejr-pp-leads/ploomes_crm/enrichment_manifest.json
+organizejr-pp-leads/ploomes_crm/enrichment_local_*.json
+organizejr-pp-leads/ploomes_crm/ploomes-enrichment/
+organizejr-pp-leads/**/tmp_*
+
+# Local office lock files
+*.~lock.*#
+.~lock.*#
