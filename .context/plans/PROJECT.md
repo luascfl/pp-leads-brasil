@@ -9,27 +9,28 @@ pp-leads-brasil, stack público de pesquisa, enrichment e automação comercial.
 - m15, expansão de contato com evidência para empresas não resolvidas, concluído.
 - m16, sincronização CRM -> Perplexity Space, concluído.
 - Pós-m16, split privado OrganizeJr e purge do histórico público, concluído.
-- m17, sincronização operacional no Perplexity Space via navegador persistente, aprovado como próximo milestone.
-- m18, geração de mensagens de abordagem por canal a partir dos snapshots, aprovado como milestone seguinte.
-- m19, automação WhatsApp -> Perplexity -> CRM, aprovado como milestone posterior.
+- m17, sincronização operacional no Perplexity Space via instruções e arquivos, concluído.
+- m18, geração de mensagens de abordagem por canal a partir dos snapshots, preparação concluída no repo privado.
+- m19, automação WhatsApp -> Perplexity -> CRM, requisitos detalhados registrados no repo privado.
 
-## Milestone ativo, m17
+## Milestone concluído, m17
 
 ### Objetivo
-Transformar o snapshot Markdown gerado no m16 em contexto realmente disponível no Perplexity Space da OrganizeJr, usando navegador persistente autenticado, sem tornar o Perplexity fonte canônica do CRM.
+Transformar o snapshot Markdown gerado no m16 em contexto realmente disponível no Perplexity Space da OrganizeJr usando o fluxo confiável `Instruções` + `Arquivos`, sem tornar o Perplexity fonte canônica do CRM.
 
 ### Dependências
 - Checkout privado `../organizejr-pp-leads` com `ploomes_crm/crm_sheet.py` e artefatos CRM.
 - Snapshot m16 em `../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md`.
 - Chrome persistente/CDP autenticado no Perplexity.
+- Perplexity Space operando apenas com `Instruções` e `Arquivos` como superfícies confiáveis.
 - Google Sheets CRM permanece como fonte canônica operacional.
 
 ### Critérios de conclusão
-- O Perplexity Space da OrganizeJr recebe o snapshot m16.
-- A automação usa navegador persistente e não copia perfil completo do Chrome.
-- O fluxo diferencia sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.
-- Existe verificação observável de que o contexto foi colado/salvo no Space.
-- O procedimento fica registrado para repetição por lote.
+- O Perplexity Space da OrganizeJr recebeu o snapshot m16 como arquivo.
+- A automação usou navegador persistente e não copiou perfil completo do Chrome.
+- As instruções salvas diferenciam sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.
+- Existe verificação observável de que as instruções persistiram e os arquivos ficaram listados no Space.
+- O procedimento registrado para repetição é atualizar instruções duráveis e subir arquivos Markdown.
 
 ## Milestone seguinte, m18
 
