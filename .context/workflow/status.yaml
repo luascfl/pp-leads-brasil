@@ -47,10 +47,12 @@ execution:
     - timestamp: "2026-05-25T01:41:45.925Z"
       phase: C
       action: phase_skipped
-  last_activity: "2026-07-30T08:55:00Z"
-  resume_context: "m16 concluído. Foi criado o comando read-only `python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots` para exportar snapshots Markdown do Google Sheets CRM para o Perplexity Space. Artefato gerado: organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md com 6 leads do m15: Consultagro 3, ENGETEC 4, ENGTEMP 5, EAmb 6, Primus 105 e Farmácia Jr 106. Validação: py_compile passou, help lista o comando, execução real gerou 6 seções e uma única instrução global para o Perplexity. Próximo m17: escolher entre automação de colagem/export no Perplexity Space via navegador persistente ou geração de mensagens de abordagem por canal a partir dos snapshots."
+    - timestamp: "2026-07-30T13:04:45Z"
+      phase: E
+      action: m16_closed_privacy_split_and_m17_m18_approved
+  last_activity: "2026-07-30T13:04:45Z"
+  resume_context: "m16 concluído e fechado. Foi criado o comando read-only `python3 ../organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots` para exportar snapshots Markdown do Google Sheets CRM para o Perplexity Space. O repo `organizejr-pp-leads` agora é privado separado em `../organizejr-pp-leads` e GitHub `luascfl/organizejr-pp-leads`; o repo público `pp-leads-brasil` foi purgado do caminho `organizejr-pp-leads/` e a pasta `scripts/` foi removida. m17 aprovado: colar e validar o snapshot CRM no Perplexity Space via navegador persistente. m18 aprovado: gerar mensagens de abordagem por canal a partir dos snapshots atualizados."
 
 approval:
   plan_created: true
-  plan_approved: false
-
+  plan_approved: true

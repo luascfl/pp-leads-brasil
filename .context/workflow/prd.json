@@ -19,10 +19,52 @@
             "A validação inclui py_compile, --help e execução real gerando um arquivo Markdown para linhas alvo."
           ],
           "evidence": [
-            "python3 -m py_compile organizejr-pp-leads/ploomes_crm/crm_sheet.py",
-            "python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --help",
-            "python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --rows 3,4,5,6,105,106 --output organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md",
-            "snapshot check: lead_sections=6, instruction_count=1"
+            "python3 -m py_compile ../organizejr-pp-leads/ploomes_crm/crm_sheet.py",
+            "python3 ../organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --help",
+            "python3 ../organizejr-pp-leads/ploomes_crm/crm_sheet.py export-perplexity-snapshots --rows 3,4,5,6,105,106 --output ../organizejr-pp-leads/ploomes_crm/perplexity_space_m16_snapshot.md",
+            "snapshot check: lead_sections=6, instruction_count=1",
+            "luascfl/organizejr-pp-leads criado como PRIVATE",
+            "luascfl/pp-leads-brasil purgado: organizejr-pp-leads/ ausente do tree e histórico público"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m17",
+      "title": "Perplexity Space operational synchronization",
+      "status": "approved",
+      "objective": "Colar e validar o snapshot CRM no Perplexity Space da OrganizeJr via navegador persistente autenticado, mantendo o Google Sheets CRM como fonte canônica.",
+      "stories": [
+        {
+          "id": "m17-us001",
+          "slug": "perplexity-space-paste-verify",
+          "title": "Paste CRM snapshot into Perplexity Space",
+          "status": "planned",
+          "dod": [
+            "Abrir o Perplexity Space da OrganizeJr com Chrome/CDP persistente autenticado.",
+            "Colar o snapshot m16 no Space sem copiar perfil completo do Chrome.",
+            "Verificar visualmente ou via DOM que o contexto foi recebido.",
+            "Registrar o fluxo repetível para próximos lotes."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m18",
+      "title": "Channel-specific outreach message generation",
+      "status": "approved_next",
+      "objective": "Gerar mensagens de abordagem por WhatsApp, Instagram, e-mail e LinkedIn a partir dos snapshots atualizados, preservando o CRM como fonte final.",
+      "stories": [
+        {
+          "id": "m18-us001",
+          "slug": "outreach-messages-by-channel",
+          "title": "Generate channel-specific outreach drafts",
+          "status": "planned",
+          "dod": [
+            "Gerar mensagens por lead e canal a partir do contexto atualizado no Space.",
+            "Preservar diferença entre sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.",
+            "Não preencher campo cadastral do CRM somente com sugestão do Perplexity.",
+            "Entregar rascunhos curtos, revisáveis e prontos para copiar."
           ]
         }
       ]
