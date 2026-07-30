@@ -107,12 +107,12 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
    - Usar o link do CRM para abrir o tópico do lead e anexar/colar o novo contexto.
 
 ### Status m19-us002
-- Implementação privada criada no commit `c5a7cd2`.
+- Concluído no repo privado `organizejr-pp-leads`, commit `47a1be3`.
 - Novo script privado: `ploomes_crm/whatsapp_export.py`.
 - Comandos disponíveis: `resolve`, `sync-status`, `export --dry-run`, `export`.
-- Preflight obrigatório: antes de buscar conversa ou exportar, a automação verifica o painel do perfil do WhatsApp e só continua quando a sincronização está 100%/concluída.
-- Estado atual: execução real bloqueada porque o WhatsApp mostrou sincronização em andamento/pausada e pediu abrir o app no celular.
-- Próxima ação segura: `python3 ploomes_crm/whatsapp_export.py sync-status --watch`; depois rodar o export completo/delta.
+- Preflight obrigatório validado: `sync-status` retornou `ok=true`, `status=complete_no_sync_card`, `percent=100`.
+- Export real concluído para Ananda/ENGETOP: `used_preferred_filter=true`, `messages=10`.
+- Transcript privado salvo em `../organizejr-pp-leads/leads/engetop/whatsapp/ananda/full-2026-07-30.md`.
 
 5. **Perplexity -> CRM revisável**
    - Gerar payload com fatos, inferências, resposta do lead, mensagem enviada, evidência textual e próximo passo.

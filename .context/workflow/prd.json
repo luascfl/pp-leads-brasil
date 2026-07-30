@@ -105,7 +105,7 @@
           "id": "m19-us002",
           "slug": "whatsapp-conversation-export-to-lead-topic",
           "title": "Export WhatsApp conversation context into the lead topic",
-          "status": "blocked",
+          "status": "completed",
           "dod": [
             "Resolver lead e contato por linguagem natural, como Ananda + Engetop.",
             "Considerar primeiro a lista/filtro do WhatsApp chamada Leads OrganizeJr para localizar conversas comerciais.",
