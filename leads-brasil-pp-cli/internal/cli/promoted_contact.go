@@ -3,16 +3,15 @@ package cli
 import (
 	"encoding/json"
 	"fmt"
-	"regexp"
 
 	"github.com/spf13/cobra"
 )
 
-func newCompanyPromotedCmd(flags *rootFlags) *cobra.Command {
+func newContactPromotedCmd(flags *rootFlags) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "company <query>",
-		Short: "Search for a company by name or enrich by CNPJ",
-		Long:  "If the query is a CNPJ, it enriches the company data. If it is a name or CNAE, it searches for companies.",
+		Use:   "contact <query>",
+		Short: "Deep search for people/decision-makers inside a company",
+		Long:  "Finds decision makers, titles, and links for a given company name, email, or URL.",
 		RunE: func(cmd *cobra.Command, args []string) error {
 			c, err := flags.newClient()
 			if err != nil {
@@ -29,32 +28,16 @@ func newCompanyPromotedCmd(flags *rootFlags) *cobra.Command {
 			}
 
 			query := args[0]
-			digits := regexp.MustCompile(`\D`).ReplaceAllString(query, "")
+			path := "/contact-goat"
+			body := map[string]any{"company": query}
 
-			var data []byte
-
-			if len(digits) == 14 {
-				// Treat as CNPJ -> Enrich
-				path := replacePathParam("/enrich/{cnpj}", "cnpj", query)
-				data, _, err = c.PostWithParams(cmd.Context(), path, map[string]string{}, map[string]any{})
-			} else {
-				// Treat as Name -> Search
-				path := "/search"
-				body := map[string]any{"name": query}
-				// If it looks like a CNAE (e.g. 6920-6/01)
-				if regexp.MustCompile(`^\d{4}-\d/\d{2}$`).MatchString(query) {
-					body = map[string]any{"cnae": query}
-				}
-				data, _, err = c.PostWithParams(cmd.Context(), path, map[string]string{}, body)
-			}
-
+			data, _, err := c.PostWithParams(cmd.Context(), path, map[string]string{}, body)
 			if err != nil {
 				return classifyAPIError(err, flags)
 			}
 
 			if wantsHumanTable(cmd.OutOrStdout(), flags) {
 				var items []map[string]any
-				// Search returns an array, enrich might return an object
 				if json.Unmarshal(data, &items) == nil && len(items) > 0 {
 					if err := printAutoTable(cmd.OutOrStdout(), items); err != nil {
 						return err

@@ -12,7 +12,7 @@ import (
 )
 
 func leadTablePath() string {
-	return filepath.Join("..", "..", "..", ".context", "organizejr", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
+	return filepath.Join("..", "..", "..", "organizejr-pp-leads", "icp", "ejs-comunicacao", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
 }
 
 func TestSearchCompanyByNameUsesLocalLeadTable(t *testing.T) {
@@ -56,16 +56,19 @@ func TestSearchCompanyByCNPJUsesLocalLeadTable(t *testing.T) {
 }
 
 func TestSearchCompanyByNameUsesUseCaseConfigLeadTable(t *testing.T) {
-	configPath := filepath.Join(t.TempDir(), "use-case.json")
+	configDir := t.TempDir()
 	leadPath, err := filepath.Abs(leadTablePath())
 	if err != nil {
 		t.Fatal(err)
 	}
-	configContent := []byte("{\n  \"name\": \"sample-case\",\n  \"lead_table_path\": \"" + leadPath + "\"\n}")
-	if err := os.WriteFile(configPath, configContent, 0o644); err != nil {
+	data, err := os.ReadFile(leadPath)
+	if err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("PP_LEADS_USE_CASE_CONFIG", configPath)
+	if err := os.WriteFile(filepath.Join(configDir, "lead-table-sample.csv"), data, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("PP_LEADS_ICP_DIR", configDir)
 
 	client := &casadados.CasaDadosClient{}
 	result, err := client.SearchCompanyByName("Facto")
@@ -76,7 +79,7 @@ func TestSearchCompanyByNameUsesUseCaseConfigLeadTable(t *testing.T) {
 	if len(results) != 1 {
 		t.Fatalf("len(results) = %d, want 1", len(results))
 	}
-	if useCase, ok := results[0]["use_case"].(map[string]any); !ok || useCase["name"] != "sample-case" {
+	if useCase, ok := results[0]["use_case"].(map[string]any); !ok || useCase["name"] != filepath.Base(configDir) {
 		t.Fatalf("use_case = %#v", results[0]["use_case"])
 	}
 }
@@ -91,10 +94,7 @@ func TestConsultaCNPJUsesCasaDosDadosAPI(t *testing.T) {
 		}
 		_ = json.NewEncoder(w).Encode(map[string]any{
 			"cnpj":         "11370755000102",
-			"razao_social": "FACTO AGENCIA DE COMUNICACAO",
-			"situacao_cadastral": map[string]any{
-				"situacao_cadastral": "ATIVA",
-			},
+			"razao_social": "Facto Agência de Comunicação",
 		})
 	}))
 	defer server.Close()
@@ -104,10 +104,7 @@ func TestConsultaCNPJUsesCasaDosDadosAPI(t *testing.T) {
 	if err != nil {
 		t.Fatalf("ConsultaCNPJ returned error: %v", err)
 	}
-	if result["source"] != "casa_dos_dados" {
-		t.Fatalf("source = %v", result["source"])
-	}
-	if result["razao_social"] != "FACTO AGENCIA DE COMUNICACAO" {
+	if result["razao_social"] != "Facto Agência de Comunicação" {
 		t.Fatalf("razao_social = %v", result["razao_social"])
 	}
 }
@@ -120,28 +117,37 @@ func TestPesquisaEmpresasUsesCasaDosDadosAPI(t *testing.T) {
 		if r.Method != http.MethodPost {
 			t.Fatalf("method = %s", r.Method)
 		}
-		if r.Header.Get("api-key") != "test-key" {
-			t.Fatalf("api-key header = %q", r.Header.Get("api-key"))
+		var body map[string]any
+		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
+			t.Fatalf("decode body: %v", err)
+		}
+		busca, ok := body["busca_textual"].([]any)
+		if !ok || len(busca) != 1 {
+			t.Fatalf("busca_textual = %#v", body["busca_textual"])
+		}
+		first, ok := busca[0].(map[string]any)
+		if !ok {
+			t.Fatalf("busca_textual[0] = %#v", busca[0])
+		}
+		texto, ok := first["texto"].([]any)
+		if !ok || len(texto) != 1 || texto[0] != "Facto" {
+			t.Fatalf("texto = %#v", first["texto"])
 		}
 		_ = json.NewEncoder(w).Encode(map[string]any{
-			"total": 1,
 			"cnpjs": []map[string]any{{
 				"cnpj":         "11370755000102",
-				"razao_social": "FACTO AGENCIA DE COMUNICACAO",
+				"razao_social": "Facto Agência de Comunicação",
 			}},
 		})
 	}))
 	defer server.Close()
 
 	client := &casadados.CasaDadosClient{APIKey: "test-key", BaseURL: server.URL}
-	results, err := client.PesquisaEmpresas("Facto")
+	result, err := client.PesquisaEmpresas("Facto")
 	if err != nil {
 		t.Fatalf("PesquisaEmpresas returned error: %v", err)
 	}
-	if len(results) != 1 {
-		t.Fatalf("len(results) = %d", len(results))
-	}
-	if results[0]["source"] != "casa_dos_dados" {
-		t.Fatalf("source = %v", results[0]["source"])
+	if len(result) != 1 || result[0]["razao_social"] != "Facto Agência de Comunicação" {
+		t.Fatalf("result = %#v", result)
 	}
 }

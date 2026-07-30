@@ -5,16 +5,20 @@ package cli
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
+	"os/exec"
 	"strings"
 	"text/tabwriter"
 	"time"
 
-	"github.com/spf13/cobra"
 	"leads-brasil-pp-cli/internal/client"
 	"leads-brasil-pp-cli/internal/config"
+
+	"github.com/spf13/cobra"
 )
 
 var version = "1.0.0"
@@ -176,6 +180,99 @@ Run 'leads-brasil-pp-cli doctor' to verify auth and connectivity.`,
 	rootCmd.PersistentFlags().Float64Var(&flags.rateLimit, "rate-limit", 0, "Max requests per second (0 to disable)")
 
 	rootCmd.PersistentPreRunE = func(cmd *cobra.Command, args []string) error {
+		if err := loadDoctorEnvFile(); err != nil {
+			return fmt.Errorf("loading doctor env: %w", err)
+		}
+		// --- HEALTH ENFORCEMENT E AUTO-FIX ---
+		cfg, _ := config.Load(flags.configPath)
+		isLocal := cfg != nil && strings.Contains(cfg.BaseURL, "localhost")
+
+		// 1. Auto-inject local dev token permanentemente no config se for localhost
+		if isLocal && cfg.AuthHeader() == "" && os.Getenv("LEADS_BRASIL_BEARER_AUTH") == "" {
+			cfg.SaveTokens("", "", "local-dev-token", "", cfg.TokenExpiry)
+			fmt.Fprintln(os.Stderr, "✅ Token local de desenvolvimento auto-configurado.")
+		}
+
+		// 1b. Auto-wire o ICP padrão do repositório quando disponível
+		if os.Getenv("PP_LEADS_ICP_DIR") == "" {
+			if auto := detectDefaultUseCaseConfig(); auto != "" {
+				_ = os.Setenv("PP_LEADS_ICP_DIR", auto)
+			}
+		}
+
+		// 2. Auto-start local server se for localhost e estiver offline
+		if isLocal {
+			_, err := http.Get(cfg.BaseURL)
+			if err != nil && strings.Contains(err.Error(), "connection refused") {
+				fmt.Fprintln(os.Stderr, "⚠️ Backend local offline. Tentando ligar (server_bin)...")
+				binPath := "/home/lucas/Downloads/pp-leads-brasil/server_bin"
+				if _, err := os.Stat(binPath); err == nil {
+					serverCmd := exec.Command(binPath)
+					serverCmd.Stdout = nil
+					serverCmd.Stderr = nil
+					if err := serverCmd.Start(); err == nil {
+						for i := 0; i < 15; i++ {
+							time.Sleep(200 * time.Millisecond)
+							if _, err := http.Get(cfg.BaseURL); err == nil {
+								fmt.Fprintln(os.Stderr, "✅ Backend local iniciado com sucesso.")
+								break
+							}
+						}
+					}
+				}
+			}
+		}
+
+		if cmd.Name() != "doctor" && cmd.Name() != "auth" && cmd.Name() != "completion" && cmd.Parent() != nil && cmd.Parent().Name() != "auth" {
+			// 3. ENFORCE 100% HEALTH PARA COMANDOS DE BUSCA
+			if os.Getenv("LEADS_BRASIL_BEARER_AUTH") == "" && cfg.AuthHeader() == "" {
+				return fmt.Errorf("Erro: Autenticação ausente.\nRode 'leads-brasil-pp-cli doctor --fix' para resolver.")
+			}
+
+			if cfg != nil {
+				_, err := http.Get(cfg.BaseURL)
+				if err != nil {
+					return fmt.Errorf("Erro: API inalcançável em %s.\nRode 'leads-brasil-pp-cli doctor --fix' para resolver.\nDetalhe: %v", cfg.BaseURL, err)
+				}
+			}
+
+			// 4. ENFORCE EXTERNAL TOKENS / BINARIES BY COMMAND
+			switch cmd.Name() {
+			case "company":
+				if os.Getenv("CASA_DADOS_API_KEY") == "" && os.Getenv("PP_LEADS_CASA_DADOS_API_KEY") == "" {
+					return fmt.Errorf("Erro: CASA_DADOS_API_KEY ausente.\nRode 'leads-brasil-pp-cli doctor --fix' para resolver.")
+				}
+				if _, err := exec.LookPath("company-goat-pp-cli"); err != nil {
+					return fmt.Errorf("Erro: company-goat-pp-cli não encontrado no PATH.\nRode 'leads-brasil-pp-cli doctor' e instale/configure a dependência.")
+				}
+			case "contact":
+				if _, err := exec.LookPath("contact-goat-pp-cli"); err != nil {
+					return fmt.Errorf("Erro: contact-goat-pp-cli não encontrado no PATH.\nInstale/configure e depois rode 'leads-brasil-pp-cli doctor --fix'.")
+				}
+				if out, err := exec.Command("contact-goat-pp-cli", "doctor", "--json").Output(); err == nil {
+					var sub map[string]any
+					if json.Unmarshal(out, &sub) == nil {
+						if s, _ := sub["deepline_env"].(string); s == "" || strings.Contains(strings.ToLower(s), "not set") {
+							return fmt.Errorf("Erro: Deepline não configurado no contact-goat.\nRode 'leads-brasil-pp-cli doctor --fix' para configurar DEEPLINE_API_KEY ou discovery equivalente.")
+						}
+						hpAuth, _ := sub["auth"].(string)
+						cookies, _ := sub["happenstance_cookies"].(string)
+						apiKeyStatus, _ := sub["happenstance_api_key"].(string)
+						authMissing := hpAuth == "" || strings.Contains(strings.ToLower(hpAuth), "not configured")
+						cookiesMissing := strings.Contains(strings.ToLower(cookies), "not configured")
+						apiKeyMissing := apiKeyStatus == "" || strings.Contains(strings.ToLower(apiKeyStatus), "not set")
+						if authMissing && cookiesMissing && apiKeyMissing {
+							return fmt.Errorf("Erro: Happenstance não configurado.\nRode 'leads-brasil-pp-cli doctor --fix' para escolher UMA surface válida: login no Chrome, HAPPENSTANCE_API_KEY ou contact-goat-pp-cli auth set-token <token>.")
+						}
+						if s, _ := sub["linkedin_profile"].(string); strings.Contains(strings.ToLower(s), "not logged in") {
+							return fmt.Errorf("Erro: LinkedIn MCP sem login.\nRode 'leads-brasil-pp-cli doctor --fix' para autenticar.")
+						}
+					}
+				}
+			}
+		}
+		// --- END HEALTH ENFORCEMENT ---
+
 		if flags.deliverSpec != "" {
 			sink, err := ParseDeliverSink(flags.deliverSpec)
 			if err != nil {
@@ -237,10 +334,7 @@ Run 'leads-brasil-pp-cli doctor' to verify auth and connectivity.`,
 	rootCmd.AddCommand(newImportCmd(flags))
 	rootCmd.AddCommand(newAPICmd(flags))
 	rootCmd.AddCommand(newCompanyPromotedCmd(flags))
-	rootCmd.AddCommand(newEnrichPromotedCmd(flags))
-	rootCmd.AddCommand(newCompanyGoatPromotedCmd(flags))
-	rootCmd.AddCommand(newContactGoatPromotedCmd(flags))
-	rootCmd.AddCommand(newLeadsBrasilPlatformSearchPromotedCmd(flags))
+	rootCmd.AddCommand(newContactPromotedCmd(flags))
 	rootCmd.AddCommand(newVersionCliCmd())
 
 	return rootCmd

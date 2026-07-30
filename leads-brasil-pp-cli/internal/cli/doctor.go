@@ -4,15 +4,20 @@
 package cli
 
 import (
+	"bufio"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
+	"runtime"
 	"strings"
 
-	"github.com/spf13/cobra"
 	"leads-brasil-pp-cli/internal/client"
 	"leads-brasil-pp-cli/internal/cliutil"
 	"leads-brasil-pp-cli/internal/config"
+
+	"github.com/spf13/cobra"
 )
 
 // looksLikeDoctorInterstitial reports whether the response body matches a known
@@ -134,6 +139,8 @@ func isSuggestableReadLeaf(cmd *cobra.Command) bool {
 
 func newDoctorCmd(flags *rootFlags) *cobra.Command {
 	var failOn string
+	var fix bool
+	var forcePty bool
 	cmd := &cobra.Command{
 		Use:   "doctor",
 		Short: "Check CLI health",
@@ -141,7 +148,309 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
   leads-brasil-pp-cli doctor --json
   leads-brasil-pp-cli doctor --fail-on warn`,
 		RunE: func(cmd *cobra.Command, args []string) error {
+			if os.Getenv("PP_LEADS_DOCTOR_PTY_ACTIVE") != "1" {
+				wrapper := detectDefaultPtyWrapper()
+				if wrapper == "" {
+					// Sem wrapper detectado, segue no modo normal.
+				} else {
+				exe, err := os.Executable()
+				if err != nil {
+					return fmt.Errorf("doctor --pty: não consegui descobrir o executável atual: %w", err)
+				}
+				passthrough := []string{}
+				for _, arg := range os.Args[1:] {
+					if arg == "--pty" {
+						continue
+					}
+					passthrough = append(passthrough, arg)
+				}
+				reexec := exec.Command("python3", append([]string{wrapper, "--", exe}, passthrough...)...)
+				reexec.Stdin = os.Stdin
+				reexec.Stdout = os.Stdout
+				reexec.Stderr = os.Stderr
+					reexec.Env = append(os.Environ(), "PP_LEADS_DOCTOR_PTY_ACTIVE=1")
+					return reexec.Run()
+				}
+			}
+			if fix {
+				failOn = "stale"
+			}
+			if fix && !flags.noInput {
+				fmt.Println("== Iniciando Setup Interativo (Goat/Leads) ==")
+				reader := bufio.NewReader(os.Stdin)
+				contactGoatStatus := map[string]any{}
+				if out, err := exec.Command("contact-goat-pp-cli", "doctor", "--json").Output(); err == nil {
+					_ = json.Unmarshal(out, &contactGoatStatus)
+				}
+				companyGoatStatus := map[string]any{}
+				if out, err := exec.Command("company-goat-pp-cli", "doctor", "--json").Output(); err == nil {
+					_ = json.Unmarshal(out, &companyGoatStatus)
+				}
+				hpAuth, _ := contactGoatStatus["auth"].(string)
+				hpCookies, _ := contactGoatStatus["happenstance_cookies"].(string)
+				hpAPI, _ := contactGoatStatus["happenstance_api_key"].(string)
+				deeplineStatus, _ := contactGoatStatus["deepline_env"].(string)
+				linkedinStatus, _ := contactGoatStatus["linkedin_profile"].(string)
+				happenstanceReady := !strings.Contains(strings.ToLower(hpAuth), "not configured") || !strings.Contains(strings.ToLower(hpCookies), "not configured") || (hpAPI != "" && !strings.Contains(strings.ToLower(hpAPI), "not set"))
+				deeplineReady := deeplineStatus != "" && !strings.Contains(strings.ToLower(deeplineStatus), "not set")
+				linkedinReady := strings.HasPrefix(strings.ToLower(linkedinStatus), "ok")
+
+				// CASA_DADOS_API_KEY
+				if os.Getenv("CASA_DADOS_API_KEY") == "" && os.Getenv("PP_LEADS_CASA_DADOS_API_KEY") == "" {
+					if doctorPromptYesNo(reader, "CASA_DADOS_API_KEY não está definida. Quer configurar agora para esta sessão? [s/N] ") {
+						key := doctorPromptLine(reader, "Cole CASA_DADOS_API_KEY: ")
+						if key != "" {
+							os.Setenv("CASA_DADOS_API_KEY", key)
+							fmt.Println("CASA_DADOS_API_KEY exportada para esta sessão.")
+							fmt.Print("Persistir CASA_DADOS_API_KEY em ~/.config/leads-brasil-pp-cli/doctor.env? [s/N] ")
+							persistAns, _ := reader.ReadString('\n')
+							if strings.ToLower(strings.TrimSpace(persistAns)) == "s" || strings.ToLower(strings.TrimSpace(persistAns)) == "sim" {
+								if err := persistDoctorEnvVar("CASA_DADOS_API_KEY", key); err != nil {
+									fmt.Fprintf(os.Stderr, "falha ao persistir CASA_DADOS_API_KEY: %v\n", err)
+								} else if envPath, err := doctorEnvPath(); err == nil {
+									fmt.Printf("CASA_DADOS_API_KEY persistida em %s\n", envPath)
+								}
+							}
+						}
+					}
+				}
+
+				// Company Goat cache
+				if cache, ok := companyGoatStatus["cache"].(map[string]any); ok {
+					if status, _ := cache["status"].(string); status != "" && status != "ok" {
+						if doctorPromptYesNo(reader, "Company Goat cache ainda não existe. Quer hidratar agora com company-goat-pp-cli sync --latest-only? [s/N] ") {
+							syncCmd := exec.Command("company-goat-pp-cli", "sync", "--latest-only")
+							syncCmd.Stdout = os.Stdout
+							syncCmd.Stderr = os.Stderr
+							syncCmd.Stdin = os.Stdin
+							if err := syncCmd.Run(); err != nil {
+								fmt.Fprintf(os.Stderr, "falha ao hidratar Company Goat: %v\n", err)
+							}
+						}
+					}
+				}
+
+				// Happenstance
+				if !happenstanceReady && runtime.GOOS == "darwin" {
+					if doctorPromptYesNo(reader, "Rodar login do Happenstance pelo Chrome agora? [s/N] ") {
+						c := exec.Command("contact-goat-pp-cli", "auth", "login", "--chrome", "--service", "happenstance")
+						c.Stdout = os.Stdout
+						c.Stderr = os.Stderr
+						c.Stdin = os.Stdin
+						if err := c.Run(); err != nil {
+							fmt.Fprintf(os.Stderr, "falha ao executar comando: %v\n", err)
+						}
+					}
+				} else if !happenstanceReady && os.Getenv("HAPPENSTANCE_API_KEY") == "" && os.Getenv("HAPPENSTANCE_WEB_APP_COOKIE_AUTH") == "" {
+					fmt.Printf("Happenstance por cookies via Chrome não é suportado em %s.\n", runtime.GOOS)
+					if doctorPromptYesNo(reader, "Quer configurar HAPPENSTANCE_API_KEY agora? [s/N] ") {
+						key := doctorPromptLine(reader, "Cole HAPPENSTANCE_API_KEY: ")
+						if key != "" {
+							os.Setenv("HAPPENSTANCE_API_KEY", key)
+							fmt.Println("HAPPENSTANCE_API_KEY exportada para esta sessão.")
+							fmt.Print("Persistir HAPPENSTANCE_API_KEY em ~/.config/leads-brasil-pp-cli/doctor.env? [s/N] ")
+							persistAns, _ := reader.ReadString('\n')
+							if strings.ToLower(strings.TrimSpace(persistAns)) == "s" || strings.ToLower(strings.TrimSpace(persistAns)) == "sim" {
+								if err := persistDoctorEnvVar("HAPPENSTANCE_API_KEY", key); err != nil {
+									fmt.Fprintf(os.Stderr, "falha ao persistir HAPPENSTANCE_API_KEY: %v\n", err)
+								} else if envPath, err := doctorEnvPath(); err == nil {
+									fmt.Printf("HAPPENSTANCE_API_KEY persistida em %s\n", envPath)
+								}
+							}
+						}
+					}
+					if doctorPromptYesNo(reader, "Se você já tiver um token web do contact-goat, quer configurá-lo agora via auth set-token? [s/N] ") {
+						token := doctorPromptLine(reader, "Cole HAPPENSTANCE_WEB_APP_COOKIE_AUTH/token web: ")
+						if token != "" {
+							c := exec.Command("contact-goat-pp-cli", "auth", "set-token", token)
+							c.Stdout = os.Stdout
+							c.Stderr = os.Stderr
+							c.Stdin = os.Stdin
+							if err := c.Run(); err != nil {
+								fmt.Fprintf(os.Stderr, "falha ao salvar token web do Happenstance: %v\n", err)
+							}
+						}
+					}
+				}
+
+				// LinkedIn MCP
+				if !linkedinReady && doctorPromptYesNo(reader, "Rodar setup do LinkedIn MCP agora? [s/N] ") {
+					fmt.Fprintln(os.Stdout, "Tentando importar a sessão do navegador primeiro...")
+					importCmd := exec.Command("uvx", "mcp-server-linkedin@latest", "--status", "--import-from-browser", "auto")
+					importCmd.Stdout = os.Stdout
+					importCmd.Stderr = os.Stderr
+					importCmd.Stdin = os.Stdin
+					if err := importCmd.Run(); err != nil {
+						fmt.Fprintf(os.Stderr, "import automático do navegador falhou: %v\n", err)
+						fmt.Fprintln(os.Stdout, "Caindo para login manual do LinkedIn MCP...")
+						loginCmd := exec.Command("uvx", "mcp-server-linkedin@latest", "--login")
+						loginCmd.Stdout = os.Stdout
+						loginCmd.Stderr = os.Stderr
+						loginCmd.Stdin = os.Stdin
+						if err := loginCmd.Run(); err != nil {
+							fmt.Fprintf(os.Stderr, "falha no login manual do LinkedIn MCP: %v\n", err)
+						}
+					}
+					statusCmd := exec.Command("uvx", "mcp-server-linkedin@latest", "--status")
+					statusCmd.Stdout = os.Stdout
+					statusCmd.Stderr = os.Stderr
+					statusCmd.Stdin = os.Stdin
+					if err := statusCmd.Run(); err != nil {
+						fmt.Fprintf(os.Stderr, "status final do LinkedIn MCP ainda falhou: %v\n", err)
+					}
+				}
+
+				// DEEPLINE
+				if !deeplineReady && os.Getenv("DEEPLINE_API_KEY") == "" {
+					if doctorPromptYesNo(reader, "DEEPLINE_API_KEY não está definida. Quer configurar agora? [s/N] ") {
+						key := doctorPromptLine(reader, "Cole DEEPLINE_API_KEY: ")
+						if key != "" {
+							os.Setenv("DEEPLINE_API_KEY", key)
+							fmt.Println("DEEPLINE_API_KEY exportada para esta sessão.")
+							fmt.Print("Persistir DEEPLINE_API_KEY em ~/.config/leads-brasil-pp-cli/doctor.env? [s/N] ")
+							persistAns, _ := reader.ReadString('\n')
+							if strings.ToLower(strings.TrimSpace(persistAns)) == "s" || strings.ToLower(strings.TrimSpace(persistAns)) == "sim" {
+								if err := persistDoctorEnvVar("DEEPLINE_API_KEY", key); err != nil {
+									fmt.Fprintf(os.Stderr, "falha ao persistir DEEPLINE_API_KEY: %v\n", err)
+								} else if envPath, err := doctorEnvPath(); err == nil {
+									fmt.Printf("DEEPLINE_API_KEY persistida em %s\n", envPath)
+								}
+							}
+						}
+					}
+				}
+
+								scrapeCreatorsHealthy := false
+				if _, err := exec.LookPath("scrape-creators-pp-cli"); err == nil {
+					checkCmd := exec.Command("scrape-creators-pp-cli", "account", "list", "--agent")
+					if err := checkCmd.Run(); err == nil {
+						scrapeCreatorsHealthy = true
+					}
+				}
+				if !scrapeCreatorsHealthy {
+					if doctorPromptYesNo(reader, "SCRAPE_CREATORS_API_KEY_AUTH está ausente ou inválida. Quer configurar agora? [s/N] ") {
+						key := doctorPromptLine(reader, "Cole SCRAPE_CREATORS_API_KEY_AUTH: ")
+						if key != "" {
+							os.Setenv("SCRAPE_CREATORS_API_KEY_AUTH", key)
+							fmt.Println("SCRAPE_CREATORS_API_KEY_AUTH exportada para esta sessão.")
+							if doctorPromptYesNo(reader, "Persistir SCRAPE_CREATORS_API_KEY_AUTH em ~/.config/leads-brasil-pp-cli/doctor.env? [s/N] ") {
+								if err := persistDoctorEnvVar("SCRAPE_CREATORS_API_KEY_AUTH", key); err != nil {
+									fmt.Fprintf(os.Stderr, "falha ao persistir SCRAPE_CREATORS_API_KEY_AUTH: %v\n", err)
+								} else if envPath, err := doctorEnvPath(); err == nil {
+									fmt.Printf("SCRAPE_CREATORS_API_KEY_AUTH persistida em %s\n", envPath)
+								}
+							}
+						}
+					}
+				}
+
+fmt.Println("\nSe quiser persistir as chaves sem editar o shell manualmente, responda SIM aos prompts de persistência. Elas serão salvas em ~/.config/leads-brasil-pp-cli/doctor.env e carregadas automaticamente pela CLI.\nSe preferir, adicione ao seu ~/.bashrc ou ~/.zshrc:")
+				fmt.Println("export CASA_DADOS_API_KEY=\"...\"")
+				fmt.Println("export DEEPLINE_API_KEY=\"...\"")
+				fmt.Println("\n== Doctor final ==")
+			}
+
 			report := map[string]any{}
+
+			// --- EXTERNAL DEPENDENCIES (Goat/Leads) ---
+			if os.Getenv("CASA_DADOS_API_KEY") == "" && os.Getenv("PP_LEADS_CASA_DADOS_API_KEY") == "" {
+				report["Dependência Casa dos Dados"] = "error: ausente (requer CASA_DADOS_API_KEY)"
+			} else {
+				report["Dependência Casa dos Dados"] = "ok"
+			}
+
+			report["Dependência Deepline"] = "error: ausente (requer DEEPLINE_API_KEY ou discovery do contact-goat)"
+			if cfgPath := os.Getenv("PP_LEADS_ICP_DIR"); cfgPath != "" {
+				report["ICP Dir"] = "ok (env)"
+			} else if cfgPath := detectDefaultUseCaseConfig(); cfgPath != "" {
+				report["ICP Dir"] = "ok (auto-detect)"
+			} else {
+				report["ICP Dir"] = "warn: ausente (PP_LEADS_ICP_DIR não configurado e nenhum ICP padrão detectado)"
+			}
+
+			if _, err := exec.LookPath("company-goat-pp-cli"); err != nil {
+				report["Dependência Company Goat"] = "error: ausente (company-goat-pp-cli não encontrado no PATH)"
+			} else {
+				report["Dependência Company Goat"] = "ok"
+				if out, err := exec.Command("company-goat-pp-cli", "doctor", "--json").Output(); err == nil {
+					var sub map[string]any
+					if json.Unmarshal(out, &sub) == nil {
+						if cache, ok := sub["cache"].(map[string]any); ok {
+							if status, _ := cache["status"].(string); status != "" && status != "ok" {
+								report["Company Goat Cache"] = "INFO cache status: " + status
+							}
+						}
+					}
+				}
+			}
+
+			if _, err := exec.LookPath("contact-goat-pp-cli"); err != nil {
+				report["Dependência Contact Goat"] = "error: ausente (contact-goat-pp-cli não encontrado no PATH)"
+			} else {
+				report["Dependência Contact Goat"] = "ok"
+				if out, err := exec.Command("contact-goat-pp-cli", "doctor", "--json").Output(); err == nil {
+					var sub map[string]any
+					if json.Unmarshal(out, &sub) == nil {
+						if s, _ := sub["deepline_env"].(string); s != "" {
+							if strings.Contains(strings.ToLower(s), "not set") {
+								report["Dependência Deepline"] = "error: ausente (contact-goat sem Deepline)"
+							} else {
+								report["Dependência Deepline"] = "ok (" + s + ")"
+							}
+						}
+						hpAuth, _ := sub["auth"].(string)
+						cookies, _ := sub["happenstance_cookies"].(string)
+						apiKeyStatus, _ := sub["happenstance_api_key"].(string)
+						authMissing := hpAuth == "" || strings.Contains(strings.ToLower(hpAuth), "not configured")
+						cookiesMissing := strings.Contains(strings.ToLower(cookies), "not configured")
+						apiKeyMissing := apiKeyStatus == "" || strings.Contains(strings.ToLower(apiKeyStatus), "not set")
+						switch {
+						case authMissing && cookiesMissing && apiKeyMissing:
+							if runtime.GOOS == "darwin" {
+								report["Happenstance"] = "error: cookies e bearer ausentes"
+								report["Happenstance Guidance"] = "INFO prefer login via Chrome cookies ou HAPPENSTANCE_API_KEY"
+							} else {
+								report["Happenstance"] = "error: cookies e bearer ausentes (import por Chrome indisponível em " + runtime.GOOS + ")"
+								report["Happenstance Guidance"] = "INFO basta UMA surface válida: HAPPENSTANCE_API_KEY ou contact-goat-pp-cli auth set-token <token>"
+							}
+						case !authMissing && hpAuth != "":
+							report["Happenstance"] = "ok (contact-goat auth configurado)"
+						case !cookiesMissing && cookies != "":
+							report["Happenstance"] = cookies
+						case !apiKeyMissing:
+							report["Happenstance"] = "ok (bearer API key configurada)"
+						}
+						if s, _ := sub["linkedin_profile"].(string); s != "" {
+							if strings.Contains(strings.ToLower(s), "not logged in") {
+								report["LinkedIn MCP"] = "error: login ausente"
+							} else {
+								report["LinkedIn MCP"] = s
+							}
+						}
+					}
+				}
+			}
+
+			if _, err := exec.LookPath("scrape-creators-pp-cli"); err != nil {
+				report["Dependência Scrape Creators"] = "error: ausente (scrape-creators-pp-cli não encontrado no PATH)"
+			} else {
+				checkCmd := exec.Command("scrape-creators-pp-cli", "account", "list", "--agent")
+				out, err := checkCmd.CombinedOutput()
+				if err != nil {
+					lower := strings.ToLower(string(out))
+					switch {
+					case strings.Contains(lower, "invalid api key"):
+						report["Dependência Scrape Creators"] = "error: api key inválida"
+					case strings.Contains(lower, "apikey is required") || strings.Contains(lower, "auth não configurada"):
+						report["Dependência Scrape Creators"] = "error: auth não configurada"
+					default:
+						report["Dependência Scrape Creators"] = "error: falha ao validar auth"
+					}
+				} else {
+					report["Dependência Scrape Creators"] = "ok"
+				}
+			}
+			// --- END EXTERNAL DEPENDENCIES ---
 
 			// Check config
 			cfg, err := config.Load(flags.configPath)
@@ -296,6 +605,16 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 				{"verify_mode", "Verify Mode"},
 				{"api", "API"},
 				{"credentials", "Credentials"},
+				{"Dependência Casa dos Dados", "Casa dos Dados (company)"},
+				{"Dependência Deepline", "Deepline (contact)"},
+				{"ICP Dir", "ICP Dir"},
+				{"Dependência Company Goat", "Company Goat CLI"},
+				{"Dependência Contact Goat", "Contact Goat CLI"},
+				{"Dependência Scrape Creators", "Scrape Creators"},
+				{"Happenstance", "Happenstance"},
+				{"Happenstance Guidance", "Happenstance Guidance"},
+				{"LinkedIn MCP", "LinkedIn MCP"},
+				{"Company Goat Cache", "Company Goat Cache"},
 			}
 			for _, ck := range checkKeys {
 				v, ok := report[ck.key]
@@ -307,6 +626,8 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 				switch {
 				case strings.HasPrefix(s, "INFO"):
 					indicator = yellow("INFO")
+				case strings.HasPrefix(strings.ToLower(s), "warn"):
+					indicator = yellow("WARN")
 				case strings.HasPrefix(s, "ERROR"):
 					indicator = red("FAIL")
 				case strings.HasPrefix(s, "optional"):
@@ -339,11 +660,54 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 			if hint, ok := report["auth_hint"]; ok {
 				fmt.Fprintf(w, "  hint: %v\n", hint)
 			}
+
+			if !fix && !flags.noInput && doctorExitForFailOn("error", report) != nil {
+				reader := bufio.NewReader(os.Stdin)
+				if doctorPromptYesNo(reader, "\nRealizar o processo de fix agora? [s/N] ") {
+					exe, err := os.Executable()
+					if err != nil {
+						return fmt.Errorf("doctor: não consegui reinvocar fix: %w", err)
+					}
+					fixCmd := exec.Command(exe, "doctor", "--fix")
+					fixCmd.Stdin = os.Stdin
+					fixCmd.Stdout = os.Stdout
+					fixCmd.Stderr = os.Stderr
+					fixCmd.Env = os.Environ()
+					return fixCmd.Run()
+				}
+			}
 			return doctorExitForFailOn(failOn, report)
 		},
 	}
 	cmd.Flags().StringVar(&failOn, "fail-on", "", "Exit non-zero when a health level is reached: stale, error. Default is never.")
+	cmd.Flags().BoolVar(&fix, "fix", false, "Run interactive setup to fix goat/auth dependencies")
+	cmd.Flags().BoolVar(&forcePty, "pty", false, "Rerun doctor inside the standalone OMP-compatible PTY wrapper")
+	_ = cmd.Flags().MarkHidden("fix")
+	_ = cmd.Flags().MarkHidden("pty")
 	return cmd
+}
+
+
+func doctorPromptYesNo(reader *bufio.Reader, prompt string) bool {
+	for {
+		fmt.Fprint(os.Stdout, prompt)
+		answer, _ := reader.ReadString('\n')
+		answer = strings.TrimSpace(strings.ToLower(answer))
+		switch answer {
+		case "", "n", "nao", "não", "no":
+			return false
+		case "s", "sim", "y", "yes":
+			return true
+		default:
+			fmt.Fprintln(os.Stdout, "Entrada inválida. Responda s ou n.")
+		}
+	}
+}
+
+func doctorPromptLine(reader *bufio.Reader, prompt string) string {
+	fmt.Fprint(os.Stdout, prompt)
+	value, _ := reader.ReadString('\n')
+	return strings.TrimSpace(value)
 }
 
 // doctorExitForFailOn returns a non-nil error when the report's worst
@@ -359,8 +723,12 @@ func doctorExitForFailOn(failOn string, report map[string]any) error {
 	for _, v := range report {
 		s, ok := v.(string)
 		if ok {
-			if strings.Contains(s, "error") || strings.Contains(s, "unreachable") || strings.Contains(s, "invalid") || strings.Contains(s, "missing") {
+			lower := strings.ToLower(s)
+			if strings.Contains(lower, "error") || strings.Contains(lower, "unreachable") || strings.Contains(lower, "invalid") || strings.Contains(lower, "missing") {
 				worstError = true
+			}
+			if strings.HasPrefix(lower, "warn") {
+				worstStale = true
 			}
 		}
 		if m, ok := v.(map[string]any); ok {

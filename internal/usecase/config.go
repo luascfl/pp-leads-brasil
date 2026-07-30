@@ -11,6 +11,7 @@ import (
 )
 
 const EnvConfigPath = "PP_LEADS_USE_CASE_CONFIG"
+const EnvConfigDir = "PP_LEADS_ICP_DIR"
 
 type Config struct {
 	Name          string            `json:"name"`
@@ -24,10 +25,14 @@ type Config struct {
 
 func LoadFromEnv() (*Config, error) {
 	path := strings.TrimSpace(os.Getenv(EnvConfigPath))
-	if path == "" {
-		return nil, nil
+	if path != "" {
+		return Load(path)
 	}
-	return Load(path)
+	dir := strings.TrimSpace(os.Getenv(EnvConfigDir))
+	if dir != "" {
+		return Load(dir)
+	}
+	return nil, nil
 }
 
 func Load(path string) (*Config, error) {
@@ -35,19 +40,78 @@ func Load(path string) (*Config, error) {
 	if err != nil {
 		return nil, err
 	}
+	info, err := os.Stat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("reading ICP source %s: %w", resolved, err)
+	}
+	if info.IsDir() {
+		return LoadDir(resolved)
+	}
 	data, err := os.ReadFile(resolved)
 	if err != nil {
-		return nil, fmt.Errorf("reading use case config %s: %w", resolved, err)
+		return nil, fmt.Errorf("reading ICP config %s: %w", resolved, err)
 	}
 	var cfg Config
 	if err := json.Unmarshal(data, &cfg); err != nil {
-		return nil, fmt.Errorf("parsing use case config %s: %w", resolved, err)
+		return nil, fmt.Errorf("parsing ICP config %s: %w", resolved, err)
 	}
 	cfg.Path = resolved
 	if cfg.FieldMap == nil {
 		cfg.FieldMap = map[string]string{}
 	}
 	return &cfg, nil
+}
+
+func LoadDir(dir string) (*Config, error) {
+	resolved, err := filepath.Abs(dir)
+	if err != nil {
+		return nil, err
+	}
+	info, err := os.Stat(resolved)
+	if err != nil {
+		return nil, fmt.Errorf("reading ICP directory %s: %w", resolved, err)
+	}
+	if !info.IsDir() {
+		return nil, fmt.Errorf("ICP directory %s is not a directory", resolved)
+	}
+	leadTablePath, err := detectLeadTablePath(resolved)
+	if err != nil {
+		return nil, err
+	}
+	cfg := &Config{
+		Name:          strings.TrimSpace(filepath.Base(resolved)),
+		Label:         strings.ReplaceAll(strings.TrimSpace(filepath.Base(resolved)), "-", " "),
+		LeadTablePath: leadTablePath,
+		OutputDir:     filepath.Join("outputs", "enrichment"),
+		FieldMap:      map[string]string{},
+		Path:          resolved,
+	}
+	return cfg, nil
+}
+
+func detectLeadTablePath(dir string) (string, error) {
+	patterns := []string{"lead-table-*.csv", "lead-table-*.xlsx", "lead-table-*.xlsm"}
+	for _, pattern := range patterns {
+		matches, err := filepath.Glob(filepath.Join(dir, pattern))
+		if err != nil {
+			return "", err
+		}
+		if len(matches) > 0 {
+			sort.Strings(matches)
+			return matches[0], nil
+		}
+	}
+	return "", fmt.Errorf("no lead-table file detected under ICP directory %s", dir)
+}
+
+func (c *Config) baseDir() string {
+	if c == nil || strings.TrimSpace(c.Path) == "" {
+		return ""
+	}
+	if info, err := os.Stat(c.Path); err == nil && info.IsDir() {
+		return c.Path
+	}
+	return filepath.Dir(c.Path)
 }
 
 func (c *Config) ResolvePath(path string) string {
@@ -57,10 +121,11 @@ func (c *Config) ResolvePath(path string) string {
 	if filepath.IsAbs(path) {
 		return path
 	}
-	if c.Path == "" {
+	base := c.baseDir()
+	if base == "" {
 		return path
 	}
-	return filepath.Join(filepath.Dir(c.Path), path)
+	return filepath.Join(base, path)
 }
 
 func (c *Config) Metadata() map[string]any {
@@ -154,7 +219,11 @@ func LeadContext(record map[string]string) map[string]any {
 		if value == "" {
 			continue
 		}
-		context[normalizeKey(key)] = value
+		normalized := normalizeKey(key)
+		if strings.HasPrefix(normalized, "pp_") {
+			continue
+		}
+		context[normalized] = value
 	}
 	return context
 }

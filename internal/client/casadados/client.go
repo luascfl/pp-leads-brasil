@@ -282,7 +282,7 @@ func (c *CasaDadosClient) resolveLeadTablePath() (string, error) {
 	if cfg != nil && strings.TrimSpace(cfg.LeadTablePath) != "" {
 		return cfg.ResolvePath(cfg.LeadTablePath), nil
 	}
-	return "", fmt.Errorf("local lead table not configured; set PP_LEADS_LOCAL_TABLE or %s", usecase.EnvConfigPath)
+	return "", fmt.Errorf("local lead table not configured; set PP_LEADS_LOCAL_TABLE, %s, or %s", usecase.EnvConfigPath, usecase.EnvConfigDir)
 }
 
 func CompanyPayload(lead LeadRecord) map[string]any {

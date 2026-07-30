@@ -9,7 +9,7 @@ import (
 )
 
 func leadTablePath() string {
-	return filepath.Join("..", "..", "..", ".context", "organizejr", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
+	return filepath.Join("..", "..", "..", "organizejr-pp-leads", "icp", "ejs-comunicacao", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
 }
 
 func TestRunCompanyGoatUsesCLIWhenAvailable(t *testing.T) {
@@ -134,16 +134,19 @@ echo '{"snapshot":"ok"}'
 	contactBin := tempCLI(t, `#!/usr/bin/env bash
 echo '{"coverage":"ok","phones":["71999990000"]}'
 `)
-	configPath := filepath.Join(t.TempDir(), "use-case.json")
-	configContent := []byte(`{
-  "name": "sample-case",
-  "label": "Sample case",
-  "message_field": "primeira mensagem"
-}`)
-	if err := os.WriteFile(configPath, configContent, 0o644); err != nil {
+	configDir := t.TempDir()
+	leadPath, err := filepath.Abs(leadTablePath())
+	if err != nil {
 		t.Fatal(err)
 	}
-	t.Setenv("PP_LEADS_USE_CASE_CONFIG", configPath)
+	data, err := os.ReadFile(leadPath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(configDir, "lead-table-sample.csv"), data, 0o644); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv("PP_LEADS_ICP_DIR", configDir)
 
 	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: contactBin, LeadTablePath: leadTablePath()}
 	result, err := client.RunEnrich("11.370.755/0001-02")
@@ -156,7 +159,7 @@ echo '{"coverage":"ok","phones":["71999990000"]}'
 	if !ok {
 		t.Fatalf("use_case type = %T", payload["use_case"])
 	}
-	if useCase["name"] != "sample-case" {
+	if useCase["name"] != filepath.Base(configDir) {
 		t.Fatalf("use_case.name = %v", useCase["name"])
 	}
 	leadContext, ok := payload["lead_context"].(map[string]any)

@@ -397,16 +397,27 @@ func runCLIJSON(timeout time.Duration, bin string, args ...string) (any, error) 
 	var stdout, stderr bytes.Buffer
 	cmd.Stdout = &stdout
 	cmd.Stderr = &stderr
-	if err := cmd.Run(); err != nil {
-		msg := strings.TrimSpace(stderr.String())
+	err := cmd.Run()
+
+	var out any
+	stdoutText := strings.TrimSpace(stdout.String())
+	parseOK := stdoutText != "" && json.Unmarshal(stdout.Bytes(), &out) == nil
+	stderrText := strings.TrimSpace(stderr.String())
+	stderrLower := strings.ToLower(stderrText)
+	warningOnly := strings.Contains(stderrLower, "warning:") || strings.Contains(stderrLower, "happenstance unavailable")
+
+	if err != nil {
+		if parseOK && warningOnly {
+			return out, nil
+		}
+		msg := stderrText
 		if msg == "" {
 			msg = err.Error()
 		}
 		return nil, fmt.Errorf("%s failed: %s", bin, msg)
 	}
-	var out any
-	if err := json.Unmarshal(stdout.Bytes(), &out); err != nil {
-		return nil, fmt.Errorf("%s returned non-json output: %w", bin, err)
+	if !parseOK {
+		return nil, fmt.Errorf("%s returned non-json output", bin)
 	}
 	return out, nil
 }
