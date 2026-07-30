@@ -56,8 +56,11 @@ execution:
     - timestamp: "2026-07-30T13:42:00Z"
       phase: E
       action: m17_space_instructions_files_updated
-  last_activity: "2026-07-30T13:42:00Z"
-  resume_context: "m17 concluído: Perplexity Space OrganizeJr atualizado com instruções validadas e arquivos Markdown (`perplexity_space_m16_snapshot.md`, `outreach_m18_drafts.md`, `perplexity_space_instructions_m17_candidate.md`, `whatsapp_m19_requirements.md`). O fluxo confiável do Space é `Instruções` + `Arquivos`; Computer, Brain, Skills, conectores, links e Slack/Teams não devem ser assumidos. m18 preparação concluída com rascunhos por canal no repo privado. m19 preparação concluída com requisitos WhatsApp -> Perplexity -> CRM no repo privado. Próximo passo: executar m18 ou iniciar implementação m19 conforme prioridade operacional."
+    - timestamp: "2026-07-30T13:58:00Z"
+      phase: P
+      action: m19_crm_perplexity_topic_loop_planned
+  last_activity: "2026-07-30T13:58:00Z"
+  resume_context: "Planejamento m19 atualizado. Próximo ciclo operacional: integrar CRM Sheet -> Perplexity -> WhatsApp -> CRM. Primeiro implementar no `crm_sheet.py` a coluna única `Perplexity - tópico do lead`, comandos para listar/registrar links por linha e snapshots contendo o link; depois exportar WhatsApp completo/delta para o tópico único do lead; por fim gerar payload revisável para CRM com evidência textual. Regra central: uma sessão principal do Perplexity por lead, link no CRM como navegação/evidência narrativa, nunca fonte canônica cadastral."
 
 approval:
   plan_created: true

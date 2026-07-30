@@ -32,19 +32,23 @@
     {
       "id": "m17",
       "title": "Perplexity Space operational synchronization",
-      "status": "approved",
-      "objective": "Colar e validar o snapshot CRM no Perplexity Space da OrganizeJr via navegador persistente autenticado, mantendo o Google Sheets CRM como fonte canônica.",
+      "status": "completed",
+      "objective": "Atualizar o Perplexity Space da OrganizeJr via instruções e arquivos, mantendo o Google Sheets CRM como fonte canônica.",
       "stories": [
         {
           "id": "m17-us001",
           "slug": "perplexity-space-paste-verify",
-          "title": "Paste CRM snapshot into Perplexity Space",
-          "status": "planned",
+          "title": "Update Perplexity Space instructions and files",
+          "status": "completed",
           "dod": [
             "Abrir o Perplexity Space da OrganizeJr com Chrome/CDP persistente autenticado.",
-            "Colar o snapshot m16 no Space sem copiar perfil completo do Chrome.",
-            "Verificar visualmente ou via DOM que o contexto foi recebido.",
-            "Registrar o fluxo repetível para próximos lotes."
+            "Salvar instruções validadas no Space sem depender de Computer, Brain, Skills, links ou conectores.",
+            "Subir arquivos Markdown de snapshot, rascunhos e requisitos.",
+            "Verificar via UI que instruções persistiram e arquivos ficaram listados."
+          ],
+          "evidence": [
+            "Perplexity instructions persisted after reload with lead-topic rule.",
+            "Files tab listed 12 items including m16 snapshot, m18 drafts, m17 instructions and m19 requirements."
           ]
         }
       ]
@@ -52,33 +56,48 @@
     {
       "id": "m18",
       "title": "Channel-specific outreach message generation",
-      "status": "approved_next",
+      "status": "prep_completed",
       "objective": "Gerar mensagens de abordagem por WhatsApp, Instagram, e-mail e LinkedIn a partir dos snapshots atualizados, preservando o CRM como fonte final.",
       "stories": [
         {
           "id": "m18-us001",
           "slug": "outreach-messages-by-channel",
           "title": "Generate channel-specific outreach drafts",
-          "status": "planned",
+          "status": "prep_completed",
           "dod": [
             "Gerar mensagens por lead e canal a partir do contexto atualizado no Space.",
             "Preservar diferença entre sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.",
             "Não preencher campo cadastral do CRM somente com sugestão do Perplexity.",
             "Entregar rascunhos curtos, revisáveis e prontos para copiar."
+          ],
+          "evidence": [
+            "../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md"
           ]
         }
       ]
     },
     {
       "id": "m19",
-      "title": "WhatsApp conversation to Perplexity and CRM update loop",
-      "status": "approved_later",
-      "objective": "Automatizar export completo e incremental de conversas WhatsApp por lead/contato, atualizar o Perplexity Space e produzir payload revisável para atualização da planilha CRM.",
+      "title": "CRM Sheet, Perplexity topic and WhatsApp update loop",
+      "status": "planned_next",
+      "objective": "Integrar CRM Sheet -> Perplexity -> WhatsApp -> CRM com uma única coluna Perplexity - tópico do lead, uma sessão principal por lead, export completo/incremental de conversas e payload revisável para atualização da planilha.",
       "stories": [
         {
           "id": "m19-us001",
-          "slug": "whatsapp-conversation-export-to-perplexity",
-          "title": "Export WhatsApp conversation context into Perplexity Space",
+          "slug": "crm-perplexity-topic-column",
+          "title": "Manage one Perplexity topic link per CRM lead",
+          "status": "planned",
+          "dod": [
+            "crm_sheet.py detecta a coluna Perplexity - tópico do lead.",
+            "Comando lista leads sem tópico principal.",
+            "Comando registra URL explícita do tópico por linha sem sobrescrever valor existente sem confirmação.",
+            "Snapshots CRM incluem o link do tópico quando disponível."
+          ]
+        },
+        {
+          "id": "m19-us002",
+          "slug": "whatsapp-conversation-export-to-lead-topic",
+          "title": "Export WhatsApp conversation context into the lead topic",
           "status": "planned",
           "dod": [
             "Resolver lead e contato por linguagem natural, como Ananda + Engetop.",
@@ -86,19 +105,19 @@
             "Exportar conversa completa quando o usuário pedir histórico total.",
             "Exportar somente novas mensagens quando o usuário indicar atualização.",
             "Salvar transcript/delta apenas no repo privado ou armazenamento local privado.",
-            "Atualizar o Perplexity Space com o transcript/delta e instrução de extração comercial."
+            "Usar o link Perplexity - tópico do lead para atualizar a sessão única do lead."
           ]
         },
         {
-          "id": "m19-us002",
+          "id": "m19-us003",
           "slug": "perplexity-to-crm-update-review",
-          "title": "Generate reviewed CRM updates from WhatsApp evidence",
+          "title": "Generate reviewed CRM updates from Perplexity and WhatsApp evidence",
           "status": "planned",
           "dod": [
-            "Perplexity retorna fatos comerciais, próximos passos, objeções, status, canal e dados confirmados com evidência textual.",
-            "Payload para crm_sheet.py diferencia mensagem enviada, resposta recebida, inferência, sugestão e dado confirmado.",
+            "Payload diferencia mensagem enviada, resposta recebida, inferência, sugestão e dado confirmado.",
+            "Cada campo sugerido inclui evidência textual ou confirmação explícita.",
             "Atualização da planilha não aplica fato ambíguo sem revisão explícita.",
-            "Cada atualização registra origem WhatsApp e resumo/evidência da conversa."
+            "Payload preserva origem WhatsApp/Perplexity e o link do tópico principal do lead."
           ]
         }
       ]

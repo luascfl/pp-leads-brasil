@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T10:42:00-03:00
+2026-07-30T10:58:00-03:00
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -11,7 +11,7 @@
 - `scripts/` foi removido do repo público.
 - m17 concluído: Perplexity Space OrganizeJr atualizado pelo fluxo confiável `Instruções` + `Arquivos`. Computer, Brain, Skills, conectores, Slack/Teams e links não são tratados como superfícies confiáveis.
 - m18 preparação concluída no repo privado: rascunhos de abordagem por canal gerados em `../organizejr-pp-leads/ploomes_crm/outreach_m18_drafts.md`.
-- m19 preparação concluída no repo privado: requisitos WhatsApp -> Perplexity -> CRM registrados em `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`.
+- m19 planejamento atualizado: integração CRM Sheet -> Perplexity -> WhatsApp -> CRM, com coluna única `Perplexity - tópico do lead` e uma sessão principal por lead.
 
 ## Decisão de arquitetura
 O Google Sheets CRM continua sendo a fonte canônica operacional. O Perplexity Space será usado como dump narrativo compartilhado para conversas presenciais, WhatsApp, abordagens, status inferido e sugestões de projetos aplicáveis. Snapshots do CRM alimentam o Space com o placar atual para reduzir sugestões desatualizadas.
@@ -54,4 +54,4 @@ Schema decidido para o CRM: uma única coluna chamada `Perplexity - tópico do l
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_m19_requirements.md`
 
 ## Próximo passo
-Executar m18 ou m19 conforme prioridade operacional: usar `outreach_m18_drafts.md` para disparos comerciais revisados, ou iniciar implementação do export WhatsApp completo/incremental seguindo `whatsapp_m19_requirements.md`.
+Implementar m19 em ordem segura: primeiro comandos de schema e link `Perplexity - tópico do lead` no `crm_sheet.py`; depois export de snapshots incluindo o link; depois WhatsApp completo/incremental; por fim payload revisável Perplexity -> CRM.

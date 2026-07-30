@@ -11,7 +11,7 @@ pp-leads-brasil, stack público de pesquisa, enrichment e automação comercial.
 - Pós-m16, split privado OrganizeJr e purge do histórico público, concluído.
 - m17, sincronização operacional no Perplexity Space via instruções e arquivos, concluído.
 - m18, geração de mensagens de abordagem por canal a partir dos snapshots, preparação concluída no repo privado.
-- m19, automação WhatsApp -> Perplexity -> CRM, requisitos detalhados registrados no repo privado.
+- m19, integração CRM Sheet -> Perplexity -> WhatsApp -> CRM, planejada como próximo ciclo operacional.
 
 ## Milestone concluído, m17
 
@@ -32,7 +32,7 @@ Transformar o snapshot Markdown gerado no m16 em contexto realmente disponível 
 - Existe verificação observável de que as instruções persistiram e os arquivos ficaram listados no Space.
 - O procedimento registrado para repetição é atualizar instruções duráveis e subir arquivos Markdown.
 
-## Milestone seguinte, m18
+## Milestone preparado, m18
 
 ### Objetivo
 Gerar mensagens comerciais por canal a partir dos snapshots atualizados, preservando o CRM como fonte final e usando o Perplexity como apoio narrativo.
@@ -48,17 +48,20 @@ Gerar mensagens comerciais por canal a partir dos snapshots atualizados, preserv
 - Separação explícita entre sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.
 - Nenhum campo cadastral do CRM é preenchido apenas por sugestão do Perplexity.
 
-## Milestone posterior, m19
+## Milestone planejado, m19
 
 ### Objetivo
-Automatizar o ciclo WhatsApp -> Perplexity -> CRM para conversas comerciais por lead e contato. O usuário deve poder pedir algo como "exportar toda a conversa de Ananda da Engetop" ou "houve novas mensagens em Ananda Engetop", e o sistema deve exportar a conversa completa ou delta, atualizar o Perplexity Space e produzir atualização revisável para a planilha.
+Fechar a integração operacional CRM Sheet -> Perplexity -> WhatsApp -> CRM. Cada linha do CRM terá uma única coluna `Perplexity - tópico do lead`, apontando para uma única sessão/tópico principal por lead. O sistema deve exportar snapshots do CRM, preservar o link do tópico no snapshot, exportar conversas WhatsApp completas ou incrementais, atualizar o tópico do lead no Perplexity e produzir atualização revisável para a planilha.
 
 ### Escopo funcional
+- Garantir schema do CRM com a coluna única `Perplexity - tópico do lead`.
+- Implementar leitura/escrita revisável desse link no `crm_sheet.py`, sem sobrescrever valor existente sem confirmação explícita.
+- Incluir o link do tópico Perplexity nos snapshots exportados para o Space.
 - Resolver contato e lead por linguagem natural, por exemplo Ananda + Engetop.
 - Considerar primeiro a lista/filtro do WhatsApp chamada `Leads OrganizeJr` para localizar conversas comerciais, antes de cair para busca global.
 - Exportar conversa completa do WhatsApp quando o usuário pedir histórico total.
 - Detectar e exportar apenas novas mensagens quando o usuário indicar que houve atualização.
-- Enviar transcript/delta para o Perplexity Space como contexto comercial do lead.
+- Enviar transcript/delta para o tópico único do lead no Perplexity Space como contexto comercial atualizado.
 - Pedir ao Perplexity extração estruturada de fatos comerciais, próximos passos, objeções, status, canal e dados confirmados.
 - Gerar payload revisável para `crm_sheet.py`, sem aplicar silenciosamente fatos ambíguos.
 
@@ -70,4 +73,34 @@ A conversa WhatsApp é a evidência primária. O Perplexity organiza e extrai, m
 - Export completo e export incremental separados.
 - Transcript salvo apenas no repo privado ou armazenamento local privado.
 - Prompt do Perplexity diferencia mensagem enviada, resposta recebida, inferência, sugestão e dado confirmado.
-- Payload de CRM marca origem como WhatsApp e inclui evidência/resumo.
+- Payload de CRM marca origem como WhatsApp, inclui evidência/resumo e preserva o link `Perplexity - tópico do lead`.
+
+### Plano de execução m19
+
+1. **Schema CRM**
+   - Verificar se a planilha tem a coluna `Perplexity - tópico do lead`.
+   - Criar comando seguro para detectar coluna ausente e orientar criação.
+   - Só escrever link quando o usuário passar URL explícita ou confirmar criação do tópico.
+
+2. **Comandos `crm_sheet.py`**
+   - `perplexity-topic get --row N` para ver o link atual.
+   - `perplexity-topic set --row N --url ...` para registrar o tópico principal do lead.
+   - `perplexity-topic missing` para listar leads sem tópico.
+   - `export-perplexity-snapshots` deve incluir a coluna quando existir.
+
+3. **Regra de tópico único**
+   - Uma sessão/tópico principal por lead.
+   - Nova pesquisa, WhatsApp, follow-up ou proposta entra no mesmo tópico.
+   - O tópico não confirma dado cadastral sozinho.
+
+4. **WhatsApp -> Perplexity**
+   - Localizar conversa primeiro na lista/filtro `Leads OrganizeJr`.
+   - Exportar histórico completo ou delta novo.
+   - Salvar transcript/delta apenas no repo privado.
+   - Usar o link do CRM para abrir o tópico do lead e anexar/colar o novo contexto.
+
+5. **Perplexity -> CRM revisável**
+   - Gerar payload com fatos, inferências, resposta do lead, mensagem enviada, evidência textual e próximo passo.
+   - Nunca aplicar fato ambíguo automaticamente.
+   - Atualizar planilha só com evidência rastreável ou confirmação explícita.
+
