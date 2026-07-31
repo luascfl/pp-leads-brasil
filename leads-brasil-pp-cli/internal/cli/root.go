@@ -193,13 +193,6 @@ Run 'leads-brasil-pp-cli doctor' to verify auth and connectivity.`,
 			fmt.Fprintln(os.Stderr, "✅ Token local de desenvolvimento auto-configurado.")
 		}
 
-		// 1b. Auto-wire o ICP padrão do repositório quando disponível
-		if os.Getenv("PP_LEADS_ICP_DIR") == "" {
-			if auto := detectDefaultUseCaseConfig(); auto != "" {
-				_ = os.Setenv("PP_LEADS_ICP_DIR", auto)
-			}
-		}
-
 		// 2. Auto-start local server se for localhost e estiver offline
 		if isLocal {
 			_, err := http.Get(cfg.BaseURL)

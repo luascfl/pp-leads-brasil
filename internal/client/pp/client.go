@@ -8,6 +8,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"os/exec"
 	"regexp"
 	"strings"
@@ -26,15 +27,18 @@ type Client interface {
 }
 
 type PPClient struct {
-	APIKey            string
-	CasaDadosAPIKey   string
-	LeadTablePath     string
-	CasaDadosBaseURL  string
-	HTTPClient        *http.Client
-	CompanyGoatBin    string
-	ContactGoatBin    string
-	ScrapeCreatorsBin string
-	CommandTimeout    time.Duration
+	APIKey             string
+	CasaDadosAPIKey    string
+	LeadTablePath      string
+	CasaDadosBaseURL   string
+	HTTPClient         *http.Client
+	CompanyGoatBin     string
+	ContactGoatBin     string
+	ScrapeCreatorsBin  string
+	ApifyBin           string
+	ApifySocialActorID string
+	ApifyMaxCost       string
+	CommandTimeout     time.Duration
 }
 
 func (c *PPClient) RunCompanyGoat(cnpj string) (interface{}, error) {
@@ -109,9 +113,13 @@ func (c *PPClient) RunContactGoat(target string) (interface{}, error) {
 
 	if matchedLead != nil {
 		contactGoat, err := c.callContactGoat(matchedLead)
-		scrapeCreators, scrapeErr := c.callScrapeCreators(matchedLead)
+		scrapeCreators, scrapeErr, apify, apifyErr := c.callSocialEnrichment(matchedLead)
 		payload["contact_goat"] = goatStatus(contactGoat, err)
 		payload["scrape_creators"] = goatStatus(scrapeCreators, scrapeErr)
+		if scrapeErr != nil {
+			payload["apify"] = goatStatus(apify, apifyErr)
+		}
+		payload["social_provider"] = socialProvider(scrapeErr, apifyErr)
 		payload["prospecting_links"] = ProspectingLinks(matchedLead, localMatches[0], contactGoat, scrapeCreators)
 		return payload, nil
 	}
@@ -137,14 +145,21 @@ func (c *PPClient) RunEnrich(cnpj string) (interface{}, error) {
 	company, companyErr := cd.SearchCompanyByCNPJ(cnpj)
 	companyGoat, companyGoatErr := c.callCompanyGoat(lead, company)
 	contactGoat, contactGoatErr := c.callContactGoat(lead)
-	scrapeCreators, scrapeCreatorsErr := c.callScrapeCreators(lead)
+	scrapeCreators, scrapeCreatorsErr, apify, apifyErr := c.callSocialEnrichment(lead)
 
 	payload := EnrichmentPayload(lead, company, companyErr)
 	payload["company_goat"] = goatStatus(companyGoat, companyGoatErr)
 	payload["contact_goat"] = goatStatus(contactGoat, contactGoatErr)
 	payload["scrape_creators"] = goatStatus(scrapeCreators, scrapeCreatorsErr)
+	if scrapeCreatorsErr != nil {
+		payload["apify"] = goatStatus(apify, apifyErr)
+	}
+	payload["social_provider"] = socialProvider(scrapeCreatorsErr, apifyErr)
 	payload["prospecting_links"] = ProspectingLinks(lead, company, contactGoat, scrapeCreators)
 	payload["sources_used"] = []string{"local_lead_table", "casa_dos_dados", "company-goat", "contact-goat", "scrape-creators"}
+	if scrapeCreatorsErr != nil {
+		payload["sources_used"] = append(payload["sources_used"].([]string), "apify")
+	}
 	return payload, nil
 }
 
@@ -286,6 +301,41 @@ func (c *PPClient) callScrapeCreators(lead casadados.LeadRecord) (any, error) {
 	return result, nil
 }
 
+func (c *PPClient) callSocialEnrichment(lead casadados.LeadRecord) (scrape any, scrapeErr error, apify any, apifyErr error) {
+	scrape, scrapeErr = c.callScrapeCreators(lead)
+	if scrapeErr == nil {
+		return scrape, nil, nil, nil
+	}
+	apify, apifyErr = c.callApifySocial(lead)
+	return scrape, scrapeErr, apify, apifyErr
+}
+
+func (c *PPClient) callApifySocial(lead casadados.LeadRecord) (any, error) {
+	bin := c.apifyBin()
+	if bin == "" {
+		return nil, fmt.Errorf("apify-pp-cli não encontrado")
+	}
+	actorID := c.apifySocialActorID()
+	if actorID == "" {
+		return nil, fmt.Errorf("APIFY_SOCIAL_ACTOR_ID não configurado")
+	}
+	input, err := json.Marshal(map[string]string{
+		"lead":      lead["lead"],
+		"cnpj":      lead["CNPJ"],
+		"site":      lead["site"],
+		"linkedin":  lead["LinkedIn - Empresa"],
+		"instagram": lead["Instagram - Empresa"],
+	})
+	if err != nil {
+		return nil, fmt.Errorf("codificando entrada Apify: %w", err)
+	}
+	args := []string{"run", actorID, "--input", string(input), "--wait", "--format", "json", "--agent"}
+	if maxCost := c.apifyMaxCost(); maxCost != "" {
+		args = append(args, "--max-cost", maxCost)
+	}
+	return runCLIJSON(c.timeout(), bin, args...)
+}
+
 func (c *PPClient) companyGoatBin() string {
 	if c != nil && c.CompanyGoatBin != "" {
 		return c.CompanyGoatBin
@@ -314,6 +364,30 @@ func (c *PPClient) scrapeCreatorsBin() string {
 		return path
 	}
 	return ""
+}
+
+func (c *PPClient) apifyBin() string {
+	if c != nil && c.ApifyBin != "" {
+		return c.ApifyBin
+	}
+	if path, err := exec.LookPath("apify-pp-cli"); err == nil {
+		return path
+	}
+	return ""
+}
+
+func (c *PPClient) apifySocialActorID() string {
+	if c != nil && strings.TrimSpace(c.ApifySocialActorID) != "" {
+		return strings.TrimSpace(c.ApifySocialActorID)
+	}
+	return strings.TrimSpace(os.Getenv("APIFY_SOCIAL_ACTOR_ID"))
+}
+
+func (c *PPClient) apifyMaxCost() string {
+	if c != nil && strings.TrimSpace(c.ApifyMaxCost) != "" {
+		return strings.TrimSpace(c.ApifyMaxCost)
+	}
+	return strings.TrimSpace(os.Getenv("APIFY_SOCIAL_MAX_COST"))
 }
 
 func (c *PPClient) runScrapeCreatorsJSON(args ...string) (any, error) {
@@ -383,6 +457,15 @@ func ProspectingLinks(lead casadados.LeadRecord, company interface{}, contactGoa
 	return links
 }
 
+func socialProvider(scrapeErr, apifyErr error) string {
+	if scrapeErr == nil {
+		return "scrape-creators"
+	}
+	if apifyErr == nil {
+		return "apify"
+	}
+	return "unavailable"
+}
 func goatStatus(result any, err error) map[string]any {
 	if err != nil {
 		return map[string]any{"status": "unavailable", "error": err.Error()}

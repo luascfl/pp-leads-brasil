@@ -153,21 +153,21 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 				if wrapper == "" {
 					// Sem wrapper detectado, segue no modo normal.
 				} else {
-				exe, err := os.Executable()
-				if err != nil {
-					return fmt.Errorf("doctor --pty: não consegui descobrir o executável atual: %w", err)
-				}
-				passthrough := []string{}
-				for _, arg := range os.Args[1:] {
-					if arg == "--pty" {
-						continue
+					exe, err := os.Executable()
+					if err != nil {
+						return fmt.Errorf("doctor --pty: não consegui descobrir o executável atual: %w", err)
 					}
-					passthrough = append(passthrough, arg)
-				}
-				reexec := exec.Command("python3", append([]string{wrapper, "--", exe}, passthrough...)...)
-				reexec.Stdin = os.Stdin
-				reexec.Stdout = os.Stdout
-				reexec.Stderr = os.Stderr
+					passthrough := []string{}
+					for _, arg := range os.Args[1:] {
+						if arg == "--pty" {
+							continue
+						}
+						passthrough = append(passthrough, arg)
+					}
+					reexec := exec.Command("python3", append([]string{wrapper, "--", exe}, passthrough...)...)
+					reexec.Stdin = os.Stdin
+					reexec.Stdout = os.Stdout
+					reexec.Stderr = os.Stderr
 					reexec.Env = append(os.Environ(), "PP_LEADS_DOCTOR_PTY_ACTIVE=1")
 					return reexec.Run()
 				}
@@ -320,7 +320,7 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 					}
 				}
 
-								scrapeCreatorsHealthy := false
+				scrapeCreatorsHealthy := false
 				if _, err := exec.LookPath("scrape-creators-pp-cli"); err == nil {
 					checkCmd := exec.Command("scrape-creators-pp-cli", "account", "list", "--agent")
 					if err := checkCmd.Run(); err == nil {
@@ -344,7 +344,7 @@ func newDoctorCmd(flags *rootFlags) *cobra.Command {
 					}
 				}
 
-fmt.Println("\nSe quiser persistir as chaves sem editar o shell manualmente, responda SIM aos prompts de persistência. Elas serão salvas em ~/.config/leads-brasil-pp-cli/doctor.env e carregadas automaticamente pela CLI.\nSe preferir, adicione ao seu ~/.bashrc ou ~/.zshrc:")
+				fmt.Println("\nSe quiser persistir as chaves sem editar o shell manualmente, responda SIM aos prompts de persistência. Elas serão salvas em ~/.config/leads-brasil-pp-cli/doctor.env e carregadas automaticamente pela CLI.\nSe preferir, adicione ao seu ~/.bashrc ou ~/.zshrc:")
 				fmt.Println("export CASA_DADOS_API_KEY=\"...\"")
 				fmt.Println("export DEEPLINE_API_KEY=\"...\"")
 				fmt.Println("\n== Doctor final ==")
@@ -362,10 +362,10 @@ fmt.Println("\nSe quiser persistir as chaves sem editar o shell manualmente, res
 			report["Dependência Deepline"] = "error: ausente (requer DEEPLINE_API_KEY ou discovery do contact-goat)"
 			if cfgPath := os.Getenv("PP_LEADS_ICP_DIR"); cfgPath != "" {
 				report["ICP Dir"] = "ok (env)"
-			} else if cfgPath := detectDefaultUseCaseConfig(); cfgPath != "" {
-				report["ICP Dir"] = "ok (auto-detect)"
+			} else if cfgPath := os.Getenv("PP_LEADS_USE_CASE_CONFIG"); cfgPath != "" {
+				report["ICP Dir"] = "ok (env config)"
 			} else {
-				report["ICP Dir"] = "warn: ausente (PP_LEADS_ICP_DIR não configurado e nenhum ICP padrão detectado)"
+				report["ICP Dir"] = "info: nenhum perfil explícito configurado"
 			}
 
 			if _, err := exec.LookPath("company-goat-pp-cli"); err != nil {
@@ -686,7 +686,6 @@ fmt.Println("\nSe quiser persistir as chaves sem editar o shell manualmente, res
 	_ = cmd.Flags().MarkHidden("pty")
 	return cmd
 }
-
 
 func doctorPromptYesNo(reader *bufio.Reader, prompt string) bool {
 	for {

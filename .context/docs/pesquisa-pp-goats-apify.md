@@ -1,6 +1,6 @@
 # Pesquisa, pp-apify, pp-company-goat e pp-contact-goat
 
-Atualizado em: 2026-06-17
+Atualizado em: 2026-07-31
 
 ## Conclusão operacional
 
@@ -26,8 +26,11 @@ Função:
 
 Uso no `pp-leads-brasil`:
 
-- deve ser o adaptador para chamar Actors Apify quando o enriquecimento exigir scraping, datasets ou execução recorrente;
-- não deve substituir `company-goat` ou `contact-goat`; ele é a infraestrutura para rodar Actors quando o fluxo precisar.
+- Scrape Creators é a primeira tentativa obrigatória de enriquecimento social por lead.
+- Apify é o fallback para quando Scrape Creators não retorna dados utilizáveis por billing, credencial, timeout ou erro de provedor.
+- O fallback requer `APIFY_TOKEN` e `APIFY_SOCIAL_ACTOR_ID`; sem ambos, ele registra indisponibilidade sem interromper o enriquecimento.
+- `APIFY_SOCIAL_MAX_COST` é opcional e repassado como `--max-cost`, para recusar uma execução cuja projeção exceda o teto.
+- Nenhum dos dois provedores substitui `company-goat` ou `contact-goat`.
 
 Comandos base:
 
@@ -79,33 +82,19 @@ Fontes:
 - https://printingpress.dev/
 - https://claudemarketplaces.com/skills/mvanhorn/printing-press-library/pp-contact-goat
 
-Implicação para OrganizeJr:
+## Uso da plataforma por perfis externos
 
-- Para EJs, `contact-goat` deve ser usado depois de `company-goat`/Casa dos Dados, quando o lead já foi priorizado.
-- Ele não deve ser usado para disparo em massa.
-- Deve procurar pessoa/cargo responsável por presidência, comercial, projetos, pessoas, atendimento ou diretoria da EJ.
-- O output esperado para Lucas deve incluir e-mail verificado ou provável, link de perfil, caminho de warm intro, fonte e confiança.
+Perfis externos podem combinar as fontes desta plataforma com seus próprios ICPs, dados locais e processos comerciais. Esses perfis não fazem parte do repositório público e devem ser ativados apenas por configuração explícita.
 
-## Como fica a arquitetura correta do pp-leads-brasil
-
-### Camada 1, base local OrganizeJr
-
-Fontes:
-
-- `Relatório Portal BJ EJs 2025 0101.xlsx`
-- `.context/organizejr/lead-table-2026-06-17-ejs-comunicacao-lucas.csv`
-- `.context/organizejr/metodologia-score-leads-organizejr.md`
-- `.context/docs/organizejr-commercial-context.md`
+### Camada 1, tabela local declarada pelo perfil
 
 Uso:
 
-- ranking, ICP, evidência, mensagem e próximos passos.
+- prover contexto de lead, campos e identificadores conhecidos;
+- fornecer a base para busca por nome e CNPJ;
+- manter dados proprietários fora do repositório público.
 
 ### Camada 2, Casa dos Dados
-
-Fonte:
-
-- API Casa dos Dados, com `api-key`.
 
 Uso:
 
@@ -115,61 +104,43 @@ Uso:
 - endereço;
 - CNAE;
 - quadro societário;
-- telefone/e-mail quando disponível.
+- telefone e e-mail quando disponíveis.
 
-### Camada 3, company-goat
+### Camada 3, Company Goat
 
-Uso ideal:
+Uso:
 
-- pesquisa ampliada de empresa/domínio;
-- sinais de legitimidade, tração, presença técnica e diretórios;
-- mais útil para startups e empresas sênior do que para EJs do relatório BJ.
+- pesquisa ampliada de empresa e domínio;
+- sinais públicos de legitimidade, tração, presença técnica e diretórios.
 
-### Camada 4, contact-goat
+### Camada 4, Contact Goat
 
-Uso ideal:
+Uso:
 
-- achar pessoa responsável e contato individual/profissional;
-- mapear warm intro;
-- enriquecer e-mail quando o canal institucional não resolve.
+- encontrar contato profissional relevante;
+- mapear possível warm intro;
+- enriquecer canal profissional quando o canal institucional não resolve.
 
-### Camada 5, pp-apify
+### Camada 5, enriquecimento social
 
-Uso ideal:
+Uso:
 
-- rodar Actors específicos quando for preciso scraping, dataset ou automação recorrente;
-- registrar custo e output;
-- não assumir que todo goat é um Actor Apify.
+- Scrape Creators é sempre tentado primeiro para localizar e obter dados públicos de LinkedIn, Instagram e outros canais.
+- Apify roda apenas como fallback configurado por perfil.
+- Cada resposta informa `social_provider` e registra o status de Scrape Creators e, quando acionado, do Apify.
+- Billing, ausência de credencial e falha do provedor não invalidam os dados já obtidos por outras camadas.
 
-## Decisão para o código atual
+## Decisão de arquitetura
 
-O `pp-leads-brasil` não deve fingir que `company-goat` e `contact-goat` são apenas endpoints locais simples.
+O cliente `internal/client/casadados` resolve a tabela local declarada e consulta Casa dos Dados quando configurado. `internal/client/pp` orquestra as fontes disponíveis e reporta quais camadas foram executadas, falharam ou ficaram indisponíveis. Nenhum cliente deve embutir o nome, os arquivos ou o fluxo operacional de um perfil.
 
-Implementação recomendada:
-
-1. `internal/client/casadados`: cliente real da Casa dos Dados.
-2. `internal/client/pp`: orquestrador que chama:
-   - base local OrganizeJr;
-   - Casa dos Dados;
-   - `pp-company-goat` quando instalado;
-   - `pp-contact-goat` quando instalado;
-   - `apify-pp-cli` apenas para Actors Apify explícitos.
-3. `enrich`: deve retornar quais camadas rodaram, quais falharam, custo/pendência e fontes usadas.
-
-Atualização de implementação em 2026-06-17:
-
-- `internal/client/casadados` já consulta Casa dos Dados real quando a chave está configurada.
-- `internal/client/pp` já orquestra base local, Casa dos Dados, `company-goat` e `contact-goat`.
-- `leads-brasil-pp-cli` já expõe comandos `company-goat` e `contact-goat`.
-- Script local de preparação das credenciais: `.context/organizejr/setup-contact-goat-auth.sh`
-- `apify-pp-cli` continua reservado para Actors Apify explícitos, não para substituir os goats.
-
-## Variáveis/credenciais esperadas
+## Variáveis e credenciais esperadas
 
 - `CASA_DADOS_API_KEY` ou `PP_LEADS_CASA_DADOS_API_KEY`, para Casa dos Dados.
-- Credenciais próprias do `pp-contact-goat`, conforme skill dele: LinkedIn MCP/Happenstance/Deepline.
-- `APIFY_TOKEN`, apenas se rodar Actors via `pp-apify`.
+- Credenciais próprias do Contact Goat, conforme sua integração configurada.
+- `SCRAPE_CREATORS_API_KEY`, para a tentativa primária de enriquecimento social.
+- `APIFY_TOKEN` e `APIFY_SOCIAL_ACTOR_ID`, para o fallback social por Actor. `APIFY_SOCIAL_MAX_COST` define, quando desejado, o teto de custo projetado por execução.
 
 ## Risco
 
-`pp-contact-goat` pode lidar com dados pessoais/profissionais. Para a OrganizeJr, use com escopo conservador: contatos institucionais primeiro; contato individual só quando houver necessidade comercial clara e fonte profissional pública.
+Contact Goat pode lidar com dados pessoais e profissionais. Perfis devem priorizar fonte pública, minimização de dados e finalidade comercial legítima.

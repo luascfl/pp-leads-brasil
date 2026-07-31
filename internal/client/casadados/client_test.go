@@ -11,12 +11,18 @@ import (
 	"pp-leads-brasil/internal/client/casadados"
 )
 
-func leadTablePath() string {
-	return filepath.Join("..", "..", "..", "organizejr-pp-leads", "icp", "ejs-comunicacao", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
+func leadTablePath(t *testing.T) string {
+	t.Helper()
+	path := filepath.Join(t.TempDir(), "lead-table-sample.csv")
+	content := "lead,CNPJ,contato,site,primeira mensagem\nFacto Agência de Comunicação,11.370.755/0001-02,contato@facto.test,https://facto.example,Mensagem de prospecção\n"
+	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return path
 }
 
 func TestSearchCompanyByNameUsesLocalLeadTable(t *testing.T) {
-	client := &casadados.CasaDadosClient{LeadTablePath: leadTablePath()}
+	client := &casadados.CasaDadosClient{LeadTablePath: leadTablePath(t)}
 
 	result, err := client.SearchCompanyByName("Facto")
 	if err != nil {
@@ -36,7 +42,7 @@ func TestSearchCompanyByNameUsesLocalLeadTable(t *testing.T) {
 }
 
 func TestSearchCompanyByCNPJUsesLocalLeadTable(t *testing.T) {
-	client := &casadados.CasaDadosClient{LeadTablePath: leadTablePath()}
+	client := &casadados.CasaDadosClient{LeadTablePath: leadTablePath(t)}
 
 	result, err := client.SearchCompanyByCNPJ("11.370.755/0001-02")
 	if err != nil {
@@ -57,11 +63,7 @@ func TestSearchCompanyByCNPJUsesLocalLeadTable(t *testing.T) {
 
 func TestSearchCompanyByNameUsesUseCaseConfigLeadTable(t *testing.T) {
 	configDir := t.TempDir()
-	leadPath, err := filepath.Abs(leadTablePath())
-	if err != nil {
-		t.Fatal(err)
-	}
-	data, err := os.ReadFile(leadPath)
+	data, err := os.ReadFile(leadTablePath(t))
 	if err != nil {
 		t.Fatal(err)
 	}

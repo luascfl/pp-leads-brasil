@@ -1,7 +1,7 @@
 # State
 
 ## Atualizado em
-2026-07-30T16:24:00-03:00
+2026-07-31
 
 ## Estado atual
 - m15 concluído sem input pendente do usuário.
@@ -94,3 +94,10 @@ Regra operacional adicionada: nunca localizar tópico Perplexity por histórico 
 - `../organizejr-pp-leads/ploomes_crm/whatsapp_gabriella_perplexity_evidence.md`
 
 Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conversas de Ananda e Gabriella antes de sugerir qualquer mudança adicional no CRM da ENGETOP; manter a regra de que automações WhatsApp para leads comerciais usam listas/filtros, nunca busca global.
+
+## Milestone m20
+
+- `m20-us001` concluída: a CLI pública não descobre perfil OrganizeJr; testes usam fixtures temporárias públicas e perfil externo só é carregado por `PP_LEADS_USE_CASE_CONFIG` ou `PP_LEADS_ICP_DIR`.
+- Enriquecimento social agora sempre tenta Scrape Creators. Em falha de billing, credencial, timeout ou ausência de dados utilizáveis, usa Apify apenas se `APIFY_TOKEN` e `APIFY_SOCIAL_ACTOR_ID` estiverem configurados. Falhas de ambos permanecem não bloqueantes e são registradas no payload.
+- Verificação: `go test ./...` passou, incluindo o contrato de fallback Scrape Creators → Apify. A busca pública não encontrou descoberta implícita de perfil privado. `graphify update .` reextraiu 721 arquivos de código.
+- Os legados `.context/docs/planning_gsd` e `.context/prd_ralph` continuam inventariados e não foram removidos por falta de decisão explícita de migração.

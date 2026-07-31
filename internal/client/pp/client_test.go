@@ -8,15 +8,21 @@ import (
 	"pp-leads-brasil/internal/client/pp"
 )
 
-func leadTablePath() string {
-	return filepath.Join("..", "..", "..", "organizejr-pp-leads", "icp", "ejs-comunicacao", "lead-table-2026-06-17-ejs-comunicacao-lucas.csv")
+func leadTablePath(t *testing.T) string {
+	t.Helper()
+	path := filepath.Join(t.TempDir(), "lead-table-sample.csv")
+	content := "lead,CNPJ,contato,site,primeira mensagem\nFacto Agência de Comunicação,11.370.755/0001-02,contato@facto.test,https://facto.example,Mensagem de prospecção\n"
+	if err := os.WriteFile(path, []byte(content), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	return path
 }
 
 func TestRunCompanyGoatUsesCLIWhenAvailable(t *testing.T) {
 	companyBin := tempCLI(t, `#!/usr/bin/env bash
 echo '{"snapshot":"ok","source":"company-goat"}'
 `)
-	client := &pp.PPClient{CompanyGoatBin: companyBin, LeadTablePath: leadTablePath()}
+	client := &pp.PPClient{CompanyGoatBin: companyBin, LeadTablePath: leadTablePath(t)}
 
 	result, err := client.RunCompanyGoat("11.370.755/0001-02")
 	if err != nil {
@@ -40,7 +46,7 @@ func TestRunContactGoatUsesCLIWhenAvailable(t *testing.T) {
 	contactBin := tempCLI(t, `#!/usr/bin/env bash
 echo '{"coverage":"ok","source":"contact-goat"}'
 `)
-	client := &pp.PPClient{ContactGoatBin: contactBin, LeadTablePath: leadTablePath()}
+	client := &pp.PPClient{ContactGoatBin: contactBin, LeadTablePath: leadTablePath(t)}
 
 	result, err := client.RunContactGoat("Facto Agência de Comunicação")
 	if err != nil {
@@ -67,7 +73,7 @@ echo '{"snapshot":"ok"}'
 	contactBin := tempCLI(t, `#!/usr/bin/env bash
 echo '{"coverage":"ok","phones":["71999990000"]}'
 `)
-	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: contactBin, LeadTablePath: leadTablePath()}
+	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: contactBin, LeadTablePath: leadTablePath(t)}
 
 	result, err := client.RunEnrich("11.370.755/0001-02")
 	if err != nil {
@@ -111,7 +117,7 @@ else
   echo '{"results":{}}'
 fi
 `)
-	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: scrapeBin, LeadTablePath: leadTablePath()}
+	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: scrapeBin, LeadTablePath: leadTablePath(t)}
 
 	result, err := client.RunEnrich("11.370.755/0001-02")
 	if err != nil {
@@ -127,6 +133,34 @@ fi
 	}
 }
 
+func TestRunEnrichFallsBackToApifyWhenScrapeCreatorsFails(t *testing.T) {
+	companyBin := tempCLI(t, "#!/usr/bin/env bash\necho '{\"snapshot\":\"ok\"}'\n")
+	contactBin := tempCLI(t, "#!/usr/bin/env bash\necho '{\"coverage\":\"ok\"}'\n")
+	scrapeBin := tempCLI(t, "#!/usr/bin/env bash\necho 'billing unavailable' >&2\nexit 1\n")
+	apifyBin := tempCLI(t, "#!/usr/bin/env bash\necho '{\"platform\":\"instagram\",\"profile\":\"factoagencia\"}'\n")
+	client := &pp.PPClient{
+		CompanyGoatBin:     companyBin,
+		ContactGoatBin:     contactBin,
+		ScrapeCreatorsBin:  scrapeBin,
+		ApifyBin:           apifyBin,
+		ApifySocialActorID: "example/social-actor",
+		LeadTablePath:      leadTablePath(t),
+	}
+
+	result, err := client.RunEnrich("11.370.755/0001-02")
+	if err != nil {
+		t.Fatalf("RunEnrich returned error: %v", err)
+	}
+	payload := result.(map[string]any)
+	if payload["social_provider"] != "apify" {
+		t.Fatalf("social_provider = %v, want apify", payload["social_provider"])
+	}
+	apify, ok := payload["apify"].(map[string]any)
+	if !ok || apify["status"] != "ok" {
+		t.Fatalf("apify = %#v", payload["apify"])
+	}
+}
+
 func TestRunEnrichAddsUseCaseMetadataWhenConfigured(t *testing.T) {
 	companyBin := tempCLI(t, `#!/usr/bin/env bash
 echo '{"snapshot":"ok"}'
@@ -135,11 +169,7 @@ echo '{"snapshot":"ok"}'
 echo '{"coverage":"ok","phones":["71999990000"]}'
 `)
 	configDir := t.TempDir()
-	leadPath, err := filepath.Abs(leadTablePath())
-	if err != nil {
-		t.Fatal(err)
-	}
-	data, err := os.ReadFile(leadPath)
+	data, err := os.ReadFile(leadTablePath(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -148,7 +178,7 @@ echo '{"coverage":"ok","phones":["71999990000"]}'
 	}
 	t.Setenv("PP_LEADS_ICP_DIR", configDir)
 
-	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: contactBin, LeadTablePath: leadTablePath()}
+	client := &pp.PPClient{CompanyGoatBin: companyBin, ContactGoatBin: contactBin, ScrapeCreatorsBin: contactBin, LeadTablePath: leadTablePath(t)}
 	result, err := client.RunEnrich("11.370.755/0001-02")
 	if err != nil {
 		t.Fatalf("RunEnrich returned error: %v", err)

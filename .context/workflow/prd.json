@@ -79,7 +79,7 @@
     {
       "id": "m19",
       "title": "CRM Sheet, Perplexity topic and WhatsApp update loop",
-      "status": "in_progress",
+      "status": "completed",
       "objective": "Integrar CRM Sheet -> Perplexity -> WhatsApp -> CRM com uma única coluna Perplexity - tópico do lead, uma sessão principal por lead, export completo/incremental de conversas e payload revisável para atualização da planilha.",
       "stories": [
         {
@@ -145,6 +145,35 @@
             "generated private payload leads/engetop/whatsapp/ananda/crm-review-payload-2026-07-30.json with row=2, lead_slug=engetop, audit.message_count=10, requires_review=true updates, perplexity_topic_url and Funil/Observações/Próximo passo fields",
             "Google Sheets CRM row 2 ENGETOP applied with Funil=Contato iniciado, Próximo passo=follow-up to schedule the diagnostic meeting, and Observações without redundant commercial summary",
             "Gabriella ENGETOP WhatsApp transcript exported privately with list-only Leads OrganizeJr flow: messages=51, conversation_key=whatsapp:engetop:gabriella-engetop; mistaken Perplexity Space Files upload removed, Files returned to 12 items without full-2026-07-30.md; transcript pasted into the ENGETOP topic conversation in 2 parts, and Perplexity responded in the same topic with CRM fields, next steps, objections, inferences and suggestion"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "m20",
+      "title": "Public profile boundary",
+      "status": "completed",
+      "objective": "Make pp-leads-brasil independent of private profiles while retaining explicit external profile configuration.",
+      "stories": [
+        {
+          "id": "m20-us001",
+          "slug": "explicit-profile-resolution",
+          "title": "Remove implicit profile discovery and isolate public fixtures",
+          "status": "completed",
+          "dod": [
+            "The public CLI no longer scans for or exports an OrganizeJr default profile.",
+            "Public tests run without the private sibling checkout or a private lead table.",
+            "Explicit PP_LEADS_USE_CASE_CONFIG and PP_LEADS_ICP_DIR profile loading remains covered by tests.",
+            "Doctor reports explicit profile state without implicit discovery.",
+            "Public architecture and data-flow documentation no longer describe private CRM operations.",
+            "Scrape Creators is always attempted for social enrichment; Apify runs as a configured, non-blocking fallback when the primary provider fails.",
+            "Graphify is updated after source changes and canonical context records validation evidence."
+          ],
+          "evidence": [
+            "go test ./... passed: 3 packages ok, 4 packages with no tests",
+            "TestRunEnrichFallsBackToApifyWhenScrapeCreatorsFails verifies provider ordering and the non-blocking Apify fallback",
+            "public source search found no OrganizeJr default-profile discovery or PP_LEADS_ICP_DIR injection",
+            "graphify update . completed AST extraction for 721 files and rebuilt the structural report"
           ]
         }
       ]
