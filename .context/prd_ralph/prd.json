@@ -726,15 +726,14 @@
         "the CRM workflow no longer requires a dedicated Justificativa Score ICP column and scripts stop depending on it as canonical surface",
         "Perplexity exports saved under organizejr-pp-leads/leads/*/*.perplexity-search.md can be summarized into Score ICP (0-10) and Observações for the matching lead row",
         "Observações is updated in append-only DD/MM timeline format, preserving any manual notes already present in the cell",
-        "Resumo Enriquecimento remains a technical/local enrichment status field while the commercial note that syncs to Ploomes lives in Observações",
         "validation proves the updated flow across score application, CRM health analysis and a sample sheet row carrying Perplexity-derived context"
       ],
       "evidence": [
-        "organizejr-pp-leads/ploomes_crm/crm_sheet.py: apply-icp-score now accepts resumo_comercial, resumo_enriquecimento and perplexity_path while keeping justificativa only as fallback",
-        "organizejr-pp-leads/SKILL.md: score ICP payload contract documents Observações as commercial timeline and Resumo Enriquecimento as technical evidence status",
+        "organizejr-pp-leads/ploomes_crm/crm_sheet.py: apply-icp-score accepts resumo_comercial while keeping justificativa only as fallback",
+        "organizejr-pp-leads/SKILL.md: score ICP payload contract documents Observações as the commercial timeline",
         "Validation: python3 -m py_compile organizejr-pp-leads/ploomes_crm/crm_sheet.py",
-        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py apply-icp-score --help shows canonical resumo_comercial/resumo_enriquecimento/perplexity_path fields",
-        "Validation: fake Google Sheets smoke of main_apply_icp_score generated Score ICP, append-only Observações, Resumo Enriquecimento merge, and contact-cell fills for an existing row plus a new row",
+        "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py apply-icp-score --help shows canonical resumo_comercial fields",
+        "Validation: fake Google Sheets smoke of main_apply_icp_score generated Score ICP, append-only Observações, and contact-cell fills for an existing row plus a new row",
         "Validation: python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py analyze-health updated 106 rows; health_score=51, score_pending=0, observacoes=105/105"
       ]
     }

@@ -14,7 +14,7 @@
           "status": "completed",
           "dod": [
             "crm_sheet.py expõe um comando read-only para exportar snapshots Markdown por linhas do CRM.",
-            "O snapshot inclui Funil, saúde CRM, ICP, decisor, contatos, canais, CNPJ, lacunas, Observações e Resumo Enriquecimento.",
+            "O snapshot inclui Funil, saúde CRM, ICP, decisor, contatos, canais, CNPJ, lacunas e Observações.",
             "O texto orienta o Perplexity a tratar o conteúdo como estado atual do CRM e diferenciar sugestão, mensagem enviada, resposta do lead, inferência e dado confirmado.",
             "A validação inclui py_compile, --help e execução real gerando um arquivo Markdown para linhas alvo."
           ],
