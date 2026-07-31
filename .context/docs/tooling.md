@@ -82,16 +82,6 @@ alias nrt='npm run test'
 - `npm run clean` — Clear build artifacts and caches
 
 
-## OrganizeJr Telegram people bridge
-
-Use Telegram only as a people-discovery source inside the configured `manage_telegram` sources:
-
-```bash
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP --execute-read --ploomes-row 42 --candidate-limit 10
-```
-
-The second command reads accessible Telegram participants through `/home/lucas/Downloads/manage_telegram`, reads matching candidates back from its local SQLite DB, and returns `ploomes_contact_candidates` compatible with `apply-icp-score`. It does not write to Ploomes and does not mutate Telegram contacts.
 
 ## Related Resources
 

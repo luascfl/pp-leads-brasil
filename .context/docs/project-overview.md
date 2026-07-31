@@ -9,33 +9,23 @@ scaffoldVersion: "2.0.0"
 ---
 ## Project Overview
 
-This project provides [describe main functionality]. It helps [target users] to [key benefit].
+This repository is a public, profile-agnostic lead-intelligence platform. It combines a locally declared lead table, Casa dos Dados, Company Goat, Contact Goat and social-media enrichment to assemble evidence for a lead without embedding a specific CRM or commercial operation.
 
-The codebase is organized to support [main use case] with a focus on [key qualities like maintainability, performance, etc.].
+Private profiles are external integrations. They provide their own data location, field mapping, credentials and external-operation policy through explicit configuration. Public source and documentation must not contain private CRM records, evidence files, automation paths or profile-specific commands.
 
+## Enrichment flow
 
-## OrganizeJr Telegram people enrichment
+1. Resolve a lead from the configured local table.
+2. Enrich company facts through Casa dos Dados and Company Goat when configured.
+3. Enrich professional contact signals through Contact Goat when configured.
+4. Attempt Scrape Creators for public social profiles.
+5. When that attempt has no usable result, use the configured Apify Actor as a non-blocking fallback.
 
-`organizejr-pp-leads/telegram_people.py` bridges this repository to `/home/lucas/Downloads/manage_telegram` so Telegram groups and channels can be used as an additional people-discovery surface beside Contact Goat, Company Goat, Scrape Creators, Perplexity exports, and local evidence files. The bridge shells out to the `manage_telegram` CLI instead of copying Telegram automation code.
+Provider errors, absent credentials and billing limits are represented in the enrichment payload. They do not invalidate evidence already obtained from other sources.
 
-The operational entrypoint is:
+## External operations
 
-```bash
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP
-```
-
-Dry-run search writes JSON evidence under `organizejr-pp-leads/leads/<lead>/` without calling Telegram. Adding `--execute-read` reads Telegram participants through `manage_telegram`. When a Ploomes row has the company but no person, `--ploomes-row ROW` returns candidate names plus `ploomes_contact_candidates` payloads for `apply-icp-score`, so `Nome - Pessoa` can be filled after human selection. Saving contacts in Telegram is a separate `apply-save` command that requires `--yes`.
-
-
-## OrganizeJr Ploomes LinkedIn sync
-
-`organizejr-pp-leads/ploomes_crm/ploomes_apps_script.gs` sends both `LinkedIn - Pessoa` and `LinkedIn - Empresa` into the existing Ploomes Contacts custom field `Linkedin` through `OtherProperties` with FieldKey `contact_1711C73E-6472-4FF7-9658-5491E41375C3`. The same Contacts field is used for people and companies because Ploomes stores both under Contacts, differentiated by `TypeId`.
-
-## OrganizeJr CRM observations policy
-
-`Observações` is a chronological free-text note field shared with Ploomes `Note`. Each entry must be plain running text prefixed by date, for example `29/07 texto texto`, and must not repeat structured columns such as e-mail, phone, LinkedIn, CNPJ, ICP, or score.
-
-`organizejr-pp-leads/ploomes_crm/crm_sheet.py` now uses one `Enrichment` column instead of separate `Precisa de enrichment?` and `Motivos de enrichment` columns, and no longer auto-creates `Prontidão comercial`.
+This public repository does not embed CRM synchronization, messaging or contact mutation. Private profiles must declare those operations separately and make their execution auditable, previewable and explicitly approved.
 
 ## Codebase Reference
 

@@ -46,19 +46,6 @@ npm install
 - `npm run lint` — Check code style
 
 
-**Telegram people enrichment**:
-```bash
-# Dry-run, no Telegram read.
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP
-
-# Real Telegram read through manage_telegram, still no contact mutation.
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP --execute-read
-
-# Real Telegram read for a Ploomes lead row without contact data. This returns candidate names and payload candidates, but does not write to Ploomes.
-python3 organizejr-pp-leads/ploomes_crm/crm_sheet.py telegram-people search --term ENGETOP --execute-read --ploomes-row 42 --candidate-limit 10
-```
-
-The bridge uses `/home/lucas/Downloads/manage_telegram` by default or `MANAGE_TELEGRAM_PATH` when set. Do not copy Telegram automation into this repo; consume the bridge JSON as local enrichment evidence. For a Ploomes row missing `Nome - Pessoa`, pass `--ploomes-row` so the output includes `ploomes_contact_candidates` compatible with `apply-icp-score`. Review and choose the correct person before applying because Telegram may return multiple people for one company term. Contact saving in Telegram stays explicit via `telegram-people apply-save ... --yes`.
 
 **Before Committing**:
 ```bash
