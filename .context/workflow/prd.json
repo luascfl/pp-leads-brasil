@@ -177,6 +177,28 @@
           ]
         }
       ]
+    },
+    {
+      "id": "m21",
+      "title": "External-operation contract",
+      "status": "planned",
+      "objective": "Allow explicit private profiles to apply bounded external mutations through persisted plans, explicit approval and per-target receipts.",
+      "stories": [
+        {
+          "id": "m21-us001",
+          "slug": "generic-operation-plan",
+          "title": "Introduce generic external operation plans",
+          "status": "planned",
+          "dod": [
+            "Planning is side-effect free and persists an immutable, expiring target diff.",
+            "Apply requires a stored plan ID and explicit approval; --agent is insufficient authorization.",
+            "Each target produces an idempotent receipt with evidence and before/after values.",
+            "Adapter failures are partial and visible without replaying completed targets.",
+            "No provider or profile-specific adapter is embedded in the public platform."
+          ],
+          "evidence": []
+        }
+      ]
     }
   ]
 }

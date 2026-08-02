@@ -34,3 +34,27 @@ Make `pp-leads-brasil` a public, profile-agnostic lead-intelligence platform. Pr
 - CLI smoke test with a public test profile
 - Search for hard-coded OrganizeJr profile activation in public source and tests
 - `graphify update .` after source changes
+
+## Milestone m21: external-operation contract
+
+### Objective
+Permit an explicit private profile to apply a bounded external mutation only through a persisted plan, explicit approval and per-target receipt.
+
+### In scope
+- Generic immutable operation plans, target diffs, receipts and results.
+- A separate side-effect-free plan operation and explicit apply operation.
+- Profile-owned adapter boundary, expiry, idempotent replay and partial-failure reporting.
+- CLI/API handling that does not treat `--agent` as authorization to mutate.
+
+### Out of scope
+- Bundled CRM, messaging, contact or spreadsheet adapters.
+- Automatic external writes driven by enrichment, Scrape Creators or Apify.
+- Persisting credentials or raw private evidence in public plans.
+
+### Acceptance requirements
+1. A plan cannot change an external system.
+2. Apply requires an unexpired plan ID and explicit approval.
+3. Apply cannot target a field or record absent from the stored plan.
+4. Every attempt has a durable receipt with evidence, prior value, proposed value, timestamp, operator and result.
+5. Reapplying a completed target does not invoke an adapter again.
+6. A failed target is visible without replaying successful targets.

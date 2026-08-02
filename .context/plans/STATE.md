@@ -101,3 +101,9 @@ Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conver
 - Enriquecimento social agora sempre tenta Scrape Creators. Em falha de billing, credencial, timeout ou ausência de dados utilizáveis, usa Apify apenas se `APIFY_TOKEN` e `APIFY_SOCIAL_ACTOR_ID` estiverem configurados. Falhas de ambos permanecem não bloqueantes e são registradas no payload.
 - Verificação: `go test ./...` passou, incluindo o contrato de fallback Scrape Creators → Apify. A busca pública não encontrou descoberta implícita de perfil privado. Os documentos públicos de overview, tooling e workflow foram limpos de comandos e caminhos privados. `graphify update .` reextraiu 721 arquivos de código.
 - Os legados `.context/docs/planning_gsd` e `.context/prd_ralph` continuam inventariados e não foram removidos por falta de decisão explícita de migração.
+
+## Milestone m21
+
+- `m21-us001` planejada: introduzir um contrato genérico de operação externa, com plano persistido e imutável, aprovação explícita, alvo limitado, expiração, recibo por alvo, idempotência e falha parcial observável.
+- O plano detalhado está em `m21-external-operation-contract/PLAN.md`. Ele mantém Scrape Creators, Apify e os goats no limite de evidência, sem autorização de escrita.
+- Validação de planejamento: `prd.json` é JSON válido e `go test ./internal/client/pp` passou.
