@@ -16,4 +16,4 @@ Plataforma de inteligência de leads (tipo Apollo) gerada automaticamente via `c
 
 ## Operações externas
 
-O núcleo público só cria e armazena planos de operação. O endpoint `POST /operations/plan` não produz efeito externo e exige um perfil configurado explicitamente. `POST /operations/{plan_id}/apply` exige um ID de plano válido e `approved: true`; cada alvo gera recibo idempotente. Adaptadores de CRM, mensageria ou planilha pertencem ao perfil privado e não são distribuídos neste repositório.
+O núcleo público só cria e armazena planos de operação. O endpoint `POST /operations/plan` não produz efeito externo e exige um perfil configurado explicitamente. `POST /operations/{plan_id}/apply` exige um ID de plano válido e `approved: true`; cada alvo gera recibo idempotente. Um perfil pode declarar um `operation_adapter_command` executável, que recebe somente o alvo salvo como JSON em stdin. Credenciais e adaptadores de CRM, mensageria ou planilha pertencem ao perfil privado e não são distribuídos neste repositório.

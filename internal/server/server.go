@@ -165,7 +165,13 @@ func profileOperationService(requestProfile string) (operation.Service, error) {
 	if err != nil {
 		return operation.Service{}, err
 	}
-	return operation.Service{Store: store}, nil
+	service := operation.Service{Store: store}
+	if len(cfg.OperationAdapterCommand) > 0 {
+		command := append([]string(nil), cfg.OperationAdapterCommand...)
+		command[0] = cfg.ResolvePath(command[0])
+		service.Adapter = operation.CommandAdapter{Command: command}
+	}
+	return service, nil
 }
 
 func writeClientError(w http.ResponseWriter, err error) {

@@ -17,6 +17,7 @@ func TestLoadResolvesRelativePathsAndMetadata(t *testing.T) {
   "lead_table_path": "data/leads.csv",
   "output_dir": "outputs",
   "message_field": "custom message",
+  "operation_adapter_command": ["bin/private-adapter"],
   "field_map": {
     "name": "company_name",
     "cnpj": "document",
@@ -39,6 +40,9 @@ func TestLoadResolvesRelativePathsAndMetadata(t *testing.T) {
 	meta := cfg.Metadata()
 	if meta["name"] != "sample-case" || meta["label"] != "Sample case" {
 		t.Fatalf("Metadata = %#v", meta)
+	}
+	if got, want := cfg.OperationAdapterCommand, []string{"bin/private-adapter"}; len(got) != len(want) || got[0] != want[0] {
+		t.Fatalf("OperationAdapterCommand = %#v, want %#v", got, want)
 	}
 }
 

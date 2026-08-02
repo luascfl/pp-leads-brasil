@@ -208,14 +208,14 @@
     {
       "id": "m22",
       "title": "Audited CRM synchronization",
-      "status": "planned",
+      "status": "in_progress",
       "objective": "Let an explicit private profile synchronize approved, field-level Google Sheets to Ploomes changes through the m21 plan and receipt contract.",
       "stories": [
         {
           "id": "m22-us001",
           "slug": "private-crm-adapter",
           "title": "Plan, apply and reconcile explicit CRM field changes",
-          "status": "planned",
+          "status": "in_progress",
           "dod": [
             "The private adapter validates schema, row lock, immutable identity, Ploomes ID and before value before mutation.",
             "Plans contain only explicitly selected field-level targets with private evidence references.",
@@ -223,7 +223,11 @@
             "Each applied target is reconciled with read-only Google Sheets and Ploomes reads.",
             "Public source and tests remain free of private CRM material."
           ],
-          "evidence": []
+          "evidence": [
+            "Public generic CommandAdapter invokes only a profile-declared executable with the stored target JSON on stdin",
+            "Private OrganizeJr schema, explicit snapshot plan builder and fail-closed Ploomes adapter were added",
+            "go test ./... and CLI tests passed; private scripts compiled and schema validation passed"
+          ]
         }
       ]
     }

@@ -14,13 +14,14 @@ const EnvConfigPath = "PP_LEADS_USE_CASE_CONFIG"
 const EnvConfigDir = "PP_LEADS_ICP_DIR"
 
 type Config struct {
-	Name          string            `json:"name"`
-	Label         string            `json:"label"`
-	LeadTablePath string            `json:"lead_table_path"`
-	OutputDir     string            `json:"output_dir"`
-	MessageField  string            `json:"message_field"`
-	FieldMap      map[string]string `json:"field_map"`
-	Path          string            `json:"-"`
+	Name                    string            `json:"name"`
+	Label                   string            `json:"label"`
+	LeadTablePath           string            `json:"lead_table_path"`
+	OutputDir               string            `json:"output_dir"`
+	MessageField            string            `json:"message_field"`
+	FieldMap                map[string]string `json:"field_map"`
+	OperationAdapterCommand []string          `json:"operation_adapter_command"`
+	Path                    string            `json:"-"`
 }
 
 func LoadFromEnv() (*Config, error) {

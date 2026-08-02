@@ -111,6 +111,6 @@ Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conver
 
 ## Milestone m22
 
-- `m22-us001` planejada: o adapter privado Google Sheets → Ploomes usa exclusivamente o contrato m21. O plano detalhado é `m22-audited-crm-sync/PLAN.md`.
-- Antes de qualquer escrita, ele deve validar schema privado, lock de linha, `lead_enrichment_id`, ID Ploomes, valor anterior e evidência. Só linhas selecionadas explicitamente podem gerar alvos por campo.
-- Ploomes custom fields, gatilhos agendados, importação bidirecional e envio em massa estão fora do escopo até decisões e gates específicos.
+- `m22-us001` em execução: o núcleo público aceita um `operation_adapter_command` declarado pelo perfil e entrega apenas o alvo imutável via stdin. Não transporta credenciais nem implementa Ploomes.
+- O perfil privado OrganizeJr agora contém `crm_schema.json`, um construtor de planos somente a partir de snapshots de linhas explicitamente selecionadas e um adapter que exige `--yes`, revalida o valor remoto antes do `PATCH` e grava ledger local privado.
+- Pendente para conclusão: conectar o leitor real de Sheets/Ploomes aos snapshots, verificar/remover gatilhos Apps Script e executar uma alteração de teste aprovada com reconciliação read-only.

@@ -101,3 +101,44 @@ func TestOperationApplyRequiresApprovalAndNeverUsesAnEmbeddedAdapter(t *testing.
 		t.Fatalf("receipts = %#v", result.Receipts)
 	}
 }
+
+func TestOperationApplyUsesExplicitProfileAdapterCommand(t *testing.T) {
+	profileDir := t.TempDir()
+	scriptPath := filepath.Join(profileDir, "adapter.sh")
+	if err := os.WriteFile(scriptPath, []byte("#!/bin/sh\ncat >/dev/null\n"), 0o700); err != nil {
+		t.Fatal(err)
+	}
+	configPath := filepath.Join(profileDir, "profile.json")
+	config := `{"name":"test-profile","output_dir":"operations-output","operation_adapter_command":["adapter.sh"]}`
+	if err := os.WriteFile(configPath, []byte(config), 0o600); err != nil {
+		t.Fatal(err)
+	}
+	t.Setenv(usecase.EnvConfigPath, configPath)
+	t.Setenv(usecase.EnvConfigDir, "")
+	server := &Server{}
+
+	planReq := httptest.NewRequest(http.MethodPost, "/v1/operations/plan", bytes.NewReader(operationPlanBody()))
+	planRes := httptest.NewRecorder()
+	server.OperationPlanHandler(planRes, planReq)
+	if planRes.Code != http.StatusCreated {
+		t.Fatalf("plan status = %d, body = %s", planRes.Code, planRes.Body.String())
+	}
+	var plan operation.Plan
+	if err := json.NewDecoder(planRes.Body).Decode(&plan); err != nil {
+		t.Fatal(err)
+	}
+	req := httptest.NewRequest(http.MethodPost, "/v1/operations/"+plan.ID+"/apply", bytes.NewBufferString(`{"approved":true}`))
+	req.SetPathValue("plan_id", plan.ID)
+	res := httptest.NewRecorder()
+	server.OperationApplyHandler(res, req)
+	if res.Code != http.StatusOK {
+		t.Fatalf("apply status = %d, body = %s", res.Code, res.Body.String())
+	}
+	var result operation.Result
+	if err := json.NewDecoder(res.Body).Decode(&result); err != nil {
+		t.Fatal(err)
+	}
+	if len(result.Receipts) != 1 || result.Receipts[0].Status != "applied" {
+		t.Fatalf("receipts = %#v", result.Receipts)
+	}
+}
