@@ -10,8 +10,8 @@ import (
 )
 
 // CommandAdapter invokes a profile-owned executable once for each stored target.
-// The target is provided as JSON on standard input; no credentials are passed by
-// the public platform. The configured command belongs to the external profile.
+// The target is provided as JSON on standard input; plans and stdin never carry
+// credentials. The configured command belongs to the external profile.
 type CommandAdapter struct {
 	Command []string
 }
