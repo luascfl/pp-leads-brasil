@@ -58,3 +58,28 @@ Permit an explicit private profile to apply a bounded external mutation only thr
 4. Every attempt has a durable receipt with evidence, prior value, proposed value, timestamp, operator and result.
 5. Reapplying a completed target does not invoke an adapter again.
 6. A failed target is visible without replaying successful targets.
+
+
+## Milestone m22: audited CRM synchronization
+
+### Objective
+Allow the explicitly configured private profile to synchronize approved, field-level Google Sheets → Ploomes changes through the m21 operation contract.
+
+### In scope
+- Private schema validation for Sheet columns, ownership, sync direction and overwrite protection.
+- Explicit row selection, row lock, immutable `lead_enrichment_id`, Ploomes ID and before-value checks.
+- Private Ploomes adapter for approved standard company/person fields.
+- Append-only private audit log and read-only reconciliation of Sheets and Ploomes.
+
+### Out of scope
+- Public CRM clients, private credentials, CRM fixtures or lead evidence.
+- Scheduled sync, unrestricted Apps Script sync, bulk operations and Ploomes task creation.
+- Analytical/custom-field mutation before a FieldKey mapping decision.
+
+### Acceptance requirements
+1. Planning has no Sheets or Ploomes business-data mutation.
+2. Only explicitly selected, schema-valid field-level targets reach apply.
+3. Identity, lock, Ploomes ID, schema and before-value conflicts fail before the external call.
+4. Each successful or failed target has an operation receipt and a private audit record.
+5. Reconciliation reads both systems after each applied target.
+6. A public checkout continues to run `go test ./...` without private-profile material.

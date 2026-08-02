@@ -108,3 +108,9 @@ Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conver
 - `POST /v1/operations/plan` só cria plano em perfil explícito; `POST /v1/operations/{plan_id}/apply` processa apenas o plano salvo. Sem adapter privado configurado, a aplicação registra falha por alvo, sem efeito externo.
 - A CLI expõe `operation plan --input operation.json` e `operation apply <plan-id> --yes`; `--agent` isolado não autoriza mutação.
 - Verificação: `go test ./...` e `cd leads-brasil-pp-cli && go test ./...` passaram. `graphify update .` reextraiu 726 arquivos de código.
+
+## Milestone m22
+
+- `m22-us001` planejada: o adapter privado Google Sheets → Ploomes usa exclusivamente o contrato m21. O plano detalhado é `m22-audited-crm-sync/PLAN.md`.
+- Antes de qualquer escrita, ele deve validar schema privado, lock de linha, `lead_enrichment_id`, ID Ploomes, valor anterior e evidência. Só linhas selecionadas explicitamente podem gerar alvos por campo.
+- Ploomes custom fields, gatilhos agendados, importação bidirecional e envio em massa estão fora do escopo até decisões e gates específicos.

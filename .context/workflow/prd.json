@@ -204,6 +204,28 @@
           ]
         }
       ]
+    },
+    {
+      "id": "m22",
+      "title": "Audited CRM synchronization",
+      "status": "planned",
+      "objective": "Let an explicit private profile synchronize approved, field-level Google Sheets to Ploomes changes through the m21 plan and receipt contract.",
+      "stories": [
+        {
+          "id": "m22-us001",
+          "slug": "private-crm-adapter",
+          "title": "Plan, apply and reconcile explicit CRM field changes",
+          "status": "planned",
+          "dod": [
+            "The private adapter validates schema, row lock, immutable identity, Ploomes ID and before value before mutation.",
+            "Plans contain only explicitly selected field-level targets with private evidence references.",
+            "Apply uses the m21 approval and receipt contract; successful targets are idempotent.",
+            "Each applied target is reconciled with read-only Google Sheets and Ploomes reads.",
+            "Public source and tests remain free of private CRM material."
+          ],
+          "evidence": []
+        }
+      ]
     }
   ]
 }

@@ -46,6 +46,27 @@
 - Every target writes a receipt with evidence and before/after values.
 - Public tests pass without a private profile checkout.
 
+## m22: Audited CRM synchronization
+
+**Goal:** implement a private Google Sheets → Ploomes adapter that is gated by m21 plans, explicit approval and durable per-field receipts.
+
+### Phase 22.1: Private adapter and reconciliation
+
+**Story:** `m22-us001` — Plan, apply and reconcile explicit CRM field changes.
+
+**Scope**
+- Keep Google Sheets as the operational source of truth and Ploomes as the execution mirror.
+- Validate a private schema contract, row lock, immutable lead identity, Ploomes ID and before value before every mutation.
+- Build plans only from explicitly selected rows, with one field-level target and evidence reference per change.
+- Remove or disable any uncontrolled timed Apps Script sender before enabling the adapter.
+- Restrict initial mutation scope to validated standard company/person fields; defer custom Ploomes fields.
+
+**Dependencies:** m21 completed. Detailed execution: [`m22-audited-crm-sync/PLAN.md`](./m22-audited-crm-sync/PLAN.md).
+
+**Definition of done**
+- A private adapter applies only m21-approved field-level targets and records reconciliation evidence.
+- Schema, lock, identity and before-value conflicts fail closed.
+- The public checkout remains profile-agnostic and its test suite passes without the private sibling repository.
+
 **Follow-on phases, not yet planned**
-- m22: audited Google Sheets and Ploomes synchronization.
 - m23: immutable lead identity and field-level provenance repair.
