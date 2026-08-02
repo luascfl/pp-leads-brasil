@@ -3,10 +3,14 @@ package server
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"net/http"
+	"path/filepath"
 
 	"pp-leads-brasil/internal/client/casadados"
 	"pp-leads-brasil/internal/factory"
+	"pp-leads-brasil/internal/operation"
+	"pp-leads-brasil/internal/usecase"
 )
 
 type Server struct {
@@ -95,6 +99,73 @@ func (s *Server) ContactGoatHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, result)
+}
+
+func (s *Server) OperationPlanHandler(w http.ResponseWriter, r *http.Request) {
+	var input operation.PlanInput
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		http.Error(w, "invalid request body", http.StatusBadRequest)
+		return
+	}
+	service, err := profileOperationService(input.Profile)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	plan, err := service.Plan(input)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	w.WriteHeader(http.StatusCreated)
+	writeJSON(w, plan)
+}
+
+func (s *Server) OperationApplyHandler(w http.ResponseWriter, r *http.Request) {
+	var request struct {
+		Approved bool `json:"approved"`
+	}
+	if err := json.NewDecoder(r.Body).Decode(&request); err != nil {
+		http.Error(w, "invalid request body", http.StatusBadRequest)
+		return
+	}
+	service, err := profileOperationService("")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	result, err := service.Apply(r.Context(), r.PathValue("plan_id"), request.Approved)
+	if err != nil {
+		status := http.StatusBadRequest
+		if errors.Is(err, operation.ErrApprovalRequired) || errors.Is(err, operation.ErrPlanExpired) {
+			status = http.StatusConflict
+		}
+		http.Error(w, err.Error(), status)
+		return
+	}
+	writeJSON(w, result)
+}
+
+func profileOperationService(requestProfile string) (operation.Service, error) {
+	cfg, err := usecase.LoadFromEnv()
+	if err != nil {
+		return operation.Service{}, err
+	}
+	if cfg == nil || cfg.Name == "" {
+		return operation.Service{}, fmt.Errorf("an explicit private profile is required for external operations")
+	}
+	if requestProfile != "" && requestProfile != cfg.Name {
+		return operation.Service{}, fmt.Errorf("requested profile does not match configured profile")
+	}
+	outputDir := cfg.OutputDir
+	if outputDir == "" {
+		outputDir = "outputs"
+	}
+	store, err := operation.NewFileStore(filepath.Join(cfg.ResolvePath(outputDir), "operations"))
+	if err != nil {
+		return operation.Service{}, err
+	}
+	return operation.Service{Store: store}, nil
 }
 
 func writeClientError(w http.ResponseWriter, err error) {

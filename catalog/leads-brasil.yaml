@@ -46,6 +46,45 @@ paths:
       responses:
         '202':
           description: Enrichment job started
+  /operations/plan:
+    post:
+      summary: Create a side-effect-free external operation plan for the configured private profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [profile, kind, operator, targets]
+      responses:
+        '201':
+          description: Immutable, expiring operation plan
+        '400':
+          description: Invalid plan or no explicit profile
+  /operations/{plan_id}/apply:
+    post:
+      summary: Apply a stored external operation plan with explicit approval
+      parameters:
+        - name: plan_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approved]
+              properties:
+                approved:
+                  type: boolean
+      responses:
+        '200':
+          description: Per-target operation receipts
+        '409':
+          description: Approval missing or plan expired
 components:
   securitySchemes:
     bearerAuth:

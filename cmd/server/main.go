@@ -24,6 +24,8 @@ func main() {
 	mux.HandleFunc("POST /v1/search", s.SearchHandler)
 	mux.HandleFunc("POST /v1/enrich/{cnpj}", s.EnrichHandler)
 	mux.HandleFunc("POST /v1/contact-goat", s.ContactGoatHandler)
+	mux.HandleFunc("POST /v1/operations/plan", s.OperationPlanHandler)
+	mux.HandleFunc("POST /v1/operations/{plan_id}/apply", s.OperationApplyHandler)
 
 	log.Println("Backend API running on :8080")
 	log.Fatal(http.ListenAndServe(":8080", mux))

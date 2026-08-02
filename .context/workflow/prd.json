@@ -181,14 +181,14 @@
     {
       "id": "m21",
       "title": "External-operation contract",
-      "status": "planned",
+      "status": "completed",
       "objective": "Allow explicit private profiles to apply bounded external mutations through persisted plans, explicit approval and per-target receipts.",
       "stories": [
         {
           "id": "m21-us001",
           "slug": "generic-operation-plan",
           "title": "Introduce generic external operation plans",
-          "status": "planned",
+          "status": "completed",
           "dod": [
             "Planning is side-effect free and persists an immutable, expiring target diff.",
             "Apply requires a stored plan ID and explicit approval; --agent is insufficient authorization.",
@@ -196,7 +196,12 @@
             "Adapter failures are partial and visible without replaying completed targets.",
             "No provider or profile-specific adapter is embedded in the public platform."
           ],
-          "evidence": []
+          "evidence": [
+            "Operation plans persist canonical SHA-256 digests, expiry and ordered target diffs in profile-owned storage",
+            "Operation application requires approval, records per-target receipts and is idempotent for successful targets",
+            "CLI operation apply rejects --agent-only invocation; explicit --yes is required",
+            "go test ./... and leads-brasil-pp-cli go test ./... passed"
+          ]
         }
       ]
     }

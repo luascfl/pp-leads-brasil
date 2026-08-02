@@ -328,6 +328,7 @@ Run 'leads-brasil-pp-cli doctor' to verify auth and connectivity.`,
 	rootCmd.AddCommand(newAPICmd(flags))
 	rootCmd.AddCommand(newCompanyPromotedCmd(flags))
 	rootCmd.AddCommand(newContactPromotedCmd(flags))
+	rootCmd.AddCommand(newOperationCmd(flags))
 	rootCmd.AddCommand(newVersionCliCmd())
 
 	return rootCmd

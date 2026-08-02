@@ -13,3 +13,7 @@ Plataforma de inteligência de leads (tipo Apollo) gerada automaticamente via `c
 2. `cli-printing-press` gera o CLI baseado nessa spec.
 3. CLI chama a API do backend (`leads-pp-backend`).
 4. O backend consulta Casa dos Dados, Company Goat e Contact Goat. O enriquecimento social sempre tenta Scrape Creators; quando ele não retorna dados utilizáveis, tenta Apify somente se o perfil configurar Actor e credenciais.
+
+## Operações externas
+
+O núcleo público só cria e armazena planos de operação. O endpoint `POST /operations/plan` não produz efeito externo e exige um perfil configurado explicitamente. `POST /operations/{plan_id}/apply` exige um ID de plano válido e `approved: true`; cada alvo gera recibo idempotente. Adaptadores de CRM, mensageria ou planilha pertencem ao perfil privado e não são distribuídos neste repositório.

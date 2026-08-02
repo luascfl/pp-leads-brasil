@@ -155,6 +155,17 @@ Manage leads brasil platform search
 
 - **`leads-brasil-pp-cli leads-brasil-platform-search`** - Search for companies by name or filter
 
+### operation
+
+Create a side-effect-free plan from a profile-owned JSON input, then apply it only with separately supplied approval:
+
+```bash
+leads-brasil-pp-cli operation plan --input operation.json
+leads-brasil-pp-cli operation apply <plan-id> --yes
+```
+
+`--agent` does not approve an external mutation. `operation apply` requires an explicit `--yes`.
+
 
 ## Output Formats
 

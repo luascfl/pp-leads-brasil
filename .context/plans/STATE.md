@@ -104,6 +104,7 @@ Próximo passo m19: usar o Perplexity Space para revisar conjuntamente as conver
 
 ## Milestone m21
 
-- `m21-us001` planejada: introduzir um contrato genérico de operação externa, com plano persistido e imutável, aprovação explícita, alvo limitado, expiração, recibo por alvo, idempotência e falha parcial observável.
-- O plano detalhado está em `m21-external-operation-contract/PLAN.md`. Ele mantém Scrape Creators, Apify e os goats no limite de evidência, sem autorização de escrita.
-- Validação de planejamento: `prd.json` é JSON válido e `go test ./internal/client/pp` passou.
+- `m21-us001` concluída: `internal/operation` implementa planos imutáveis com digest SHA-256, expiração, alvos com evidência e recibos duráveis por alvo. Aplicação exige aprovação explícita e é idempotente para alvos já aplicados.
+- `POST /v1/operations/plan` só cria plano em perfil explícito; `POST /v1/operations/{plan_id}/apply` processa apenas o plano salvo. Sem adapter privado configurado, a aplicação registra falha por alvo, sem efeito externo.
+- A CLI expõe `operation plan --input operation.json` e `operation apply <plan-id> --yes`; `--agent` isolado não autoriza mutação.
+- Verificação: `go test ./...` e `cd leads-brasil-pp-cli && go test ./...` passaram. `graphify update .` reextraiu 726 arquivos de código.
